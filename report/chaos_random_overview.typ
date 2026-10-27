@@ -119,6 +119,22 @@ All parameters:
 
     'left' — One-tailed test testing whether the number of runs is significantly less than expected.
 
+*Example of output:*
+File: IMF_1.mat       | h: 1 | p-value: 0.0000 | Runs: 6570 | Decision: REJECT Null (Non-Random) 
+
+with:
+- h (Hypothesis Decision)
+This is a binary indicator representing the final verdict of the statistical test. h = 0: the test fails to reject the null hypothesis. This means there is not enough evidence to say the data is non-random; the sequence behaves like random noise. h = 1: the test rejects the null hypothesis. This means the data is highly unlikely to be random and contains a distinct pattern, trend, or structured oscillation.
+- p-value (Probability Value)
+The p-value measures the probability of observing your specific sequence of data assuming the null hypothesis (that the data is perfectly random) is true.A p-value below your chosen significance level (e.g., < 0.05) means the observation is extremely rare for random data, prompting you to reject the assumption of randomness (h = 1).A higher p-value means the data is consistent with randomness.
+
+- Runs
+A "run" is an uninterrupted sequence of consecutive data points that all fall on the same side of a cutoff line (typically the sample median). For example, if a signal's values relative to the median are (+, +, -, -, -, +), that represents exactly 3 runs: one group of positives, one group of negatives, and one final positive. A perfectly random signal has a predictable, average number of runs; too many runs indicates high-frequency oscillation, while too few runs indicates a slow trend or flatline.
+
+== chaostest
+Run test for *chaos* using Bensaïda MATLAB function. 
+[Explanations of every parameters]
+
 = Experiments
 
 == First tests
@@ -138,3 +154,47 @@ Observations: 3 types of IMF: random (1), chaotic (2 and 3 maybe), deterministic
 *Next step:* Categorize each IMF (random/chaotic/deterministic) and check the labelling with `runstest`, `chaostest` and maybe Lyapunov Exponent (which $F_s$?)
 
 === Randmoness test
+For now, `alpha =0.05`
+
+#figure(
+  table(
+    columns: (1fr,1fr,1fr,1fr,1fr),
+    table.header([File],[h],[p-value],[runs], [Decision]),
+    [IMF_1],[1],[0],[6570],[Non-Random],
+    [IMF_2],[1],[0],[2292],[Non-Random],
+    [IMF_3],[1],[0],[817],[Non-Random],
+    [IMF_4],[1],[0],[277],[Non-Random],
+    [IMF_5],[1],[0],[68],[Non-Random],
+    [IMF_6],[1],[0],[11],[Non-Random],
+    [IMF_7],[0],[1],[1],[Random],
+    [IMF_8],[0],[1],[1],[Random],
+  ),
+  caption: [Randomness classification for the EMD of frac_alea_1]
+)
+
+The test characterizes only IMF_7 and IMF_8 as random, whereas IMF 4,5 and 6 seem to be good candidates for being random. #highlight(fill:yellow)[To be corrected]
+
+=== Chaos test
+For now we just tried with default parameters ie:
+- ActiveFN:'tanh' Activation function used in the neural network estimation ('tanh', 'logistic', or 'sigmoid')
+- maxOrders[5, 6, 5] Vector specifying maximum model orders $[L, m, q]$.
+- alpha: 0.05 Significance level for the test ($5\%$).
+- flag: 'VARY' Mode specifying whether to vary order triplets $[L, m, q]$ ('VARY') or fix them ('FIX').#highlight(fill:yellow)[To be discussed]
+Nb : the lyapnuv exponent is computed without the use of the associated matlab function => no sampling frequency
+
+We obtain 
+#figure(
+  table(
+    columns: (1fr,1fr,1fr,1fr,1fr,1fr),
+    table.header([File],[h],[p-value],[$lambda$],[Orders], [Decision]),
+    [IMF_1],[1],[0],[6570],[-0.],[Non-Random],
+    [IMF_2],[1],[0],[2292],[],[Non-Random],
+    [IMF_3],[1],[0],[817],[],[Non-Random],
+    [IMF_4],[1],[0],[277],[],[Non-Random],
+    [IMF_5],[1],[0],[68],[],[Non-Random],
+    [IMF_6],[1],[0],[11],[],[Non-Random],
+    [IMF_7],[0],[1],[1],[],[Random],
+    [IMF_8],[0],[1],[1],[],[Random],
+  ),
+  caption: [Chaos classification for the EMD of frac_alea_1]
+)
