@@ -67,7 +67,7 @@ end
 
 % Formatting
 xlabel('Normalized Permutation Entropy (H)', 'FontSize', 12, 'FontWeight', 'bold');
-ylabel('Jensen-Shannon Complexity (C)', 'FontSize', 12, 'FontWeight', 'bold');
+ylabel('Complexity (C)', 'FontSize', 12, 'FontWeight', 'bold');
 title(sprintf('Complexity-Entropy Plane (m = %d, t = %d)', m, t), ...
     'FontSize', 14, 'FontWeight', 'bold');
 
