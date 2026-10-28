@@ -66,8 +66,8 @@
 [explanations]
 
 == Datasets
-- frac_alea : random gaussian white noises, 10 000 points
-- ruido_blanco : atmospheric noise, 10 000 points
+- frac_alea : random gaussian white noises, 10 000 points, 10 samples
+- ruido_blanco : atmospheric noise, 10 000 points, 10 samples
 
 ==> *$m=6,tau=1$*
 
@@ -180,21 +180,23 @@ For now we just tried with default parameters ie:
 - maxOrders[5, 6, 5] Vector specifying maximum model orders $[L, m, q]$.
 - alpha: 0.05 Significance level for the test ($5\%$).
 - flag: 'VARY' Mode specifying whether to vary order triplets $[L, m, q]$ ('VARY') or fix them ('FIX').#highlight(fill:yellow)[To be discussed]
-Nb : the lyapnuv exponent is computed without the use of the associated matlab function => no sampling frequency
+Nb : the lyapunov exponent is computed without the use of the associated matlab function => no sampling frequency
 
 We obtain 
 #figure(
   table(
     columns: (1fr,1fr,1fr,1fr,1fr,1fr),
     table.header([File],[h],[p-value],[$lambda$],[Orders], [Decision]),
-    [IMF_1],[1],[0],[6570],[-0.],[Non-Random],
-    [IMF_2],[1],[0],[2292],[],[Non-Random],
-    [IMF_3],[1],[0],[817],[],[Non-Random],
-    [IMF_4],[1],[0],[277],[],[Non-Random],
-    [IMF_5],[1],[0],[68],[],[Non-Random],
-    [IMF_6],[1],[0],[11],[],[Non-Random],
-    [IMF_7],[0],[1],[1],[],[Random],
-    [IMF_8],[0],[1],[1],[],[Random],
+    [IMF_1],[1],[0],[-0.2858],[[1, 6, 4]],[Non-Chaotic],
+    [IMF_2],[1],[0],[-0.0800],[[1, 3, 1]],[Non-Chaotic],
+    [IMF_3],[0],[0.2123],[-0.0102],[[1, 3, 2]],[Chaotic],
+    [IMF_4],[0],[1],[0.0401],[[1, 4, 1]],[Chaotic],
+    [IMF_5],[0],[1],[0.6365],[[2, 3, 1]],[Chaotic],
+    [IMF_6],[0],[1],[0.7834],[[3, 5, 1]],[Chaotic],
+    [IMF_7],[0],[1],[0.7817],[[2, 3, 1]],[Chaotic],
+    [IMF_8],[0],[1],[0.7834],[[5, 3, 1]],[Chaotic],
   ),
   caption: [Chaos classification for the EMD of frac_alea_1]
 )
+
+Observations: Efficient for rejecting randomness but not deterministic behavior. #highlight(fill:yellow)[Need to tune it]

@@ -53,7 +53,9 @@ for k = 1:num_files
     time_series = data_cells{1}(:);
 
     % 3. Call chaostest with user parameters or default parameters
-    [H, pValue, Lambda, Orders] = chaostest_opti(time_series, varargin{:});
+    %[H, pValue, Lambda, Orders] = chaostest_opti(time_series, varargin{:});
+    [H, pValue, Lambda, Orders] = chaostest(time_series, varargin{:});
+
 
     H_vals(k)      = H;
     p_vals(k)      = pValue;
