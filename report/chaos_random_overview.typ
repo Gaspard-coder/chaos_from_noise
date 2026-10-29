@@ -199,3 +199,6 @@ We obtain
 )
 
 Observations: Efficient for rejecting randomness but not deterministic behavior. #highlight(fill:yellow)[Need to tune it]
+
+== Checking the trustfulness of runstest
+As we see, the rejection of randomness on chaotic signals works pretty well. 
