@@ -52,11 +52,10 @@ for sf = 1:num_subfolders
 
         random_counts(sf) = sum(is_random);
         total_imfs_counts(sf) = height(res);
-        random_files(sf) = res.Filename(is_random);
 
         % Join file names into a single string for clean display
         if isempty(rand_list)
-            random_files(sf) = "";
+            random_files(sf) = "None";
         else
             if iscell(rand_list)
                 random_files(sf) = string(strjoin(rand_list, ', '));
@@ -76,19 +75,29 @@ end
 results = table(subfolder_names, random_counts, total_imfs_counts, random_files, ...
     'VariableNames', {'Subfolder', 'RandomCount', 'TotalIMFs', 'RandomFiles'});
 
-valid_mask  = ~isnan(random_counts);
-plot_names  = subfolder_names(valid_mask);
-plot_counts = random_counts(valid_mask);
+plot_counts = random_counts;
+plot_counts(isnan(plot_counts)) = 0;
 
-cat_names = categorical(plot_names, plot_names);
+cat_names = categorical(subfolder_names, subfolder_names);
 
 figure('Name', 'Random IMF Components per Subfolder', 'Color', 'w');
-bar(cat_names, plot_counts, 'FaceColor', [0 0.4470 0.7410], 'EdgeColor', 'k');
+b = bar(cat_names, plot_counts, 'FaceColor', [0 0.4470 0.7410], 'EdgeColor', 'k');
+
+% Add explicit value labels above every bar
+xtips = b.XEndPoints;
+ytips = b.YEndPoints;
+labels = string(plot_counts);
+text(xtips, ytips, labels, 'HorizontalAlignment', 'center', ...
+    'VerticalAlignment', 'bottom', 'FontWeight', 'bold');
 
 xlabel('Subfolder', 'FontWeight', 'bold');
 ylabel('Number of Random Components (H = 0)', 'FontWeight', 'bold');
 title(sprintf('Number of Random IMFs per Subfolder in "%s"', folder), ...
     'Interpreter', 'none');
+
+% Force y-axis range from 1 to 10 with integer tick marks
+ylim([0, 10]);
+yticks(1:10);
 
 xtickangle(45); % Rotate x-axis text for better readability
 grid on;

@@ -47,16 +47,22 @@ for sf = 1:num_subfolders
         res = test_rd(subfolder_path, varargin{:});
 
         % Count non-random IMFs (H = 1) and total IMFs
-        is_random = res.H_Decision == 0;
-        random_counts(sf) = sum();
+        is_random = (res.H_Decision == 0);
+        rand_list = res.Filename(is_random);
+
+        random_counts(sf) = sum(is_random);
         total_imfs_counts(sf) = height(res);
-        random_files{sf} = res.Filename((res.H_Decision == 0));
-        
+        random_files(sf) = res.Filename(is_random);
+
         % Join file names into a single string for clean display
         if isempty(rand_list)
-            random_files(sf) = "";
+            random_files(sf) = "None";
         else
-            random_files(sf) = strjoin(rand_list, ', ');
+            if iscell(rand_list)
+                random_files(sf) = string(strjoin(rand_list, ', '));
+            else
+                random_files(sf) = string(strjoin(cellstr(rand_list), ', '));
+            end
         end
 
     catch ME
@@ -71,10 +77,10 @@ results = table(subfolder_names, random_counts, total_imfs_counts, random_files,
     'VariableNames', {'Subfolder', 'RandomCount', 'TotalIMFs', 'RandomFiles'});
 
 valid_mask  = ~isnan(random_counts);
-plot_names  = subfolder_names(valid_mask);
-plot_counts = random_counts(valid_mask);
+plot_counts = random_counts;
+    plot_counts(isnan(plot_counts)) = 0; 
 
-cat_names = categorical(plot_names, plot_names);
+    cat_names = categorical(subfolder_names, subfolder_names);
 
 figure('Name', 'Random IMF Components per Subfolder', 'Color', 'w');
 bar(cat_names, plot_counts, 'FaceColor', [0 0.4470 0.7410], 'EdgeColor', 'k');
