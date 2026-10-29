@@ -3,7 +3,7 @@
 % =========================================================================
 
 % 1. Extract Signal
-x = frac_alea(1, :);
+x = ruido_blanco(1, :);
 N = length(x);
 t = 1:N; % Remplacez par votre vecteur temps si disponible (ex: t = (0:N-1)/fs)
 
