@@ -200,5 +200,23 @@ We obtain
 
 Observations: Efficient for rejecting randomness but not deterministic behavior. #highlight(fill:yellow)[Need to tune it]
 
-== Checking the trustfulness of runstest
-As we see, the rejection of randomness on chaotic signals works pretty well. 
+== Checking the trustfullness of runstest
+As we see, the rejection of randomness on chaotic signals works pretty well. We tried for each decomposition if runstest's results are consistent.
+
+*frac_alea (atmospheric noise)*
+
+#figure(
+  image("figures/Random IMF Components per Subfolder fracalea.png"),
+  caption: [Number of random signals for each EMD]
+)
+
+For every decomposition, the only random signal detected is the original signal itself (except for the first one that is somehow not considered as random)
+
+*ruido_blanco (white noise)*
+
+#figure(
+  image("figures/Random IMF Components per Subfolder ruidoblanco.png"),
+  caption: [Number of random signals for each EMD]
+)
+
+This time every original signal is well-detected and there is still no random sub-signals.
