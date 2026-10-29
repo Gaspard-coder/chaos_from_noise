@@ -1,0 +1,27 @@
+function results = ST_histo(folder, varargin)
+% ST_HISTO runs the runstest function on time series data in files starting
+% with 'IMF' and plot the histogram of the number of non-random component
+% inside each subfolder
+
+items = dir(folder);
+subfolders = items([items.isdir]);
+num_subfolders = length(subfolders);
+
+if num_subfolders == 0
+    error('No subfolders in: %s',folder);
+end
+
+file_pattern = fullfile(subfolders(0), 'IMF*.mat');
+file_list = dir(file_pattern);
+num_files = length(file_list);
+
+num_random = zeros(num_files); 
+
+for sf = 1:num_subfolders
+    results = test_rd(subfolders(sf));
+    num_non_rd = count(results.H_Decision);
+
+    num_random(num_files-num_non_rd) = num_random(num_files-num_non_rd)+ 1;
+end
+
+histogram(num_random);
