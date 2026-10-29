@@ -160,19 +160,18 @@ For now, `alpha =0.05`
   table(
     columns: (1fr,1fr,1fr,1fr,1fr),
     table.header([File],[h],[p-value],[runs], [Decision]),
-    [IMF_1],[1],[0],[6570],[Non-Random],
-    [IMF_2],[1],[0],[2292],[Non-Random],
-    [IMF_3],[1],[0],[817],[Non-Random],
-    [IMF_4],[1],[0],[277],[Non-Random],
-    [IMF_5],[1],[0],[68],[Non-Random],
-    [IMF_6],[1],[0],[11],[Non-Random],
-    [IMF_7],[0],[1],[1],[Random],
-    [IMF_8],[0],[1],[1],[Random],
+    [IMF_1],[1],[0],[6749],[Non-Random],
+    [IMF_2],[1],[0],[2696],[Non-Random],
+    [IMF_3],[1],[0],[1130],[Non-Random],
+    [IMF_4],[1],[0],[472],[Non-Random],
+    [IMF_5],[1],[0],[204],[Non-Random],
+    [IMF_6],[1],[0],[84],[Non-Random],
+    [IMF_7],[1],[0],[34],[Non-Random],
+    [IMF_8],[1],[0],[16],[Non-Random],
   ),
   caption: [Randomness classification for the EMD of frac_alea_1]
 )
-
-The test characterizes only IMF_7 and IMF_8 as random, whereas IMF 4,5 and 6 seem to be good candidates for being random. #highlight(fill:yellow)[To be corrected]
+Quite accurate, nobody is random
 
 === Chaos test
 For now we just tried with default parameters ie:
