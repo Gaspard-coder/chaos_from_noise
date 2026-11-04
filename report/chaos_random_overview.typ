@@ -220,3 +220,49 @@ For every decomposition, the only random signal detected is the original signal 
 )
 
 This time every original signal is well-detected and there is still no random sub-signals.
+
+== Trying recursive decomposition
+Given the fact that some tests sometimes struggle to characterize the first components of the decomposition (usually L1 and L2), we tried to apply a second time the EMD on them 
+to be more precise.
+
+#figure(
+  image("figures/frac_alea_EMD_2.1_energy.png",width: 130%),
+  caption: [Repartition of energy in the EMD of L1, the first component of the frac_alea EMD]
+)
+It appears that the first component of the sub-decomposition, noted L1.1, concentrated for 99.17% of the total energy of L1.
+
+When plotting the sub-decomposition on the HxC plane, we obtained:
+
+#figure(
+  image("figures/HxC_frac_alea_IMF_1_EMD_2.png"),
+  caption: [EMD of L1, the first component of the EMD of frac_alea, on the HxC plane ($m=6,tau=1$)]
+)
+
+The L1.1 component appears clearly chaotic and we might conclude that L1 is also chaotic. #highlight(fill:yellow)[might need to confirm it with others metrics]
+
+== Autocorrelation
+
+
+= Stochastic analysis workflow
+Let's summarize the aim of this work : demonstrating that stochastic ie random/pseudo-random signals can be decomposed into chaotic and deterministic components.
+
+== Why ?
+Achieving to demonstrate that we can generate "non-artifical" chaotic signals (in opposite to deterministic-generated chaotic signals like Hennon map,etc) from random (and maybe pseudo-random) samples.
+
+== Potential applications
+To give a new and simple way to generate unpredictable cryptographic keys 
+
+== Roadmap
+1. 2 datasets: Random samples from atmospheric measurements (`frac_alea`) and pseudo-random samples generated from white noise (`ruido_blanco`)
+2. Apply a decomposition: for now we only used Empirical Mode Decomposition (EMD) because it is simple and complete (we can fully recover the original signal)
+3. We now need to characterize the elements of the EMD to prove that we obtained chaotic sub-signals. There are different criterias:
+
+ 3.1 `runtest` : as shown before, `runstest` is a reliable MATLAB function to detect the randomness of a signal, with a given trust interval.
+ 
+ 3.2 As the sub-components {$L_k$} cannot be random, they are rather deterministic or chaotic. We now need to measure the efficiency of different tools to complete the characterization. Good candidates are :
+ - Autocorrelation : A chaotic signal is not correlated.
+ - Phase-space (2D and maybe 3D): showing the existence of chaotic behavior as well as attractor is a very good sign of chaoticity.
+ - HxC plane: an other visual way to decide between chaotic and deterministic behavior
+ - Lyapunov exponent: obivous metric to detect chaotic behavior, it nevertheless requires a sampling frequency difficult to detect after the decomposition that implies interpolation. Severals techniques have to be tested to bypass this limit:
+  - Using only the sign of the `LyapunovExponent`MATLAB function: as we just need a boolean attribution, getting the sign is enought to chose between deterministic and chaotic #highlight(fill:yellow)[Needs to be demonstrate that the sign is still right]
+  - Using the `chaostest` function from Dr. Bensaïda: By applying A LOT of maths and a small neural network, the algorithm is able to compute the Lyapnuov Exponent without the sampling frequency of the input. Nevertheless, it appears that it didn't work that much in our case. Parameters need probably a fine tuning but the idea of this work is also to keep the parameters set as small as possible. #highlight(fill:yellow)[Nevertheless, we can try to implement a simpler version of this approach using dedicated tools like PyTorch lib rather then MATLAB hardcoding]
