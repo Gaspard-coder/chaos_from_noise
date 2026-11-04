@@ -242,6 +242,16 @@ The L1.1 component appears clearly chaotic and we might conclude that L1 is also
 
 == Autocorrelation
 
+First approach with $tau$ from 0 to 2000 (N#sub[sample]/4)
+#figure(
+  image("figures/autocorrelation_frac_alea_EMD_2.png",width: 120%),
+  caption: [ACF for the components of the EMD of frac_alea_2]
+)
+All of them cross 0: at least partially chaotic. Difficult to use as a precise tool to distinguish determinist and chaotic behavior
+
+=== Correlation dimension
+#highlight[To do next]
+
 
 = Stochastic analysis workflow
 Let's summarize the aim of this work : demonstrating that stochastic ie random/pseudo-random signals can be decomposed into chaotic and deterministic components.
@@ -266,3 +276,4 @@ To give a new and simple way to generate unpredictable cryptographic keys
  - Lyapunov exponent: obivous metric to detect chaotic behavior, it nevertheless requires a sampling frequency difficult to detect after the decomposition that implies interpolation. Severals techniques have to be tested to bypass this limit:
   - Using only the sign of the `LyapunovExponent`MATLAB function: as we just need a boolean attribution, getting the sign is enought to chose between deterministic and chaotic #highlight(fill:yellow)[Needs to be demonstrate that the sign is still right]
   - Using the `chaostest` function from Dr. Bensaïda: By applying A LOT of maths and a small neural network, the algorithm is able to compute the Lyapnuov Exponent without the sampling frequency of the input. Nevertheless, it appears that it didn't work that much in our case. Parameters need probably a fine tuning but the idea of this work is also to keep the parameters set as small as possible. #highlight(fill:yellow)[Nevertheless, we can try to implement a simpler version of this approach using dedicated tools like PyTorch lib rather then MATLAB hardcoding]
+ - `deterministic test`: function from a previous work #highlight[To be tested]
