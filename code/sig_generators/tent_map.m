@@ -6,6 +6,7 @@ x = zeros(N,1);
 
 % White noise
 sigma_eps = 0.01;
+rng(1);
 eps = sigma_eps * randn(N,1);
 
 x(1) = 0.7;
@@ -23,5 +24,5 @@ end
 
 % Saving
 save('database/generated_sig/tent_map.mat','x');
-fprintf('Tent map series saved in tent_map.mat');
+fprintf('Tent map series saved in tent_map.mat \n');
 end

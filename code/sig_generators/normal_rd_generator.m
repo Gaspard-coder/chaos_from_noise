@@ -4,8 +4,9 @@ function [x] = normal_rd_generator()
 
 N=10000;
 sigma_eps = 1;
+rng(1);
 x = sigma_eps* randn(N,sigma_eps);
 
 save('database/generated_sig/rand_sig.mat',"x");
-fprintf('Normally distributed rand sig saved in rand_sig.mat\n');
+fprintf('Normally distributed rand sig saved in rand_sig.mat \n');
 end

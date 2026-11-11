@@ -7,6 +7,7 @@ h = zeros(N,1);
 
 % White noise
 sigma_eps = 0.01;
+rng(1);
 eps = sigma_eps * randn(N,1);
 
 x(1) = 0;
