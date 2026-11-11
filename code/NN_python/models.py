@@ -1,18 +1,12 @@
 import torch
 
-def activation_fn(x_lags: torch.Tensor, A: torch.Tensor, B: torch.Tensor, C: torch.Tensor, alpha_0: torch.Tensor) -> torch.Tensor:
-    """
-        x_lags : Tensor (m,) containing [x_{t-L}, ..., x_{t-mL}]
-        A      : Matrix (q, m) containing beta_{i,j}
-        B      : Vector (q,) containing beta_{0,j}
-        C      : Vector (q,) containing alpha_j
-        alpha_0: constant
-        """
-
-    # B(m,q) @ x_lags (m,) => matrix product leading to (q,)
-    u = B @ x_lags + C
-    # tanh optimized activation function for chaotic noise timeseries, can be changed
-    psi = torch.tanh(u)
-    # scalar product A(q,) and psi(q,)
-    y = torch.dot(A,psi) + alpha_0
-    return y
+def activation_fn_torch(u, fn_type='tanh'):
+    fn_type = fn_type.lower()
+    if fn_type == 'tanh':
+        return torch.tanh(u)
+    elif fn_type == 'logistic':
+        return 1.0 / (1.0 + torch.exp(-u))
+    elif fn_type == 'sigmoid':
+        return u * (1.0 + torch.abs(u / 2.0)) / (2.0 + torch.abs(u) + (u**2) / 2.0)
+    else:
+        raise ValueError(f"Unknown activation function: {fn_type}")

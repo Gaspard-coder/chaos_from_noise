@@ -2,7 +2,8 @@ import numpy as np
 import scipy.io
 from scipy.optimize import least_squares
 import matplotlib.pyplot as plt
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ProcessPoolExecutor, as_completed
+import time
 
 def lag_matrix(X, L, m):
     """
@@ -110,30 +111,42 @@ if __name__ == '__main__':
     maxL, maxM, maxQ = 5, 6, 5
     active_fn = 'tanh'
 
-    # Generate all triplet combinations
     tasks = [
         (L, m, q, X, active_fn, start_value)
         for L in range(1, maxL + 1)
         for m in range(1, maxM + 1)
         for q in range(1, maxQ + 1)
     ]
+    total_tasks = len(tasks)
 
     best_resnorm = np.inf
     best_orders = None
     best_theta = None
 
-    # Execute across all available CPU cores
-    with ProcessPoolExecutor() as executor:
-        results = executor.map(fit_model, tasks)
+    print(f"Starting Scipy optimization across {total_tasks} parameter combinations...")
+    start_time = time.time()
 
-        for resnorm, orders, theta in results:
+    with ProcessPoolExecutor() as executor:
+        futures = {executor.submit(fit_model, task): task for task in tasks}
+
+        completed = 0
+        for future in as_completed(futures):
+            completed += 1
+            resnorm, orders, theta = future.result()
+            L, m, q = orders
+            elapsed = time.time() - start_time
+
+            print(f"[{completed:3d}/{total_tasks:3d}] (L={L}, m={m}, q={q}) | SSE = {resnorm:.6f} | Elapsed: {elapsed:.1f}s")
+
             if resnorm < best_resnorm:
                 best_resnorm = resnorm
                 best_orders = orders
                 best_theta = theta
+                print(f"  └─> New Best SSE: {best_resnorm:.6f} at triplet (L={L}, m={m}, q={q})")
 
+    total_time = time.time() - start_time
+    print(f"\nDone in {total_time:.1f}s!")
     print(f"Best Orders (L, m, q): {best_orders} with SSE = {best_resnorm:.6f}")
 
-    # Reconstruct and display the best fit
     L_best, m_best, q_best = best_orders
     y_reconstructed = reconstruct_and_plot(X, best_theta, L_best, m_best, q_best, active_fn)
