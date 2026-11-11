@@ -1,6 +1,6 @@
 function [x] = garch_process()
 
-% Generate chaotic tent map .mat of 10000 points
+% Generate non chaotic garch process .mat of 10000 points
 N = 10000;
 x = zeros(N,1);
 h = zeros(N,1);

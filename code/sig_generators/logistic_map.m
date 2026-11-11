@@ -1,6 +1,6 @@
 function [x] = logistic_map()
 
-% Generate chaotic tent map .mat of 10000 points
+% Generate chaotic logistic map .mat of 10000 points
 N = 10000;
 x = zeros(N,1);
 
