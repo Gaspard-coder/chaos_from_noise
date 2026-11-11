@@ -79,13 +79,13 @@ function [H, pValue, Lambda, Orders, CI, allLambda] = chaostest_theta(X, ActiveF
 %        BenSa�da, A. (2015), "A practical test for noisy chaotic
 %          dynamics", SoftwareX 3-4:1-5.
 %
-
+% =================================================================
 % Several edits have been made :
 % - Adding logging in several places
 % - Changing the names of the matrix of coefficients to fit with the
 % original paper + removing E
-
-
+% - Adding visual and numerical check of the reconstruction
+%==================================================================
 
 
 % Check if the Optimization and Statistics toolboxes are installed.
@@ -409,10 +409,59 @@ H  = (alpha >= pValue);
 % Logging and saving dumpfile
 fprintf('Done in %.0fs. Best (L,m,q)=(%d,%d,%d), lambda=%+.4f, p=%.3g\n', ...
         toc(tStart), Orders(1), Orders(2), Orders(3), Lambda, pValue);
+
+% Uncomment to save Theta
+% save(dumpfile, 'H', 'pValue', 'Lambda', 'CI', 'Orders', 'allLambda', ...
+%      'ThetaAll', 'ResnormAll', 'ExitflagAll', ...
+%      'Eta', 'varLambda', 'LambdaStatistic', 'MBest', 'hBest', 'TBest', 'M', ...
+%      'alpha', 'ActiveFN', 'maxOrders', 'flag', 'StartValue');
+
+% =========================================================================
+% RECONSTRUCTION, PLOTTING, AND DIFFERENCE EVALUATION
+% =========================================================================
+bestL = Orders(1);
+bestM = Orders(2);
+bestQ = Orders(3);
+bestTheta = ThetaAll{bestL, bestM, bestQ};
+
+% Reconstruct fitted y over target sample
+[residuals, ~] = chaosfn(bestTheta, X, bestL, bestM, bestQ, ActiveFN);
+yTarget = X(bestM*bestL+1:end);
+yReconstructed = yTarget - residuals';
+
+% Calculate numerical differences
+diffVector = yTarget - yReconstructed;
+maxAbsDiff = max(abs(diffVector));
+meanAbsDiff = mean(abs(diffVector));
+rmseVal = sqrt(mean(diffVector.^2));
+sseVal = sum(diffVector.^2);
+
+fprintf('\n--- Reconstruction Differences ---\n');
+fprintf('Sum of Squared Errors (SSE): %.6g\n', sseVal);
+fprintf('Root Mean Squared Error (RMSE): %.6g\n', rmseVal);
+fprintf('Mean Absolute Difference:    %.6g\n', meanAbsDiff);
+fprintf('Maximum Absolute Difference: %.6g\n', maxAbsDiff);
+
+% Plot original series vs reconstruction
+figure('Name', 'Chaos Test: Time Series Reconstruction', 'NumberTitle', 'off');
+timeIdx = (bestM*bestL+1):length(X);
+plot(timeIdx, yTarget, 'b-', 'LineWidth', 1.5, 'DisplayName', 'Original Series');
+hold on;
+plot(timeIdx, yReconstructed, 'r--', 'LineWidth', 1.2, 'DisplayName', 'Reconstructed Series');
+grid on;
+xlabel('Time Index (t)');
+ylabel('Series Value');
+title(sprintf('Original vs Reconstructed Series (Best L=%d, m=%d, q=%d)', bestL, bestM, bestQ));
+legend('Location', 'best');
+hold off;
+
 save(dumpfile, 'H', 'pValue', 'Lambda', 'CI', 'Orders', 'allLambda', ...
      'ThetaAll', 'ResnormAll', 'ExitflagAll', ...
      'Eta', 'varLambda', 'LambdaStatistic', 'MBest', 'hBest', 'TBest', 'M', ...
-     'alpha', 'ActiveFN', 'maxOrders', 'flag', 'StartValue');
+     'alpha', 'ActiveFN', 'maxOrders', 'flag', 'StartValue', ...
+     'yTarget', 'yReconstructed', 'rmseVal', 'maxAbsDiff');
+
+
 %-------------------------------------------------------------------------%
 %                       Helper function JACOBMATX                         %
 %-------------------------------------------------------------------------%

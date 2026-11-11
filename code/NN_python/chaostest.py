@@ -1,10 +1,11 @@
 import torch
+import scipy.io
 from models import activation_fn
-from utils import load_mat,lag_matrix
+from utils import lag_matrix
 
 
 def chaostest(maxL,maxM,maxQ,alpha):
-    mat_file = load_mat('/home/gaspichou/Documents/git/chaos_from_noise/database/generated_sig/logistic_map.mat')
+    mat_file = scipy.io.loadmat('/home/gaspichou/Documents/git/chaos_from_noise/database/generated_sig/logistic_map.mat')
     timeseries = torch.from_numpy(mat_file['x']).squeeze() #squeeze from (N,1) matrix to (N,) vector
 
     # Initialize values
@@ -22,6 +23,3 @@ def chaostest(maxL,maxM,maxQ,alpha):
                 C = torch.full((q,1),start_value) # (q,1) matrix
 
                 Theta = [A.flatten(),B,C.flatten(),alpha_0]
-
-                # Extract the timeseries
-                x_extracted = lag_matrix(timeseries,m,l)

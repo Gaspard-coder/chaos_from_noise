@@ -1,7 +1,4 @@
-import scipy.io
 import torch
-def load_mat(matfile:str):
-    return scipy.io.loadmat(matfile)
 
 def lag_matrix(timeseries,m,L):
     '''
