@@ -79,6 +79,15 @@ function [H, pValue, Lambda, Orders, CI, allLambda] = chaostest_theta(X, ActiveF
 %        BenSa�da, A. (2015), "A practical test for noisy chaotic
 %          dynamics", SoftwareX 3-4:1-5.
 %
+
+% Several edits have been made :
+% - Adding logging in several places
+% - Changing the names of the matrix of coefficients to fit with the
+% original paper + removing E
+
+
+
+
 % Check if the Optimization and Statistics toolboxes are installed.
 % 1 if installed, 0 if not.
 existToolbox = license('test','optimization_toolbox') && ...
@@ -207,14 +216,13 @@ for L = StartL:maxL
         for q = StartQ:maxQ
             % Comments actualized to correspond to the alpha/beta values of
             % the original paper
-            A = StartValue * ones(q, m); % Contains the coefficients beta(i,j).
-            B = StartValue * ones(q, 1); % Contains the coefficients beta(0,j).
-            C = StartValue * ones(1, q); % Contains the coefficients alpha(j).
+            B = StartValue * ones(q, m); % Contains the coefficients beta(i,j).
+            C = StartValue * ones(q, 1); % Contains the coefficients beta(0,j).
+            A = StartValue * ones(1, q); % Contains the coefficients alpha(j).
             D = StartValue; % alpha 0
             %E = StartValue * ones(1, m); % Linear coefficients for lagged X.
             
-            Theta0 = [reshape(A', 1, q*m), B', C, D];
-            %Theta0 = [reshape(A', 1, q*m), B', C, D, E];
+            Theta0 = [reshape(B', 1, q*m), C', A, D];
             
             [Theta,resnorm, ~, exitflag]  = lsqnonlin(@chaosfn, Theta0, [], [], Options, X, L, m, q, ActiveFN);
             ThetaAll{L,m,q}   = Theta;
@@ -413,15 +421,15 @@ function [y, J] = chaosfn(Theta, X, L, m, q, ActiveFN)
 %   test for chaos and to compute the Lyapunov exponent.
 %   Y = CHAOSFN(THETA, X, L, m, q, ActiveFN) where X is a
 %   time series and THETA is a vector of parameters.
-A   =   reshape(Theta(1:q*m), m, q)'; % size(A) = [q, m].
-B   =   Theta(q*m+1:q*m+q)';          % size(B) = [q, 1].
-C   =   Theta(q*m+q+1:q*m+q+q);       % size(C) = [1, q].
+B   =   reshape(Theta(1:q*m), m, q)'; % size(B) = [q, m].
+C   =   Theta(q*m+1:q*m+q)';          % size(C) = [q, 1].
+A   =   Theta(q*m+q+1:q*m+q+q);       % size(A) = [1, q].
 D   =   Theta(q*m+2*q+1);             % size(D) = 1.
-%E   =   Theta(q*m+2*q+2:q*m+2*q+1+m); % size(E) = [1, m].
+
 XLAG   =  lagmatrix(X, L:L:L*m);   % size(XLAG) = [T, m].
 XLAG   =  XLAG(m*L+1:end, :);      % Remove all NaN observation.
 T      =  length(X) - m*L;         % New sample size.
-u   =   A * XLAG' + repmat(B,1,T); % size(u) = [q, T].
+u   =   B * XLAG' + repmat(C,1,T); % size(u) = [q, T].
 %
 % Initialize the analytical Jacobian needed to speed up nonlinear least
 % square optimization carried out by LSQNONLIN, this Jacobian is relative
@@ -432,39 +440,34 @@ J   =   ones(length(Theta), T);
 switch upper(ActiveFN)
     case 'LOGISTIC'
         % Use the logistic function as the sigmoid activation function.
-        y   =   D + C * (1 ./ (1 + exp(- u))); % size(y) = [1, T].
-        %y   =   E * XLAG' + D + C * (1 ./ (1 + exp(- u))); % size(y) = [1, T].        
+        y   =   D + A * (1 ./ (1 + exp(- u))); % size(y) = [1, T].
         
-        J(1:q*m,:)   =   repmat(C', m, T) .* (repmat(XLAG', q, 1) .* ...
-                        repmat(exp(- u) ./ (1 + exp(- u)).^2, m, 1)); % A.
-        J(q*m+1:q*m+q,:) =  repmat(C', 1, T) .* (exp(- u) ./ (1 + exp(- u)).^2); % B.
-        J(q*m+q+1:q*m+q+q,:) =  1 ./ (1 + exp(- u)); % C.
-        %J(q*m+2*q+2:q*m+2*q+1+m,:)  =   XLAG'; % E.
+        J(1:q*m,:)   =   repmat(A', m, T) .* (repmat(XLAG', q, 1) .* ...
+                        repmat(exp(- u) ./ (1 + exp(- u)).^2, m, 1)); % B.
+        J(q*m+1:q*m+q,:) =  repmat(A', 1, T) .* (exp(- u) ./ (1 + exp(- u)).^2); % C.
+        J(q*m+q+1:q*m+q+q,:) =  1 ./ (1 + exp(- u)); % A.
         
     case 'TANH'
         % Use a hyperbolic tangent as the activation function. This is a
         % two layered feed-forward neural network.
-        y   =   D + C * tanh(u); % size(y) = [1, T].
-        %y   =   E * XLAG' + D + C * tanh(u); % size(y) = [1, T].
+        y   =   D + A * tanh(u); % size(y) = [1, T].
         
-        J(1:q*m,:)   =   repmat(C', m, T) .* (repmat(XLAG', q, 1) .* ...
-                        repmat(sech(u).^2, m, 1)); % A.
-        J(q*m+1:q*m+q,:) =  repmat(C', 1, T) .* (sech(u).^2); % B.
-        J(q*m+q+1:q*m+q+q,:) =  tanh(u); % C.
-        %J(q*m+2*q+2:q*m+2*q+1+m,:)  =   XLAG'; % E.
+        J(1:q*m,:)   =   repmat(A', m, T) .* (repmat(XLAG', q, 1) .* ...
+                        repmat(sech(u).^2, m, 1)); % B.
+        J(q*m+1:q*m+q,:) =  repmat(A', 1, T) .* (sech(u).^2); % C.
+        J(q*m+q+1:q*m+q+q,:) =  tanh(u); % A.
             
     case 'SIGMOID'
         % Use another type of the activation function.
-        y   =   D + C * (u .* (1 + abs(u / 2)) ./ (2 + abs(u) + u.^2 / 2));
+        y   =   D + A * (u .* (1 + abs(u / 2)) ./ (2 + abs(u) + u.^2 / 2));
         %y   =   E * XLAG' + D + C * (u .* (1 + abs(u / 2)) ./ (2 + abs(u) + u.^2 / 2));
         
-        J(1:q*m,:)   =   repmat(C', m, T) .* (repmat(XLAG', q, 1) .* ...
-                repmat(8*(1 + abs(u)) ./ (3 + (1 + abs(u)).^2).^2, m, 1)); % A.
+        J(1:q*m,:)   =   repmat(A', m, T) .* (repmat(XLAG', q, 1) .* ...
+                repmat(8*(1 + abs(u)) ./ (3 + (1 + abs(u)).^2).^2, m, 1)); % B.
        
-        J(q*m+1:q*m+q,:) =  repmat(C', 1, T) .* (8*(1 + abs(u)) ./ ...
-                            (3 + (1 + abs(u)).^2).^2); % B.
-        J(q*m+q+1:q*m+q+q,:) =  u .* (1 + abs(u/2)) ./ (2 + abs(u) + u.^2 / 2); % C.
-        %J(q*m+2*q+2:q*m+2*q+1+m,:)  =   XLAG'; % E.
+        J(q*m+1:q*m+q,:) =  repmat(A', 1, T) .* (8*(1 + abs(u)) ./ ...
+                            (3 + (1 + abs(u)).^2).^2); % C.
+        J(q*m+q+1:q*m+q+q,:) =  u .* (1 + abs(u/2)) ./ (2 + abs(u) + u.^2 / 2); % A.
     
     otherwise
         error(' Unrecognized activation function!')
@@ -542,22 +545,22 @@ function    J   =   jacobmatx(Theta, X, L, m, q, ActiveFN)
 XLAG   =  lagmatrix(X, L:L:L*m); % size(XLAG) = [T, m].
 XLAG   =  XLAG(m*L+1:end, :);    % Remove all NaN observation.
 T      =  length(X) - m*L;       % New sample size.
-A   =   reshape(Theta(1:q*m), m, q)'; % size(A) = [q, m].
-B   =   Theta(q*m+1:q*m+q)';          % size(B) = [q, 1].
-C   =   Theta(q*m+q+1:q*m+q+q);       % size(C) = [1, q].
-u   =   A * XLAG' + repmat(B,1,T);    % size(u) = [q, T].
+B   =   reshape(Theta(1:q*m), m, q)'; % size(B) = [q, m].
+C   =   Theta(q*m+1:q*m+q)';          % size(C) = [q, 1].
+A   =   Theta(q*m+q+1:q*m+q+q);       % size(A) = [1, q].
+u   =   B * XLAG' + repmat(C,1,T);    % size(u) = [q, T].
 J   =   zeros(m, m, T);
 J(2:end, 1:end-1, :)  =   repmat(eye(m-1), [1 1 T]);
 switch upper(ActiveFN)
     case 'LOGISTIC'
-        J(1, :, :)  =   A' * (repmat(C', 1, T) .* (exp(- u) ./ ...
+        J(1, :, :)  =   B' * (repmat(A', 1, T) .* (exp(- u) ./ ...
             (1 + exp(- u)).^2));
         
     case 'TANH'
-        J(1, :, :)  =   A' * (repmat(C', 1, T) .* (sech(u).^2));
+        J(1, :, :)  =   B' * (repmat(A', 1, T) .* (sech(u).^2));
         
     case 'SIGMOID'
-        J(1, :, :)  =   A' * (8 * repmat(C', 1, T) .* ...
+        J(1, :, :)  =   B' * (8 * repmat(A', 1, T) .* ...
                 (1 + abs(u)) ./ (3 + (1 + abs(u)).^2).^2);
             
     otherwise
