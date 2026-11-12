@@ -13,50 +13,59 @@ def fit_pytorch_task(args):
     Worker function fitting the chaotic neural network mapping without nn.Module.
     Optimizes B (q x m), C (q,), A (q,), D (scalar) using L-BFGS.
     """
-    L, m, q, X_tensor, active_fn, start_value = args
+    L, m, q, X_tensor, active_fn, n_starts = args
 
     XLAG = lag_matrix_torch(X_tensor, L, m)
     target = X_tensor[m * L:]
 
-    # Initialize explicit parameter tensors with gradients enabled
-    B = torch.full((q, m), start_value, dtype=torch.float32, requires_grad=True)
-    C = torch.full((q,), start_value, dtype=torch.float32, requires_grad=True)
-    A = torch.full((q,), start_value, dtype=torch.float32, requires_grad=True)
-    D = torch.full((1,), start_value, dtype=torch.float32, requires_grad=True)
+    best_task_resnorm = float('inf')
+    best_task_params = None
 
-    optimizer = torch.optim.LBFGS(
-        [B, C, A, D],
-        max_iter=100,
-        line_search_fn="strong_wolfe"
-    )
+    # Multi-start: try different seeds to break symetry
+    for start_idx in range(n_starts):
+        # One seed per value
+        g = torch.Generator().manual_seed(42 + start_idx * 1000 + L * 100 + m * 10 + q)
 
-    def closure():
-        optimizer.zero_grad()
-        # Evaluate model: u = XLAG @ B.T + C -> y_fit = D + f(u) @ A
-        u = XLAG @ B.T + C
-        f_u = activation_fn_torch(u, active_fn)
-        y_fit = D + f_u @ A
+        # Gaussian init
+        B = (torch.randn((q, m), generator=g, dtype=torch.float32) * 0.2).requires_grad_()
+        C = (torch.randn((q,), generator=g, dtype=torch.float32) * 0.2).requires_grad_()
+        A = (torch.randn((q,), generator=g, dtype=torch.float32) * 0.2).requires_grad_()
+        D = (torch.randn((1,), generator=g, dtype=torch.float32) * 0.2).requires_grad_()
 
-        # Sum of Squared Errors (SSE) loss
-        loss = torch.sum((target - y_fit)**2)
-        loss.backward()
-        return loss
+        optimizer = torch.optim.LBFGS(
+            [B, C, A, D],
+            max_iter=150,
+            line_search_fn="strong_wolfe"
+        )
 
-    optimizer.step(closure)
+        def closure():
+            optimizer.zero_grad()
+            u = XLAG @ B.T + C
+            f_u = activation_fn_torch(u, active_fn)
+            y_fit = D + f_u @ A
+            loss = torch.sum((target - y_fit)**2)
+            loss.backward()
+            return loss
 
-    # Compute final sum of squared errors
-    with torch.no_grad():
-        u_final = XLAG @ B.T + C
-        f_u_final = activation_fn_torch(u_final, active_fn)
-        y_fit_final = D + f_u_final @ A
-        resnorm = torch.sum((target - y_fit_final)**2).item()
+        try:
+            optimizer.step(closure)
+        except Exception:
+            continue
 
-    if np.isnan(resnorm) or np.isinf(resnorm):
-        resnorm = float('inf')
+        with torch.no_grad():
+            u_final = XLAG @ B.T + C
+            f_u_final = activation_fn_torch(u_final, active_fn)
+            y_fit_final = D + f_u_final @ A
+            resnorm = torch.sum((target - y_fit_final)**2).item()
 
-    # Return detached parameter copies
-    params = (B.detach().clone(), C.detach().clone(), A.detach().clone(), D.detach().clone())
-    return (resnorm, (L, m, q), params)
+        if not np.isnan(resnorm) and not np.isinf(resnorm) and resnorm < best_task_resnorm:
+            best_task_resnorm = resnorm
+            best_task_params = (B.detach().clone(), C.detach().clone(), A.detach().clone(), D.detach().clone())
+
+    if best_task_params is None:
+        best_task_resnorm = float('inf')
+
+    return (best_task_resnorm, (L, m, q), best_task_params)
 
 def reconstruct_and_plot_pytorch(X_tensor, params, L, m, q, active_fn='tanh'):
     """
@@ -93,6 +102,7 @@ if __name__ == '__main__':
     start_value = 0.5
     maxL, maxM, maxQ = 5, 6, 5
     active_fn = 'tanh'
+    n_starts = 5 # Nb of random try per tuple (L,m,q)
 
     tasks = [
         (L, m, q, X_tensor, active_fn, start_value)
