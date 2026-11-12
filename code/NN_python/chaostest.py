@@ -22,7 +22,7 @@ def fit_pytorch_task(args):
     best_task_params = None
 
     # Multi-start: try different seeds to break symetry
-    for start_idx in range(n_starts):
+    for start_idx in range(int(n_starts)):
         # One seed per value
         g = torch.Generator().manual_seed(42 + start_idx * 1000 + L * 100 + m * 10 + q)
 
@@ -99,13 +99,12 @@ if __name__ == '__main__':
     mat_file = scipy.io.loadmat('/home/gaspichou/Documents/git/chaos_from_noise/database/generated_sig/logistic_map.mat')
     X_tensor = torch.from_numpy(mat_file['x']).squeeze().float()
 
-    start_value = 0.5
     maxL, maxM, maxQ = 5, 6, 5
     active_fn = 'tanh'
     n_starts = 5 # Nb of random try per tuple (L,m,q)
 
     tasks = [
-        (L, m, q, X_tensor, active_fn, start_value)
+        (L, m, q, X_tensor, active_fn, n_starts)
         for L in range(1, maxL + 1)
         for m in range(1, maxM + 1)
         for q in range(1, maxQ + 1)
