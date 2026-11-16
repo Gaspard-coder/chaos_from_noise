@@ -387,6 +387,8 @@ First approach with $tau$ from 0 to 2000 (N#sub[sample]/4)
 )
 All of them cross 0: at least partially chaotic. Difficult to use as a precise tool to distinguish determinist and chaotic behavior
 
+#pagebreak()
+
 == Correlation dimension
 Type of fractal dimension #highlight[Why not also try fractal dimension as a chaotic classifier]
 
@@ -483,6 +485,14 @@ One more time, we will try this test by comparing the classification result with
 - Try with a bit greater $tau$ for example 2 or 3.
 - Reduce the saturation slop threshold `saturation_slope_thresh`
 - Reduce a bit also the saturation flat threshold `integer_tol`
+
+#rslt[
+  After applying the above improvement suggestions, the only change is sometimes the classification of IMF_2 and IMF_3 as random rather than chaotic.
+
+  At least, the correlation dimension is a very good candidate as a deterministic test.
+]
+
+#pagebreak()
 
 = Stochastic analysis workflow
 Let's summarize the aim of this work : demonstrating that stochastic ie random/pseudo-random signals can be decomposed into chaotic and deterministic components.
