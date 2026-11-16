@@ -387,19 +387,102 @@ First approach with $tau$ from 0 to 2000 (N#sub[sample]/4)
 )
 All of them cross 0: at least partially chaotic. Difficult to use as a precise tool to distinguish determinist and chaotic behavior
 
-=== Correlation dimension
+== Correlation dimension
 Type of fractal dimension #highlight[Why not also try fractal dimension as a chaotic classifier]
 
-The correlation dimension is a measure of the dimensionality of the space occupied by a set of points, widely used to characterize the fractal nature of strange attractors in dynamical systems. 
 
-It is computed using the Grassberger-Procaccia algorithm, which measures how the number of point pairs within a certain distance $r$ (the correlation integral) scales as $r$ approaches zero. 
+=== Phase Space Reconstruction
 
-The classification depends on how $D_2$ behaves as $m$ increases:
-- Chaotic Signals: The correlation dimension $D_2$ will initially increase with $m$, but will eventually saturate at a non-integer (fractal) value. This saturation value is the dimension of the chaotic attractor.
-- Random Noise: The correlation dimension will not saturate. It will continue to increase linearly as $m$ increases ($D_2 approx m$), because white noise fills whatever phase space it is embedded in.
-- Periodic / Deterministic Regular Signals: The correlation dimension will saturate quickly to an integer value (e.g., $D_2 = 1$ for a simple limit cycle or sine wave, $D_2 = 2$ for a quasi-periodic torus).
+Given a discrete scalar time series ${x_1, x_2, ..., x_N}$ sampled at uniform time intervals, the underlying multidimensional dynamics of the system can be reconstructed using Takens' delay-coordinate embedding theorem. By choosing an embedding dimension $m$ and a time delay $tau$, a sequence of state vectors $bold(X)_i in RR^m$ is constructed as:
 
+$ bold(X)_i = (x_i, x_(i + tau), ..., x_(i + (m - 1)tau)) in RR^m, quad i = 1, 2, ..., N_m $
 
+where $N_m = N - (m - 1)tau$ is the total number of reconstructed vectors in the embedded phase space. According to Takens' theorem, if $m > 2 D_2 + 1$, the reconstructed trajectory preserves the topological and metric invariants of the original attractor without self-intersections.
+
+=== The Correlation Integral
+
+To quantify the spatial distribution of points on the reconstructed attractor, the Grassberger-Procaccia algorithm defines the empirical *correlation integral* (or correlation sum) $C(r)$ as the fraction of all distinct point pairs separated by a distance less than or equal to a threshold radius $r$:
+
+$ C(r) = frac(2, N_m (N_m - 1)) sum_(i=1)^(N_m - 1) sum_(j=i+1)^(N_m) Theta(r - norm(bold(X)_i - bold(X)_j)) $
+
+where $norm(dot)$ denotes the Euclidean norm in $RR^m$, and $Theta(dot)$ is the Heaviside step function:
+
+$ Theta(u) = cases(
+  1 & "if" u >= 0,
+  0 & "if" u < 0
+) $
+
+=== Power-Law Scaling and Dimension Estimation
+
+For a self-similar attractor in the limit of infinitely many data points ($N -> infinity$) and vanishingly small length scales ($r -> 0$), the correlation integral obeys a power-law scaling relation:
+
+$ C(r) prop r^(D_2) $
+
+The correlation dimension $D_2$ is formally defined as the scaling exponent:
+
+$ D_2 = lim_(r -> 0) lim_(N -> infinity) frac(ln C(r), ln r) $
+
+In practical applications with finite, noisy datasets, the limit $r -> 0$ cannot be evaluated directly. Instead, taking the logarithm of the scaling relation yields a linear relationship over an intermediate range of radii known as the *scaling region*:
+
+$ ln C(r) approx D_2 ln r + c $
+
+where $c$ is a constant. Consequently, $D_2$ is estimated as the slope $frac(d ln C(r), d ln r)$ obtained via linear regression within this intermediate linear regime—bounded below by the measurement noise floor and finite-sample depopulation, and bounded above by the overall diameter of the attractor.
+
+=== Embedding Saturation and System Classification
+
+Because the true dimension of the system is unknown _a priori_, $D_2$ is computed iteratively across increasing embedding dimensions $m$. The asymptotic behavior of $D_2(m)$ distinguishes the dynamical nature of the signal:
+
+- *Deterministic Regular Signals (Periodic / Quasi-periodic):* As $m$ increases, $D_2$ rapidly converges and saturates at an integer value corresponding to the topological dimension of the manifold (e.g., $D_2 = 1$ for a simple limit cycle, or $D_2 = 2$ for a two-frequency torus).
+- *Deterministic Chaotic Signals:* $D_2$ initially increases with $m$ until the attractor is fully unfolded ($m > 2 D_2 + 1$), at which point it plateaus and saturates at a finite, non-integer (fractal) value.
+- *Stochastic Signals (Random Noise):* Because uncorrelated noise uniformly fills any space in which it is embedded, $D_2$ does not saturate and instead grows linearly with the embedding dimension ($D_2 approx m$).
+
+=== Let's test it
+One more time, we will try this test by comparing the classification result with the HxC feature plane associated with the used signal. We stil use the EMD of `frac_alea_2`
+
+#figure(
+  image("figures/HxC_fracalea_EMD_2.png"),
+  caption: [Complexity Entropy plane for the EMD of frac_alea_2]
+)
+
+#figure(
+  {
+    set text(size: 8.5pt)
+    table(
+      columns: (auto, auto,auto,auto,auto,auto, 1fr),
+      align: (left, center, center, center, center, center, left),
+      inset: (x: 5pt, y: 6pt),
+      stroke: 0.5pt + luma(180),
+      fill: (_, y) => if y < 2 { luma(235) } else if calc.even(y) { white } else { luma(248) },
+      table.header(
+        table.cell(rowspan: 2, align: bottom + left)[*File Name*],
+        table.cell(colspan: 5, align: center)[*Correlation Dimension ($D_2$)*],
+        table.cell(rowspan: 2, align: bottom + left)[*Signal Classification*],
+        [$m = 2$], [$m = 3$], [$m = 4$], [$m = 5$], [$m = 6$],
+      ),
+      [`IMF_1.mat`], [1.7750], [2.2492], [2.7087], [3.2104], [3.7157], [Random / Stochastic Noise],
+      [`IMF_2.mat`], [1.9160], [2.2544], [2.5353], [2.7800], [3.0706], [Chaotic (Deterministic Chaos)],
+      [`IMF_3.mat`], [1.8346], [1.9050], [1.9716], [2.0912], [2.2023], [Chaotic (Deterministic Chaos)],
+      [`IMF_4.mat`], [1.5571], [1.7325], [1.8016], [1.8468], [1.8916], [Chaotic (Deterministic Chaos)],
+      [`IMF_5.mat`], [1.3123], [1.4246], [1.5107], [1.5846], [1.6781], [Chaotic (Deterministic Chaos)],
+      [`IMF_6.mat`], [1.1158], [1.2223], [1.2654], [1.3252], [1.3913], [Chaotic (Deterministic Chaos)],
+      [`IMF_7.mat`], [1.0229], [1.0671], [1.1028], [1.1353], [1.1574], [Chaotic (Deterministic Chaos)],
+      [`IMF_8.mat`], [0.9614], [0.9728], [0.9806], [1.0038], [1.0183], [Deterministic Regular (Periodic / Quasi-periodic)],
+      [`IMF_9.mat`], [0.8223], [0.8256], [0.8354], [0.8402], [0.8444], [Deterministic Regular (Periodic / Quasi-periodic)],
+      [`IMF_10.mat`], [0.8940], [0.8951], [0.8945], [0.8984], [0.8992], [Deterministic Regular (Periodic / Quasi-periodic)],
+      [`IMF_frac_alea_2.mat`], [1.8882], [2.7148], [3.4541], [4.1162], [4.7309], [Random / Stochastic Noise],
+    )
+  },
+  caption: [Evolution of the correlation dimension $D_2$ across embedding dimensions $m in [2, 6]$ and resulting signal classifications.],
+)
+#nb[
+  The classification thresold of `cor_dim_batch.m` are approximative, one should always check the behaviour of the correlation dimension to really classify the signal.
+]
+
+*Ideas of improvements:*
+- use greate values of m_max like 8 or 10 for chaotic signals to fully unfold and reach the plateau
+- Try with a bit greater $tau$ for example 2 or 3.
+- Reduce the saturation slop threshold `saturation_slope_thresh`
+- Reduce a bit also the saturation flat threshold `integer_tol`
 
 = Stochastic analysis workflow
 Let's summarize the aim of this work : demonstrating that stochastic ie random/pseudo-random signals can be decomposed into chaotic and deterministic components.
