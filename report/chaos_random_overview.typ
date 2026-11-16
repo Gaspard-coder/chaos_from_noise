@@ -146,7 +146,7 @@ The method works in 3 parts:
 Dynamical systems theory assumes that deterministic systems will eventually revisit previous states or regions in their phase space. The code computes a distance matrix by measuring the Euclidean distance between every pair of reconstructed state vectors. A threshold ($epsilon$, set to 10% of the maximum distance) is applied to this matrix. If two states are closer than $epsilon$, they are considered a "recurrence." This translates into a binary matrix visualized as a Recurrence Plot, where recurrences are plotted as black dots.
 
 3. Quantifying determinism
-The core theory of RQA states that the visual structures within a Recurrence Plot correlate to the system's physical behavior. Random noise produces isolated, scattered recurrence points. Conversely, deterministic systems produce points that organize into diagonal lines, which occur when two distinct segments of the phase space trajectory evolve similarly over consecutive time steps. The algorithm calculates the Determinism (DET) metric by dividing the number of recurrence points that form diagonal lines by the total number of recurrence points (excluding the main identity diagonal). A DET above 40% is classified here as primarily deterministic, while a lower score indicates random or noisy behavior. #highlight[Where the 40% criteri comes from?]
+The core theory of RQA states that the visual structures within a Recurrence Plot correlate to the system's physical behavior. Random noise produces isolated, scattered recurrence points. Conversely, deterministic systems produce points that organize into diagonal lines, which occur when two distinct segments of the phase space trajectory evolve similarly over consecutive time steps. The algorithm calculates the Determinism (DET) metric by dividing the number of recurrence points that form diagonal lines by the total number of recurrence points (excluding the main identity diagonal). A DET above 40% is classified here as primarily deterministic, while a lower score indicates random or noisy behavior. #highlight[Where the 40% criteria  comes from?]
 
 = Experiments
 
@@ -214,7 +214,7 @@ We obtain
 Observations: Efficient for rejecting randomness but not deterministic behavior. #highlight(fill:yellow)[Need to tune it]
 
 === Deter test
-To give a first idea, we run the deter test on `frac_alea_EMD_2` with $m=3, tau=2 "and" epsilon=0.1$
+To give a first idea, we run the deter test on the EMD of a random atmospherical signal `frac_alea_EMD_2` with $m=3, tau=2 "and" epsilon=0.1$
 
 #figure(
   table(
@@ -242,6 +242,101 @@ To give a first idea, we run the deter test on `frac_alea_EMD_2` with $m=3, tau=
   ),
   caption: [Determinism classification results $m=3, tau=2 "and" epsilon=0.1$],
 )
+
+The $epsilon$ seems too lose here, as almost every component of the decomposition are classified as deterministic. This does not align with the HxC feature plane:
+
+#figure(
+  image("figures/HxC_fracalea_EMD_2.png"),
+  caption: [Complexity Entropy plane for the EMD of frac_alea_2]
+)
+
+With $epsilon = 0.05$ and $epsilon=0.01$
+
+#figure(
+  table(
+    columns: (auto, auto, auto),
+    inset: 8pt,
+    align: (left, right, left),
+    stroke: none,
+    table.hline(),
+    table.header(
+      [*File Name*], [*DET (%)*], [*Classification*],
+    ),
+    table.hline(stroke: 0.5pt),
+    [`IMF_1.mat`], [8.9129], [Random/Noisy],
+    [`IMF_2.mat`], [54.478], [Deterministic],
+    [`IMF_3.mat`], [97.672], [Deterministic],
+    [`IMF_4.mat`], [98.162], [Deterministic],
+    [`IMF_5.mat`], [99.743], [Deterministic],
+    [`IMF_6.mat`], [99.998], [Deterministic],
+    [`IMF_7.mat`], [99.999], [Deterministic],
+    [`IMF_8.mat`], [100], [Deterministic],
+    [`IMF_9.mat`], [100], [Deterministic],
+    [`IMF_10.mat`], [100], [Deterministic],
+    [`IMF_frac_alea_2.mat`], [0.45311], [Random/Noisy],
+    table.hline(),
+  ),
+  caption: [Determinism classification results $m=3, tau=2 "and" epsilon=0.05$],
+)
+
+#figure(
+  table(
+    columns: (auto, auto, auto),
+    inset: 8pt,
+    align: (left, right, left),
+    stroke: none,
+    table.hline(),
+    table.header(
+      [*File Name*], [*DET (%)*], [*Classification*],
+    ),
+    table.hline(stroke: 0.5pt),
+    [`IMF_1.mat`], [0.44798], [Random/Noisy],
+    [`IMF_2.mat`], [6.898], [Random/Noisy],
+    [`IMF_3.mat`], [80.276], [Deterministic],
+    [`IMF_4.mat`], [95.757], [Deterministic],
+    [`IMF_5.mat`], [97.557], [Deterministic],
+    [`IMF_6.mat`], [98.069], [Deterministic],
+    [`IMF_7.mat`], [99.673], [Deterministic],
+    [`IMF_8.mat`], [99.999], [Deterministic],
+    [`IMF_9.mat`], [99.999], [Deterministic],
+    [`IMF_10.mat`], [99.999], [Deterministic],
+    [`IMF_frac_alea_2.mat`], [0], [Random/Noisy],
+    table.hline(),
+  ),
+  caption: [Determinism classification results $m=3, tau=2 "and" epsilon=0.01$],
+)
+
+Finally, with $epsilon=0.001$, each means a difference in the trajectory of 0.1%, we obtains a classification correlated with the HxC feature plane:
+
+#figure(
+  table(
+    columns: (auto, auto, auto),
+    inset: 8pt,
+    align: (left, right, left),
+    stroke: none,
+    table.hline(),
+    table.header(
+      [*File Name*], [*DET (%)*], [*Classification*],
+    ),
+    table.hline(stroke: 0.5pt),
+    [`IMF_1.mat`], [0], [Random/Noisy],
+    [`IMF_2.mat`], [0], [Random/Noisy],
+    [`IMF_3.mat`], [18.627], [Random/Noisy],
+    [`IMF_4.mat`], [68.901], [Deterministic],
+    [`IMF_5.mat`], [90.939], [Deterministic],
+    [`IMF_6.mat`], [97.876], [Deterministic],
+    [`IMF_7.mat`], [98.187], [Deterministic],
+    [`IMF_8.mat`], [98.808], [Deterministic],
+    [`IMF_9.mat`], [99.489], [Deterministic],
+        [`IMF_10.mat`], [98.658], [Deterministic],
+
+    [`IMF_frac_alea_2.mat`], [NaN], [Random/Noisy],
+    table.hline(),
+  ),
+  caption: [Determinism classification results $m=3, tau=2 "and" epsilon=0.01$],
+)
+
+Fine tuning only $epsilon$ might not be enough to distinguish determinist from other signals. To also optimize $m "and" tau$, we will need a pre-classify set of signal as a training reference.
 
 == Checking the trustfullness of runstest
 As we see, the rejection of randomness on chaotic signals works pretty well. We tried for each decomposition if runstest's results are consistent.
