@@ -129,7 +129,7 @@ Multiple candidate approach exist such as _spline_, _nearest neighbors_ or _neur
 
 BenSaïda showed that with a neural network approach, the approximation problem becomes
 $
-  x_t approx alpha_0 + sum_(j=1)^q alpha_j Psi(
+  hat(x_t) approx alpha_0 + sum_(j=1)^q alpha_j Psi(
   beta_(0,j) + sum_(i=1)^m beta_(i,j) x_(t-i L)
 ) + epsilon_t
 $
@@ -143,3 +143,64 @@ where:
 
 As the logistic function $Psi = 1/(1+e^(-u))$ is usually used, the hyperbolic tangent $Psi = tanh$ is more efficient for this type of application.
 
+So, the reconstruction problem becomes 
+$
+  "Find the best set of parameters" theta = (m,L,q,A,B) "so the reconstructed timeseries" 
+  
+  \ hat(x_t) approx alpha_0 + sum_(j=1)^q alpha_j tanh(
+  beta_(0,j) + sum_(i=1)^m beta_(i,j) x_(t-i L)
+) + epsilon_t \
+  "fits the most with the initial one"
+$
+
+== Non linear square (NLS) approach
+This is the approach chosent by BenSaïda. The objective function to minimize is the Sum of Squared Errors (SSE):
+$
+  S(theta) = sum_(t=m L + 1)^T r_t (theta)^2
+$
+where $r_t (theta) = x_t - hat(x)_t (theta)$ represents the residual at time $t$.
+
+The LM algorithm relies on the gradient and the Hessian of the objective function. The gradient of $S(theta)$ is given by:
+
+$nabla S(theta) = - J_theta^T r(theta),$
+
+#impt[Do not confuse $J_theta$ with the state Jacobian $J_t$ defined earlier. Here, $J_theta$ is the Jacobian matrix of the residuals with respect to the network parameters $theta$, not the lagged variables.]
+
+Instead of computing the exact and computationally expensive second derivative (the Hessian matrix $H$), the LM algorithm exploits the "sum of squares" structure of the objective function to approximate the Hessian using the Gauss-Newton method: $H approx J_theta^T J_theta$.
+
+The parameter update step $Delta theta$ in the Levenberg-Marquardt algorithm is determined by solving the damped normal equations:
+
+$(J_theta^T J_theta + mu I) Delta theta = - J_theta^T r(theta),$
+
+where $I$ is the identity matrix and $mu > 0$ is a damping factor. When $mu$ is large, the algorithm behaves like gradient descent (taking small, robust steps). As the solution approaches the minimum, $mu$ decreases, and the algorithm behaves like the Gauss-Newton method, offering fast quadratic convergence. This explicit utilization of the problem's squared-error structure makes NLS highly efficient for chaotic signal reconstruction.
+
+== Limited-memory BFGS (L-BFGS) approach
+
+An alternative to the NLS formulation is to treat the reconstruction simply as a general unconstrained optimization problem. Instead of exploiting the sum-of-squares structure, we can minimize the general scalar loss function $S(theta)$ using quasi-Newton methods, specifically the Broyden–Fletcher–Goldfarb–Shanno (BFGS) algorithm.
+
+Like the Levenberg-Marquardt method, BFGS seeks to find the optimal step by approximating the Hessian matrix. The general Newton update rule is:
+
+$theta_(k+1) = theta_k - alpha_k H_k^(-1) nabla S(theta_k),$
+
+where $alpha_k$ is the step size (learning rate) determined by a line search, and $H_k^(-1)$ is the inverse Hessian matrix at iteration $k$.
+
+Because computing and storing the exact inverse Hessian is mathematically demanding, BFGS iteratively updates an approximation of $H^(-1)$ using the history of the parameter updates and the gradients. Let $s_k = theta_(k+1) - theta_k$ be the change in parameters, and $y_k = nabla S(theta_(k+1)) - nabla S(theta_k)$ be the change in gradients. The secant equation requires that the new approximate Hessian satisfies $H_(k+1) s_k = y_k$.
+
+The standard BFGS method stores a dense approximation matrix, which becomes memory-intensive as the parameter space $(m, L, q)$ grows. Therefore, the Limited-memory BFGS (L-BFGS) algorithm is preferred.
+
+L-BFGS bypasses the need to store the full inverse Hessian matrix entirely. Instead, it implicitly computes the matrix-vector product $H_k^(-1) nabla S(theta_k)$ by storing only the $c$ most recent update vectors $(s_i, y_i)$.
+
+While L-BFGS is a highly robust general-purpose optimizer, it relies purely on the first-order gradients to infer the curvature of the loss landscape. Because it does not explicitly construct the Gauss-Newton approximation $(J_theta^T J_theta)$ derived from the residuals, it generally requires more iterations to converge on tight local minima compared to the Levenberg-Marquardt method when applied strictly to least-squares problems.
+
+#rslt[
+  *Why this second method?*
+
+Compare to the NLS method, this approach is less smart and can be more heavy. Nevertheless, the approximation offered now by BenSaïda's `chaostest` function seems not to be precise enough for our use case.
+
+The real interest on the BFGS method is that it can be easily implemented in Python using the `PyTorch` library. Coupled with the fact that with Télécom Paris I have access to pretty powerful GPUs, we can explore bigger parameters and therefore hope to achieve an exploitable approximation of the initial timeseries.
+]
+#pagebreak()
+= Open questions
+- Is there any other/better method to do such timeseries reconstruction that may be less computationally expensive or/and more efficient ?
+- BenSaïda's paper gives some suggestions but choosing the right range of $theta$ parameters to be tested remains delicate.
+- In fine, `chaostest` not working on our datas is simply a question of pure computational implementation or is it something else ? 
