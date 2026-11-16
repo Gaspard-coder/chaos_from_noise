@@ -120,7 +120,7 @@ All parameters:
     'left' — One-tailed test testing whether the number of runs is significantly less than expected.
 
 *Example of output:*
-File: IMF_1.mat       | h: 1 | p-value: 0.0000 | Runs: 6570 | Decision: REJECT Null (Non-Random) 
+File: IMF_1.mat       | h: 1 | p-value: 0.0000 | Runs: 6570 | Decision: REJECT Null (Non-Random)
 
 with:
 - h (Hypothesis Decision)
@@ -132,7 +132,7 @@ The p-value measures the probability of observing your specific sequence of data
 A "run" is an uninterrupted sequence of consecutive data points that all fall on the same side of a cutoff line (typically the sample median). For example, if a signal's values relative to the median are (+, +, -, -, -, +), that represents exactly 3 runs: one group of positives, one group of negatives, and one final positive. A perfectly random signal has a predictable, average number of runs; too many runs indicates high-frequency oscillation, while too few runs indicates a slow trend or flatline.
 
 == chaostest
-Run test for *chaos* using Bensaïda MATLAB function. 
+Run test for *chaos* using Bensaïda MATLAB function.
 [Explanations of every parameters]
 
 = Experiments
@@ -181,7 +181,7 @@ For now we just tried with default parameters ie:
 - flag: 'VARY' Mode specifying whether to vary order triplets $[L, m, q]$ ('VARY') or fix them ('FIX').#highlight(fill:yellow)[To be discussed]
 Nb : the lyapunov exponent is computed without the use of the associated matlab function => no sampling frequency
 
-We obtain 
+We obtain
 #figure(
   table(
     columns: (1fr,1fr,1fr,1fr,1fr,1fr),
@@ -222,7 +222,7 @@ For every decomposition, the only random signal detected is the original signal 
 This time every original signal is well-detected and there is still no random sub-signals.
 
 == Trying recursive decomposition
-Given the fact that some tests sometimes struggle to characterize the first components of the decomposition (usually L1 and L2), we tried to apply a second time the EMD on them 
+Given the fact that some tests sometimes struggle to characterize the first components of the decomposition (usually L1 and L2), we tried to apply a second time the EMD on them
 to be more precise.
 
 #figure(
@@ -260,7 +260,7 @@ Let's summarize the aim of this work : demonstrating that stochastic ie random/p
 Achieving to demonstrate that we can generate "non-artifical" chaotic signals (in opposite to deterministic-generated chaotic signals like Hennon map,etc) from random (and maybe pseudo-random) samples.
 
 == Potential applications
-To give a new and simple way to generate unpredictable cryptographic keys 
+To give a new and simple way to generate unpredictable cryptographic keys
 
 == Roadmap
 1. 2 datasets: Random samples from atmospheric measurements (`frac_alea`) and pseudo-random samples generated from white noise (`ruido_blanco`)
@@ -268,7 +268,7 @@ To give a new and simple way to generate unpredictable cryptographic keys
 3. We now need to characterize the elements of the EMD to prove that we obtained chaotic sub-signals. There are different criterias:
 
  3.1 `runtest` : as shown before, `runstest` is a reliable MATLAB function to detect the randomness of a signal, with a given trust interval.
- 
+
  3.2 As the sub-components {$L_k$} cannot be random, they are rather deterministic or chaotic. We now need to measure the efficiency of different tools to complete the characterization. Good candidates are :
  - Autocorrelation : A chaotic signal is not correlated.
  - Phase-space (2D and maybe 3D): showing the existence of chaotic behavior as well as attractor is a very good sign of chaoticity.
