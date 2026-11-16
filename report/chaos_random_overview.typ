@@ -388,7 +388,17 @@ First approach with $tau$ from 0 to 2000 (N#sub[sample]/4)
 All of them cross 0: at least partially chaotic. Difficult to use as a precise tool to distinguish determinist and chaotic behavior
 
 === Correlation dimension
-#highlight[To do next]
+Type of fractal dimension #highlight[Why not also try fractal dimension as a chaotic classifier]
+
+The correlation dimension is a measure of the dimensionality of the space occupied by a set of points, widely used to characterize the fractal nature of strange attractors in dynamical systems. 
+
+It is computed using the Grassberger-Procaccia algorithm, which measures how the number of point pairs within a certain distance $r$ (the correlation integral) scales as $r$ approaches zero. 
+
+The classification depends on how $D_2$ behaves as $m$ increases:
+- Chaotic Signals: The correlation dimension $D_2$ will initially increase with $m$, but will eventually saturate at a non-integer (fractal) value. This saturation value is the dimension of the chaotic attractor.
+- Random Noise: The correlation dimension will not saturate. It will continue to increase linearly as $m$ increases ($D_2 approx m$), because white noise fills whatever phase space it is embedded in.
+- Periodic / Deterministic Regular Signals: The correlation dimension will saturate quickly to an integer value (e.g., $D_2 = 1$ for a simple limit cycle or sine wave, $D_2 = 2$ for a quasi-periodic torus).
+
 
 
 = Stochastic analysis workflow
