@@ -135,6 +135,19 @@ A "run" is an uninterrupted sequence of consecutive data points that all fall on
 Run test for *chaos* using Bensaïda MATLAB function.
 [Explanations of every parameters]
 
+== Deter test
+
+This test implements *Recurrence Quantification Analysis (RQA)* that measures the determinism of a 1-dimensional time series.
+
+The method works in 3 parts:
+1. Phase space reconstruction: To analyze the hidden, underlying dynamics of a 1D signal, the algorithm mathematically reconstructs a multi-dimensional phase space. It does this using time-delay embedding, which requires an Embedding Dimension ($m$) (set to 3 in the code) to define the number of dimensions in the new space, and a Time Delay ($tau$) (set to 2) to define the sample gap. This transforms the 1D time series into a matrix of multi-dimensional state vectors, capturing the system's trajectory over time
+
+2. Recurrence Plots
+Dynamical systems theory assumes that deterministic systems will eventually revisit previous states or regions in their phase space. The code computes a distance matrix by measuring the Euclidean distance between every pair of reconstructed state vectors. A threshold ($epsilon$, set to 10% of the maximum distance) is applied to this matrix. If two states are closer than $epsilon$, they are considered a "recurrence." This translates into a binary matrix visualized as a Recurrence Plot, where recurrences are plotted as black dots.
+
+3. Quantifying determinism
+The core theory of RQA states that the visual structures within a Recurrence Plot correlate to the system's physical behavior. Random noise produces isolated, scattered recurrence points. Conversely, deterministic systems produce points that organize into diagonal lines, which occur when two distinct segments of the phase space trajectory evolve similarly over consecutive time steps. The algorithm calculates the Determinism (DET) metric by dividing the number of recurrence points that form diagonal lines by the total number of recurrence points (excluding the main identity diagonal). A DET above 40% is classified here as primarily deterministic, while a lower score indicates random or noisy behavior. #highlight[Where the 40% criteri comes from?]
+
 = Experiments
 
 == First tests
@@ -199,6 +212,36 @@ We obtain
 )
 
 Observations: Efficient for rejecting randomness but not deterministic behavior. #highlight(fill:yellow)[Need to tune it]
+
+=== Deter test
+To give a first idea, we run the deter test on `frac_alea_EMD_2` with $m=3, tau=2 "and" epsilon=0.1$
+
+#figure(
+  table(
+    columns: (auto, auto, auto),
+    inset: 8pt,
+    align: (left, right, left),
+    stroke: none,
+    table.hline(),
+    table.header(
+      [*File Name*], [*DET (%)*], [*Classification*],
+    ),
+    table.hline(stroke: 0.5pt),
+    [`IMF_1.mat`], [20.701], [Random/Noisy],
+    [`IMF_2.mat`], [81.011], [Deterministic],
+    [`IMF_3.mat`], [99.106], [Deterministic],
+    [`IMF_4.mat`], [99.332], [Deterministic],
+    [`IMF_5.mat`], [99.998], [Deterministic],
+    [`IMF_6.mat`], [99.999], [Deterministic],
+    [`IMF_7.mat`], [100], [Deterministic],
+    [`IMF_8.mat`], [100], [Deterministic],
+    [`IMF_9.mat`], [100], [Deterministic],
+    [`IMF_10.mat`], [100], [Deterministic],
+    [`IMF_frac_alea_2.mat`], [2.8544], [Random/Noisy],
+    table.hline(),
+  ),
+  caption: [Determinism classification results $m=3, tau=2 "and" epsilon=0.1$],
+)
 
 == Checking the trustfullness of runstest
 As we see, the rejection of randomness on chaotic signals works pretty well. We tried for each decomposition if runstest's results are consistent.
