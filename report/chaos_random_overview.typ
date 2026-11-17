@@ -616,6 +616,16 @@ One more time, we will try this test by comparing the classification result with
   At least, the correlation dimension is a very good candidate as a deterministic test.
 ]
 
+=== Improving the computation of Correlation dimension
+Despite the test seems already pretty efficient, we want it to be perfect on the signal classification. 
+To achieve this goal, we need to calibrate the different thresold. For this purpose, we will one more time use synthetic signals:
+- Deterministic: Chirp, exxponential, henon map, linera, logistic map, lorenz map, polynomial, quadratic, rossler map, sawtooth, sinusoid, two tone 
+- Random: AR1 colored, smoothed noise, white gaussian, white uniform
+
+First approach with a light $m=6$ (`cor_dim_sweep('database/generated_sig/deter_test_sweep',6,'auto',true);`)
+
+
+
 #pagebreak()
 
 = Stochastic analysis workflow
