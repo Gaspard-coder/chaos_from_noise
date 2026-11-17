@@ -400,7 +400,37 @@ This time, we got some misclassification:
   image("figures/deter_test_10000.png")
 )
 
-But given the type of application, we can remove the binary and the random walk from the candidates and redo a parameter research.
+But given the type of application, we can remove the binary and the random walk from the candidates and redo a parameter research. 
+
+It leads to
+
+#text(weight: "bold")[Top parameter sets (ranked by BalancedAccuracy, threshold = 40%):]
+
+#table(
+  columns: (auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto),
+  align: center,
+  inset: 5pt,
+  stroke: 0.5pt,
+
+  [*m*], [*tau*], [*eps*], [*Accuracy*], [*BalancedAccuracy*],
+  [*TPR*], [*TNR*], [*AUC*], [*OptThreshold*],
+  [*OptBalAccuracy*], [*MeanDET_Det*], [*MeanDET_Rnd*], [*Margin*],
+
+  [6], [2], [0.01], [1], [1], [1], [1], [1], [38.492], [1], [96.149], [0], [76.983],
+  [5], [2], [0.01], [1], [1], [1], [1], [1], [38.113], [1], [95.992], [0], [76.227],
+  [4], [2], [0.01], [1], [1], [1], [1], [1], [38.291], [1], [95.852], [0.041086], [75.858],
+  [3], [2], [0.01], [1], [1], [1], [1], [1], [37.999], [1], [95.22], [0.20137], [74.399],
+  [2], [2], [0.01], [1], [1], [1], [1], [1], [39.74], [1], [93.821], [1.4215], [71.468],
+  [6], [2], [0.03], [1], [1], [1], [1], [1], [36.588], [1], [95.899], [0.37637], [69.935],
+  [5], [2], [0.03], [1], [1], [1], [1], [1], [38.124], [1], [96.06], [0.80833], [69.479],
+  [4], [2], [0.03], [1], [1], [1], [1], [1], [41.003], [1], [95.917], [1.9378], [67.218],
+  [3], [1], [0.01], [1], [1], [1], [1], [1], [56.279], [1], [94.885], [12.998], [62.955],
+  [4], [1], [0.01], [1], [1], [1], [1], [1], [56.155], [1], [96.327], [13.248], [62.062],
+)
+
+#rslt[
+  Perfect classification! The optimized parameters to be used for deter test on signal of 10 000 samples will be $(m=6,tau=2,epsilon=0.01)$
+]
 
 == Checking the trustfullness of runstest
 As we see, the rejection of randomness on chaotic signals works pretty well. We tried for each decomposition if runstest's results are consistent.
