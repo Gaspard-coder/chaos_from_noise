@@ -336,7 +336,9 @@ Finally, with $epsilon=0.001$, each means a difference in the trajectory of 0.1%
   caption: [Determinism classification results $m=3, tau=2 "and" epsilon=0.01$],
 )
 
-Fine tuning only $epsilon$ might not be enough to distinguish determinist from other signals. To also optimize $m "and" tau$, we will need a pre-classify set of signal as a training reference.
+Fine tuning only $epsilon$ might not be enough to distinguish determinist from other signals. To also optimize $m "and" tau$, we will need a pre-classify set of signal as a training reference. #highlight[TO DO NEXT]
+
+=== Fine-tuning deter test parameters
 
 == Checking the trustfullness of runstest
 As we see, the rejection of randomness on chaotic signals works pretty well. We tried for each decomposition if runstest's results are consistent.
