@@ -28,29 +28,30 @@ dist_matrix = squareform(pdist(X_emb, 'euclidean'));
 % Definition of the Threshold (Épsilon). Is frequent es el eps of the max distance.
 epsilon = eps * max(dist_matrix(:));
 
-% Binary Recurrence Matrix (1 if there ir, 0 if there isn't)
-R = double(dist_matrix <= epsilon);
+% Binary Recurrence Matrix (logical is faster and uses less memory than double)
+R = dist_matrix <= epsilon;
 
 %% 4. Estimation of the Determinism Degree (RQA simplified)
-lineas_diagonales = 0;
-total_recurrencias = sum(R(:)) - N_emb; % subtracting the main diagonal
+total_recurrencias = nnz(R) - N_emb; % subtracting the main diagonal
 
-for k = 1:(N_emb-2)
-    diag_k = diag(R, k); % Upper diagonal k
+if total_recurrencias <= 0
+    DET = 0; % No off-diagonal recurrences (prevents NaN)
+else
+    % Vectorized detection of diagonal lines of length >= 2
+    % A point is in a valid diagonal if its up-left or down-right neighbor is 1.
+    P = false(N_emb + 2);
+    P(2:N_emb+1, 2:N_emb+1) = R;
 
-    % Find contiguous runs of 1s along the diagonal
-    padded = [0; diag_k(:); 0];
-    starts = find(diff(padded) == 1);
-    ends   = find(diff(padded) == -1);
-    run_lengths = ends - starts;
+    % Check neighbors using shifted matrices
+    hasNeighbour = P(1:N_emb, 1:N_emb) | P(3:N_emb+2, 3:N_emb+2);
 
-    % Sum only runs of length >= 2 (each point counted once)
-    lineas_diagonales = lineas_diagonales + sum(run_lengths(run_lengths >= 2));
+    % Mask with actual recurrences, looking only at the upper triangle
+    inLine = triu(R & hasNeighbour, 1);
+
+    % Multiply by 2 to include symmetric lower triangle
+    DET = 100 * (2 * nnz(inLine)) / total_recurrencias;
 end
 
-% Multiply by 2 to include symmetric lower diagonals
-lineas_diagonales = lineas_diagonales * 2;
-DET = (lineas_diagonales / total_recurrencias) * 100;
 
 %% 5. Visualización de Resultados
 % %figure('Position', [100, 100, 950, 450]);
