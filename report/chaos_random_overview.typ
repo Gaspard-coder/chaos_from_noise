@@ -432,6 +432,36 @@ It leads to
   Perfect classification! The optimized parameters to be used for deter test on signal of 10 000 samples will be $(m=6,tau=2,epsilon=0.01)$
 ]
 
+=== Classifying the EMD with optimized deter test
+We now apply `deter_test_batch` to `frac_alea_EMD_2` with the optimized parameters $m=6,tau=2,epsilon=0.01$
+
+#figure(
+  table(
+    columns: (auto, auto, auto),
+    inset: 8pt,
+    align: (left, right, left),
+    stroke: none,
+    table.hline(),
+    table.header(
+      [*File Name*], [*DET (%)*], [*Classification*],
+    ),
+    table.hline(stroke: 0.5pt),
+    [`IMF_1.mat`], [0], [Random/Noisy],
+    [`IMF_2.mat`], [11.765], [Random/Noisy],
+    [`IMF_3.mat`], [85.82], [Random/Noisy],
+    [`IMF_4.mat`], [97.08], [Deterministic],
+    [`IMF_5.mat`], [99.633], [Deterministic],
+    [`IMF_6.mat`], [99.706], [Deterministic],
+    [`IMF_7.mat`], [99.844], [Deterministic],
+    [`IMF_8.mat`], [99.964], [Deterministic],
+    [`IMF_9.mat`], [99.999], [Deterministic],
+    [`IMF_10.mat`], [99.999], [Deterministic],
+    [`IMF_frac_alea_2.mat`], [0], [Random/Noisy],
+    table.hline(),
+  ),
+  caption: [Determinism classification results $m=6, tau=2 "and" epsilon=0.01$],
+)
+
 == Checking the trustfullness of runstest
 As we see, the rejection of randomness on chaotic signals works pretty well. We tried for each decomposition if runstest's results are consistent.
 
