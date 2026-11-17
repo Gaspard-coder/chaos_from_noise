@@ -376,6 +376,31 @@ We generated 3 independent realisations of each signal, leading to 54 labelled t
 
 We did the computation again but with 10 000 points:
 
+#text(weight: "bold")[Top parameter sets (ranked by BalancedAccuracy, threshold = 40%):]
+
+#table(
+  columns: (auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto),
+  align: center,
+  inset: 5pt,
+  stroke: 0.5pt,
+
+  [*m*], [*tau*], [*eps*], [*Accuracy*], [*BalancedAccuracy*],
+  [*TPR*], [*TNR*], [*AUC*], [*OptThreshold*],
+  [*OptBalAccuracy*], [*MeanDET_Det*], [*MeanDET_Rnd*], [*Margin*],
+
+  [6], [2], [0.01], [0.96296], [0.94444], [1], [0.88889], [1], [71.027], [1], [96.149], [7.9543], [11.912],
+  [5], [2], [0.01], [0.96296], [0.94444], [1], [0.88889], [1], [71.696], [1], [95.992], [8.8499], [9.0605],
+  [4], [2], [0.01], [0.96296], [0.94444], [1], [0.88889], [1], [73.043], [1], [95.852], [10.334], [6.355],
+  [5], [3], [0.01], [0.96296], [0.94444], [1], [0.88889], [0.99846], [71.094], [0.98611], [95.808], [8.7746], [-7.3647],
+  [4], [3], [0.01], [0.96296], [0.94444], [1], [0.88889], [0.99846], [72.814], [0.98611], [95.744], [10.498], [-8.2438],
+)
+This time, we got some misclassification:
+
+#figure(
+  image("figures/deter_test_10000.png")
+)
+
+But given the type of application, we can remove the binary and the random walk from the candidates and redo a parameter research.
 
 == Checking the trustfullness of runstest
 As we see, the rejection of randomness on chaotic signals works pretty well. We tried for each decomposition if runstest's results are consistent.
