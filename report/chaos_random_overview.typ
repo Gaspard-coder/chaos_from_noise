@@ -339,6 +339,43 @@ Finally, with $epsilon=0.001$, each means a difference in the trajectory of 0.1%
 Fine tuning only $epsilon$ might not be enough to distinguish determinist from other signals. To also optimize $m "and" tau$, we will need a pre-classify set of signal as a training reference. #highlight[TO DO NEXT]
 
 === Fine-tuning deter test parameters
+To proceed the most efficient sweep in the parameters ($m, tau, epsilon$) of deter test, we generated 10 000 points synthetical signals and labelled them:
+- Deterministic: Chirp, exxponential, henon map, linera, logistic map, lorenz map, polynomial, quadratic, rossler map, sawtooth, sinusoid, two tone 
+- Random: AR1 colored, random binary, random walk, smoothed noise, white gaussian, white uniform
+
+We used the following quality parameters:
+- Accuracy, BalancedAccuracy, TPR (deterministic recall),
+- TNR (random recall)  -> at the fixed opts.Threshold
+- AUC                  -> threshold-free separability
+- OptThreshold, OptBalAccuracy -> best achievable threshold
+- MeanDET_Det, MeanDET_Rnd     -> mean DET of each class
+- Margin = min(DET of deterministic) - max(DET of random);-> 0 means a perfect separating threshold exists
+
+We generated 3 independent realisations of each signal, leading to 54 labelled timeseries to be used. We swept for $m in [2:6], tau in [1:3] "and" epsilon in [0.01,0.03,0.05,0.07,0.1]$. To shorten the computation time, we first used only 2000 points for the first try:
+
+#table(
+  columns: (auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto),
+  align: center,
+  inset: 5pt,
+  stroke: 0.5pt,
+
+  [*m*], [*tau*], [*eps*], [*Accuracy*], [*Balanced Accuracy*],
+  [*TPR*], [*TNR*], [*AUC*], [*OptThreshold*],
+  [*OptBalAccuracy*], [*MeanDET_Det*], [*MeanDET_Rnd*], [*Margin*],
+
+  [5], [2], [0.01], [1], [1], [1], [1], [1], [50.034], [1], [96.092], [3.1745], [50.263],
+  [6], [2], [0.01], [1], [1], [1], [1], [1], [47.22],  [1], [96.16],  [2.1236], [48.964],
+  [4], [2], [0.01], [1], [1], [1], [1], [1], [52.834], [1], [96.078], [4.7419], [46.886],
+  [3], [2], [0.01], [1], [1], [1], [1], [1], [55.905], [1], [95.599], [7.5883], [38.093],
+  [4], [3], [0.01], [1], [1], [1], [1], [1], [45.167], [1], [96.114], [5.1],    [31.859],
+)
+
+#rslt[
+  At first sight, the best configuration seems to be $(m=5,tau=2,epsilon=0.01)$
+]
+
+We did the computation again but with 10 000 points:
+
 
 == Checking the trustfullness of runstest
 As we see, the rejection of randomness on chaotic signals works pretty well. We tried for each decomposition if runstest's results are consistent.

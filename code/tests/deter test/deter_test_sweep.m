@@ -143,7 +143,7 @@ end
 %% ---- Cross-check against deter_test_3 (if available) ---------------
 if ~isempty(firstValid) && exist('deter_test_3', 'file') == 2
     im0 = firstValid(1); it0 = firstValid(2);
-    for is = [find(isDet, 1), find(~isDet, 1)]'
+    for is = [find(isDet, 1), find(~isDet, 1)]
         ref = deter_test_3(X{is}, m_range(im0), tau_range(it0), eps_range(1));
         if isnan(ref), ref = 0; end
         if abs(ref - DET(is, 1, im0, it0)) > 1e-9
