@@ -99,7 +99,7 @@ $
   T_M = product_(t=1)^M J_t.
 $
 
-Then, we introduce $U_0 = mat(1;0;dots.v;0)$ an unitary vector leading to 
+Then, we introduce $U_0 = mat(1;0;dots.v;0)$ an unitary vector leading to
 $
   V_M = (T_M U_0)'(T_M U_0),
 $
@@ -112,7 +112,7 @@ $
   lambda = lim_(M arrow.r infinity) 1/(2M) ln(v_1).
 $
 
-Litterature suggests that the approxmiation 
+Litterature suggests that the approxmiation
 $
   hat(lambda) = 1/(2M) ln(v_1),
 $
@@ -135,7 +135,7 @@ $
 $
 where:
 - q is the number of neurons of the network
-- $A = {alpha_j}$ are inter-layers connections 
+- $A = {alpha_j}$ are inter-layers connections
 - $alpha_0$ is the network threshold
 - $B = {beta_(i,j)}$ are the connection weights
 - $epsilon_t$ is the added white noise
@@ -143,10 +143,10 @@ where:
 
 As the logistic function $Psi = 1/(1+e^(-u))$ is usually used, the hyperbolic tangent $Psi = tanh$ is more efficient for this type of application.
 
-So, the reconstruction problem becomes 
+So, the reconstruction problem becomes
 $
-  "Find the best set of parameters" theta = (m,L,q,A,B) "so the reconstructed timeseries" 
-  
+  "Find the best set of parameters" theta = (m,L,q,A,B) "so the reconstructed timeseries"
+
   \ hat(x_t) approx alpha_0 + sum_(j=1)^q alpha_j tanh(
   beta_(0,j) + sum_(i=1)^m beta_(i,j) x_(t-i L)
 ) + epsilon_t \
@@ -203,4 +203,18 @@ The real interest on the BFGS method is that it can be easily implemented in Pyt
 = Open questions
 - Is there any other/better method to do such timeseries reconstruction that may be less computationally expensive or/and more efficient ?
 - BenSaïda's paper gives some suggestions but choosing the right range of $theta$ parameters to be tested remains delicate.
-- In fine, `chaostest` not working on our datas is simply a question of pure computational implementation or is it something else ? 
+- In fine, `chaostest` not working on our datas is simply a question of pure computational implementation or is it something else ?
+
+= First results
+
+== MATLAB chaostest
+After optimization, still struggles, especially with the first, highly chaotic, IMF's. Better after
+
+== L-BFGS approach
+Leads to better results but very long to compute on Telecom's GPU.
+#highlight[Try to optimize even more the computation?]
+
+== The third path: optimized NLS in python
+Trying to keep the best of both worlds:
+- Going back to BenSaïda's approach of optimizing S(theta) with NLS
+- Implementing it in python and running it on GPU to achieve a better reconstruction?
