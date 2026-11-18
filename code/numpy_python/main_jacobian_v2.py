@@ -4,30 +4,6 @@
 main_jacobian.py  --  Lyapunov exponent of a time series with the Jacobian
 method (BenSaida / Shintani-Linton), neural-network map fitted by
 Levenberg-Marquardt (non-linear least squares), CPU + multiprocessing.
-
-Pipeline for each signal (e.g. each IMF):
-  0. standardise the signal (lambda is invariant to affine rescaling)
-  1. SCREENING : for every (L, m, q) and every random start, a short LM run
-  2. POLISH    : for every (L, m, q), the `--topk` best starts get a long LM run
-  3. LAMBDA    : renormalised Jacobian product, two estimators
-                 - lambda_T : all consecutive Jacobians          (M = T)
-                 - lambda_h : every h-th Jacobian, h = round(T^(1/3))  (M ~ T^(2/3))
-  4. SELECTION : (L, m, q) with the largest lambda (BenSaida's rule) among the
-                 combos whose lambda is stable across their polished starts
-                 (--max-lam-spread), or the smallest SSE with --select sse
-
-Run on a farm node (examples):
-    python main_jacobian.py --signal logistic --r 3.9 --n 2000 --max-l 1 --max-m 2 --max-q 3
-    python main_jacobian.py --signal white --n 10000
-    python main_jacobian.py --signal file --input imfs.mat --key imf --imf all --workers 32
-
-Main points compared with the previous version
-  * random multi-start (constant 0.5 init made all neurons identical -> q ignored)
-  * XLAG built once per (L, m); forward pass shared by residual and Jacobian
-  * vectorised Jacobian (no Python loop over neurons)
-  * BLAS threads forced to 1 per process (no oversubscription) and tasks
-    sorted heaviest-first
-  * lambda computed with a renormalised product (no under/overflow)
 """
 
 # --- keep every worker single-threaded: must be set BEFORE importing numpy ---
@@ -163,9 +139,7 @@ def init_theta(prob, rng, n_cand):
 # Lyapunov exponent: renormalised product of companion Jacobians
 # ----------------------------------------------------------------------------
 def lyapunov(XLAG, th, q, fn, stride):
-    """lambda = (1/M) sum_t log || J_t v_{t-1} ||, v_0 = e_1, v renormalised each step.
-    Equals (1/2M) ln((T_M U0)'(T_M U0)) but cannot under/overflow.
-    stride = 1 -> all T consecutive Jacobians; stride = h -> every h-th one."""
+    """lambda = (1/M) sum_t log || J_t v_{t-1} ||, v_0 = e_1, v renormalised each step."""
     T, m = XLAG.shape
     B, C, A, _ = unpack(th, q, m)
     _, dp = act(XLAG @ B.T + C, fn)
@@ -271,7 +245,7 @@ def load_signals(args):
     data = np.asarray(data, dtype=np.float64)
     if data.ndim == 1:
         return [(os.path.basename(path), data)]
-    if data.shape[0] < data.shape[1]:          # rows = IMFs -> columns = IMFs
+    if data.shape[0] < data.shape[1]:
         data = data.T
     if args.imf == "all":
         ids = range(data.shape[1])
@@ -298,7 +272,7 @@ def analyse(x_raw, name, cfg, workers):
     combos = [(L, m, q) for L in lags for m in range(1, cfg["max_m"] + 1)
               for q in range(1, cfg["max_q"] + 1)
               if N - m * L > n_params(q, m) + 1]
-    combos.sort(key=lambda c: -n_params(c[2], c[1]))            # heaviest first
+    combos.sort(key=lambda c: -n_params(c[2], c[1]))
     n_starts = cfg["starts"]
     print(f"\n=== {name}: N={N}{' (decimated x%d)' % d if d > 1 else ''}, "
           f"{len(combos)} combos x {n_starts} starts, {workers} workers ===", flush=True)
@@ -337,7 +311,6 @@ def analyse(x_raw, name, cfg, workers):
                 print(f"  polish [{i:4d}/{len(ptasks)}]  [{time.time() - t0:6.1f}s]", flush=True)
 
     # ---- table ----------------------------------------------------------------
-    var_t = float(np.var(x))
     rows = []
     for c in sorted(polished):
         lst = [v for v in polished[c] if np.isfinite(v[0])]
@@ -345,9 +318,12 @@ def analyse(x_raw, name, cfg, workers):
             continue
         lst.sort(key=lambda v: v[0])
         sse, lam_T, lam_h, th = lst[0]
-        T = N - c[1] * c[0]
+        target = x[c[1] * c[0]:]
+        T = len(target)
+        var_t = float(np.var(target))
         lamsT = [v[1] for v in lst if not np.isnan(v[1])]
         rows.append(dict(L=c[0], m=c[1], q=c[2], sse=sse, nmse=sse / (T * var_t),
+                         rmse=math.sqrt(sse / T),
                          lam_T=lam_T, lam_h=lam_h,
                          lamT_min=min(lamsT) if lamsT else float("nan"),
                          lamT_max=max(lamsT) if lamsT else float("nan"),
@@ -358,8 +334,6 @@ def analyse(x_raw, name, cfg, workers):
     min_sse = min(r["sse"] for r in rows)
 
     def stable(r):
-        # lambda must agree across the polished starts of this combo -- or be
-        # unambiguously negative for all of them (then only the sign matters)
         if r["lamT_max"] < -0.5:
             return True
         sp = r["lamT_max"] - r["lamT_min"]
@@ -379,7 +353,7 @@ def analyse(x_raw, name, cfg, workers):
         best = max(eligible, key=lambda r: (r[key] if np.isfinite(r[key]) else -math.inf,
                                             -(r["L"] + r["m"] + r["q"])))
 
-    sc = 1.0 / d                                    # per-original-sample conversion
+    sc = 1.0 / d
     print(f"\n  {'L':>2} {'m':>2} {'q':>2} | {'SSE':>10} {'NMSE':>9} | {'lam_T':>8} {'lam_h':>8} "
           f"| lam_T over polished starts (min..max)")
     for r in rows:
@@ -392,9 +366,31 @@ def analyse(x_raw, name, cfg, workers):
           f"{' (per original sample)' if d > 1 else ''}  "
           f"SSE={best['sse']:.3e}  NMSE={best['nmse']:.2e}  [{time.time() - t0:.1f}s]", flush=True)
 
+    # Reconstruction metrics on standardised signal
+    bL, bm, bq = best["L"], best["m"], best["q"]
+    XLAG_b = lag_matrix(x, bL, bm)
+    y_target = x[bm * bL:]
+    B_b, C_b, A_b, D_b = unpack(best["theta"], bq, bm)
+    y_fit = D_b + act(XLAG_b @ B_b.T + C_b, cfg["activation"])[0] @ A_b
+    diff = y_target - y_fit
+    sse_val = float(np.sum(diff ** 2))
+    nmse_val = sse_val / (len(y_target) * float(np.var(y_target)))
+    rmse_val = float(np.sqrt(np.mean(diff ** 2)))
+    mad_val = float(np.mean(np.abs(diff)))
+    max_ad_val = float(np.max(np.abs(diff)))
+
+    print(f"\n--- Reconstruction Differences ---")
+    print(f"Sum of Squared Errors (SSE):    {sse_val:.6g}")
+    print(f"Normalized MSE (NMSE):          {nmse_val:.6g}")
+    print(f"Root Mean Squared Error (RMSE): {rmse_val:.6g}")
+    print(f"Mean Absolute Difference:       {mad_val:.6g}")
+    print(f"Maximum Absolute Difference:    {max_ad_val:.6g}", flush=True)
+
     out = dict(name=name, N=N, decimate=d, selected=dict(L=best["L"], m=best["m"], q=best["q"]),
-               lambda_T=best["lam_T"] * sc, lambda_h=best["lam_h"] * sc, sse=best["sse"],
-               nmse=best["nmse"], seconds=time.time() - t0,
+               lambda_T=best["lam_T"] * sc, lambda_h=best["lam_h"] * sc,
+               sse=sse_val, nmse=nmse_val, rmse=rmse_val,
+               mean_abs_diff=mad_val, max_abs_diff=max_ad_val,
+               seconds=time.time() - t0,
                table=[{k: v for k, v in r.items() if k != "theta"} for r in rows])
     return out, best, x
 
@@ -479,7 +475,7 @@ def main():
         results.append(out)
         if args.plot:
             plot_reconstruction(xs, best, cfg, f"{os.path.splitext(args.out)[0]}_{name}.png")
-        with open(args.out, "w") as f:                   # rewrite after each signal
+        with open(args.out, "w") as f:
             json.dump(results, f, indent=2)
     print(f"\nsaved {args.out}")
 

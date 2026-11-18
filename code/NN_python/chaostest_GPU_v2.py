@@ -3,36 +3,6 @@
 """
 chaostest_GPU.py  --  Lyapunov exponent with the Jacobian method, neural-network
 map fitted by (batched) L-BFGS in PyTorch.  GPU if available, CPU otherwise.
-
-Pipeline for each signal (e.g. each IMF) and each (L, m, q):
-  1. INIT    : n_cand random hidden layers (B, C); the output weights (A, D) are
-               solved in closed form (linear least squares, batched); the best
-               n_starts candidates are kept.            -> replaces 1000 Adam steps
-  2. SCREEN  : batched L-BFGS on all n_starts for --screen-iters iterations
-  3. POLISH  : top-k starts, batched L-BFGS for --polish-iters iterations
-               (--polish torch : stock torch.optim.LBFGS, one start at a time)
-  4. LAMBDA  : renormalised Jacobian product on the CPU, both estimators
-               lambda_T (all consecutive Jacobians) and lambda_h (every h-th, h=T^(1/3))
-  5. SELECT  : largest lambda among combos whose lambda is stable across the polished
-               starts (BenSaida's rule), or smallest SSE (--select sse)
-
-What changed compared with the previous chaostest_GPU.py
-  * float64 by default: tolerances of 1e-9 are meaningless in float32, and the old
-    polish stage burnt its whole iteration budget on float32 noise
-  * 1000 Adam steps x 1024 starts replaced by a closed-form output-layer solve
-  * L-BFGS is batched: every start has its OWN history and line search but all of
-    them advance in the same GPU kernels (no Python loop over starts, no
-    per-iteration host sync inside torch.optim.LBFGS' two-loop recursion)
-  * analytic gradient (no autograd graph); checked against autograd with --check
-  * several starts are polished instead of only the best-after-Adam one
-  * lambda: renormalised product (no under/overflow), computed once per
-    polished start; reports both M=T and M=T^(2/3) estimators
-  * per-stage timings in the log
-
-Examples
-    python chaostest_GPU.py --signal logistic --r 3.9 --n 2000 --max-l 1 --max-m 2 --max-q 3
-    python chaostest_GPU.py --signal file --input imfs.mat --key imf --imf all
-    python chaostest_GPU.py --check            # analytic-gradient test
 """
 import argparse
 import json
@@ -246,11 +216,7 @@ def random_feature_init(model, n_cand, n_keep, chunk, gen):
 @torch.no_grad()
 def lbfgs_batched(model, theta, max_iter, hist=20, gtol=1e-9, ftol=1e-13, patience=10,
                   max_ls=25, c1=1e-4, log=None, log_every=0):
-    """Minimise the S independent SSE problems of `model` starting from theta (S, P).
-
-    Per start: own L-BFGS history, own Armijo backtracking line search, own stopping
-    test (|g|_inf < gtol, or relative decrease < ftol for `patience` iterations, or 3
-    consecutive line-search failures).  Returns (theta, losses)."""
+    """Minimise the S independent SSE problems of `model` starting from theta (S, P)."""
     S, P = theta.shape
     dev, dt = theta.device, theta.dtype
     theta = theta.clone()
@@ -274,22 +240,21 @@ def lbfgs_batched(model, theta, max_iter, hist=20, gtol=1e-9, ftol=1e-13, patien
         if not bool(active.any()):
             break
 
-        # ---- search direction: two-loop recursion, vectorised over starts ----------
         qv = g.clone()
         al = torch.zeros((S, hist), device=dev, dtype=dt)
-        for k in range(hist):                                   # newest -> oldest
+        for k in range(hist):
             j = (ptr - 1 - k) % hist
             a = rho[:, j] * (Sh[:, j] * qv).sum(1)
             al[:, j] = a
             qv = qv - a[:, None] * Yh[:, j]
         r = gamma[:, None] * qv
-        for k in range(hist - 1, -1, -1):                       # oldest -> newest
+        for k in range(hist - 1, -1, -1):
             j = (ptr - 1 - k) % hist
             b = rho[:, j] * (Yh[:, j] * r).sum(1)
             r = r + Sh[:, j] * (al[:, j] - b)[:, None]
         d = -r
         gd = (g * d).sum(1)
-        nd = ~(gd < 0)                                          # not a descent direction (or NaN)
+        nd = ~(gd < 0)
         if bool(nd.any()):
             d = torch.where(nd[:, None], -g, d)
             gd = torch.where(nd, -(g * g).sum(1), gd)
@@ -302,7 +267,6 @@ def lbfgs_batched(model, theta, max_iter, hist=20, gtol=1e-9, ftol=1e-13, patien
         alpha = torch.where(first, torch.clamp(1.0 / g.abs().sum(1).clamp_min(1e-300), max=1.0),
                             torch.ones(S, device=dev, dtype=dt))
 
-        # ---- Armijo backtracking, only on the starts that still need it -------------
         th_new = theta.clone()
         f_new = f.clone()
         accepted = torch.zeros(S, dtype=torch.bool, device=dev)
@@ -323,7 +287,6 @@ def lbfgs_batched(model, theta, max_iter, hist=20, gtol=1e-9, ftol=1e-13, patien
             alpha[ni] = alpha[ni] * 0.5
         failed = active & ~accepted
 
-        # ---- gradient at the new point, curvature pair ------------------------------
         _, g_new = model.loss_grad(th_new)
         s = th_new - theta
         y = g_new - g
@@ -345,7 +308,7 @@ def lbfgs_batched(model, theta, max_iter, hist=20, gtol=1e-9, ftol=1e-13, patien
         f = torch.where(accepted, f_new, f)
         g = torch.where(accepted[:, None], g_new, g)
         first = (first & ~accepted) | failed
-        if bool(failed.any()):                                  # restart those from steepest descent
+        if bool(failed.any()):
             rho[failed] = 0.0
             Sh[failed] = 0.0
             Yh[failed] = 0.0
@@ -359,8 +322,7 @@ def lbfgs_batched(model, theta, max_iter, hist=20, gtol=1e-9, ftol=1e-13, patien
 
 
 def polish_torch_lbfgs(model, theta, iters, log=None):
-    """Reference path: stock torch.optim.LBFGS (strong Wolfe), one start at a time,
-    using the analytic gradient."""
+    """Reference path: stock torch.optim.LBFGS (strong Wolfe), one start at a time."""
     out, fs = [], []
     for i in range(theta.shape[0]):
         th = theta[i:i + 1].clone().requires_grad_(True)
@@ -376,7 +338,7 @@ def polish_torch_lbfgs(model, theta, iters, log=None):
             return f[0]
         try:
             opt.step(closure)
-        except Exception as e:                                   # keep whatever we have
+        except Exception as e:
             if log:
                 log(f"      torch LBFGS exception: {e}")
         with torch.no_grad():
@@ -418,7 +380,6 @@ def fit_combo(XLAG_np, target_np, L, m, q, cfg, dev, dt, gen, log):
     else:
         th2, f2 = polish_torch_lbfgs(model, th1[order], cfg["polish_iters"], log)
     sync(dev); tm["polish"] = time.time() - t
-    # keep a polished result only if it did not get worse than the screened one
     f2 = torch.where(torch.isfinite(f2), f2, torch.full_like(f2, math.inf))
     return th2.double().cpu().numpy(), f2.double().cpu().numpy(), float(sse0[0]), tm
 
@@ -465,8 +426,10 @@ def analyse(x_raw, name, cfg, dev, dt, log):
         sse, lam_T, lam_h, th = cand[0]
         lamsT = [c[1] for c in cand if not np.isnan(c[1])]
         var_t = float(np.var(target))
-        rows.append(dict(L=L, m=m, q=q, sse=sse, nmse=sse / (len(target) * var_t), lam_T=lam_T,
-                         lam_h=lam_h, lamT_min=min(lamsT) if lamsT else float("nan"),
+        rows.append(dict(L=L, m=m, q=q, sse=sse, nmse=sse / (len(target) * var_t),
+                         rmse=math.sqrt(sse / len(target)),
+                         lam_T=lam_T, lam_h=lam_h,
+                         lamT_min=min(lamsT) if lamsT else float("nan"),
                          lamT_max=max(lamsT) if lamsT else float("nan"), theta=th))
         log(f"  [{i:3d}/{len(combos)}] (L={L}, m={m}, q={q}) | init SSE={sse_init:.2e} -> SSE={sse:.3e} | "
             f"lam_T={fmt(lam_T, '+.4f')} lam_h={fmt(lam_h, '+.4f')} | "
@@ -508,9 +471,32 @@ def analyse(x_raw, name, cfg, dev, dt, log):
         f"lambda_T={best['lam_T'] * sc:+.4f}  lambda_h={best['lam_h'] * sc:+.4f}"
         f"{' (per original sample)' if d > 1 else ''}  SSE={best['sse']:.3e}  NMSE={best['nmse']:.2e}  "
         f"[{time.time() - t0:.1f}s]")
+
+    # Reconstruction metrics on standardised signal
+    bL, bm, bq = best["L"], best["m"], best["q"]
+    XLAG_b = lag_matrix_np(x, bL, bm)
+    y_target = x[bm * bL:]
+    B_b, C_b, A_b, D_b = unpack_np(best["theta"], bq, bm)
+    y_fit = D_b + act_np(XLAG_b @ B_b.T + C_b, cfg["activation"])[0] @ A_b
+    diff = y_target - y_fit
+    sse_val = float(np.sum(diff ** 2))
+    nmse_val = sse_val / (len(y_target) * float(np.var(y_target)))
+    rmse_val = float(np.sqrt(np.mean(diff ** 2)))
+    mad_val = float(np.mean(np.abs(diff)))
+    max_ad_val = float(np.max(np.abs(diff)))
+
+    log(f"\n--- Reconstruction Differences ---")
+    log(f"Sum of Squared Errors (SSE):    {sse_val:.6g}")
+    log(f"Normalized MSE (NMSE):          {nmse_val:.6g}")
+    log(f"Root Mean Squared Error (RMSE): {rmse_val:.6g}")
+    log(f"Mean Absolute Difference:       {mad_val:.6g}")
+    log(f"Maximum Absolute Difference:    {max_ad_val:.6g}")
+
     out = dict(name=name, N=N, decimate=d, selected=dict(L=best["L"], m=best["m"], q=best["q"]),
-               lambda_T=best["lam_T"] * sc, lambda_h=best["lam_h"] * sc, sse=best["sse"],
-               nmse=best["nmse"], seconds=time.time() - t0,
+               lambda_T=best["lam_T"] * sc, lambda_h=best["lam_h"] * sc,
+               sse=sse_val, nmse=nmse_val, rmse=rmse_val,
+               mean_abs_diff=mad_val, max_abs_diff=max_ad_val,
+               seconds=time.time() - t0,
                table=[{k: v for k, v in r.items() if k != "theta"} for r in rows])
     return out, best, x
 
@@ -539,7 +525,7 @@ def pick_device(name, log):
             prop = torch.cuda.get_device_properties(dev)
             log(f"GPU: {prop.name}, compute capability {prop.major}.{prop.minor}, "
                 f"{prop.total_memory / 2 ** 30:.1f} GiB")
-            _ = (torch.ones(8, device=dev, dtype=torch.float64) * 2).sum().item()   # kernel really runs?
+            _ = (torch.ones(8, device=dev, dtype=torch.float64) * 2).sum().item()
         except Exception as e:
             log(f"WARNING: CUDA device unusable with this PyTorch build ({e}); falling back to CPU. "
                 f"(Old GPUs such as the K80 need an old PyTorch build.)")
