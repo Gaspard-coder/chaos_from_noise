@@ -326,3 +326,19 @@ if __name__ == '__main__':
         L_best, m_best, q_best = best_orders
         y_reconstructed = reconstruct_and_plot_pytorch(X_cpu, best_params, L_best, m_best, q_best, active_fn)
         logger.info("Saved reconstruction plot to: reconstruction.png")
+
+        # --- COMPUTE AND LOG FINAL RECONSTRUCTION METRICS ---
+        target_cpu = X_cpu[m_best * L_best:].numpy()
+        diff_vector = target_cpu - y_reconstructed
+
+        sse_val = np.sum(diff_vector**2)
+        rmse_val = np.sqrt(np.mean(diff_vector**2))
+        mean_abs_diff = np.mean(np.abs(diff_vector))
+        max_abs_diff = np.max(np.abs(diff_vector))
+
+        logger.info("")
+        logger.info("--- Reconstruction Differences ---")
+        logger.info(f"Sum of Squared Errors (SSE): {sse_val:.6g}")
+        logger.info(f"Root Mean Squared Error (RMSE): {rmse_val:.6g}")
+        logger.info(f"Mean Absolute Difference:    {mean_abs_diff:.6g}")
+        logger.info(f"Maximum Absolute Difference: {max_abs_diff:.6g}")

@@ -1,4 +1,5 @@
 param= 2,3,6
+file = logistic_map.mat
 
 2026-11-18 01:51:51 | INFO | Saving execution logs to: chaostest_GPU_20261118_015151.log
 2026-11-18 01:51:53 | INFO | Starting GPU optimization across 36 combinations (1024 parallel starts) on cuda:0...

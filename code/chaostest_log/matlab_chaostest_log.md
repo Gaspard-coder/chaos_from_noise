@@ -1,3 +1,4 @@
+x = logistic_map.mat
 chaostest_theta(x,'TANH',[2 3 6]);
 chaostest_theta: 36 fits, 10000 observations
 [  1/ 36] (L,m,q)=(1,1,1)  SSE=87.43  exitflag=0  lambda=-0.1061  elapsed    3s  ETA  101s
