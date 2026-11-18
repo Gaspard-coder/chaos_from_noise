@@ -2,6 +2,7 @@ python chaostest_GPU_v2.py --signal file --input IMF_1.mat --key current_imf
 logging to chaostest_GPU_20261118_221448.log
 GPU: Tesla K80, compute capability 3.7, 11.2 GiB
 
+l = 2 m = 3 q = 6
 === IMF_1.mat: N=10000, 36 combos, 64 starts (from 4096 candidates), top-4 polished, cuda:0, float64 ===
   [  1/36] (L=1, m=1, q=1) | init SSE=8.94e+03 -> SSE=8.939e+03 | lam_T=-1.7626 lam_h=-1.6995 | t: init 1.4s screen 0.5s polish 0.1s lambda 0.01s | total 2s
   [  2/36] (L=1, m=1, q=2) | init SSE=8.87e+03 -> SSE=8.865e+03 | lam_T=-1.4005 lam_h=-1.3593 | t: init 0.8s screen 4.8s polish 0.6s lambda 0.02s | total 8s

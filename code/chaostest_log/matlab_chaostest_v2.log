@@ -1,0 +1,170 @@
+chaostest_theta_v2(current_imf,'TANH',[5,6,5],0.05,'VARY');
+chaostest_theta: 150 fits, 10000 observations
+[  1/150] (L,m,q)=(1,1,1)  SSE=517.2  exitflag=3  lambda=-1.6989  elapsed    1s  ETA  131s
+          -> new best lambda = -1.6989 at (1,1,1)
+[  2/150] (L,m,q)=(1,1,2)  SSE=513.1  exitflag=0  lambda=-1.3778  elapsed    3s  ETA  222s
+          -> new best lambda = -1.3778 at (1,1,2)
+[  3/150] (L,m,q)=(1,1,3)  SSE=510.8  exitflag=3  lambda=-1.2219  elapsed    4s  ETA  213s
+          -> new best lambda = -1.2219 at (1,1,3)
+[  4/150] (L,m,q)=(1,1,4)  SSE=510.7  exitflag=3  lambda=-1.1991  elapsed    7s  ETA  243s
+          -> new best lambda = -1.1991 at (1,1,4)
+[  5/150] (L,m,q)=(1,1,5)  SSE=510.7  exitflag=0  lambda=-1.2107  elapsed    9s  ETA  268s
+[  6/150] (L,m,q)=(1,2,1)  SSE=451  exitflag=3  lambda=-1.0068  elapsed    9s  ETA  223s
+          -> new best lambda = -1.0068 at (1,2,1)
+[  7/150] (L,m,q)=(1,2,2)  SSE=467.6  exitflag=3  lambda=-0.6719  elapsed    9s  ETA  193s
+          -> new best lambda = -0.6719 at (1,2,2)
+[  8/150] (L,m,q)=(1,2,3)  SSE=465.8  exitflag=3  lambda=-0.4733  elapsed   10s  ETA  177s
+          -> new best lambda = -0.4733 at (1,2,3)
+[  9/150] (L,m,q)=(1,2,4)  SSE=444.8  exitflag=3  lambda=-0.3554  elapsed   10s  ETA  160s
+          -> new best lambda = -0.3554 at (1,2,4)
+[ 10/150] (L,m,q)=(1,2,5)  SSE=458.4  exitflag=3  lambda=-0.4586  elapsed   11s  ETA  154s
+[ 11/150] (L,m,q)=(1,3,1)  SSE=446.8  exitflag=3  lambda=-0.7465  elapsed   11s  ETA  139s
+[ 12/150] (L,m,q)=(1,3,2)  SSE=502.4  exitflag=3  lambda=-0.6229  elapsed   11s  ETA  129s
+[ 13/150] (L,m,q)=(1,3,3)  SSE=494.5  exitflag=3  lambda=-0.6400  elapsed   11s  ETA  120s
+[ 14/150] (L,m,q)=(1,3,4)  SSE=432.5  exitflag=3  lambda=-0.3757  elapsed   12s  ETA  114s
+[ 15/150] (L,m,q)=(1,3,5)  SSE=450.2  exitflag=3  lambda=-0.2912  elapsed   12s  ETA  109s
+          -> new best lambda = -0.2912 at (1,3,5)
+[ 16/150] (L,m,q)=(1,4,1)  SSE=445.5  exitflag=3  lambda=-0.5815  elapsed   12s  ETA  102s
+[ 17/150] (L,m,q)=(1,4,2)  SSE=454.9  exitflag=3  lambda=-0.5527  elapsed   12s  ETA   96s
+[ 18/150] (L,m,q)=(1,4,3)  SSE=487.5  exitflag=3  lambda=-0.6691  elapsed   13s  ETA   92s
+[ 19/150] (L,m,q)=(1,4,4)  SSE=481.9  exitflag=3  lambda=-0.4774  elapsed   13s  ETA   91s
+[ 20/150] (L,m,q)=(1,4,5)  SSE=455.6  exitflag=3  lambda=-0.2504  elapsed   14s  ETA   89s
+          -> new best lambda = -0.2504 at (1,4,5)
+[ 21/150] (L,m,q)=(1,5,1)  SSE=445.2  exitflag=3  lambda=-0.5674  elapsed   14s  ETA   85s
+[ 22/150] (L,m,q)=(1,5,2)  SSE=508.9  exitflag=4  lambda=-0.8894  elapsed   14s  ETA   81s
+[ 23/150] (L,m,q)=(1,5,3)  SSE=473.9  exitflag=3  lambda=-0.3355  elapsed   14s  ETA   78s
+[ 24/150] (L,m,q)=(1,5,4)  SSE=514  exitflag=3  lambda=-0.3844  elapsed   14s  ETA   76s
+[ 25/150] (L,m,q)=(1,5,5)  SSE=546  exitflag=4  lambda=-0.3127  elapsed   15s  ETA   74s
+[ 26/150] (L,m,q)=(1,6,1)  SSE=445.1  exitflag=3  lambda=-0.5339  elapsed   15s  ETA   71s
+[ 27/150] (L,m,q)=(1,6,2)  SSE=495.3  exitflag=3  lambda=-0.2840  elapsed   15s  ETA   68s
+[ 28/150] (L,m,q)=(1,6,3)  SSE=483.8  exitflag=3  lambda=-0.3741  elapsed   16s  ETA   70s
+[ 29/150] (L,m,q)=(1,6,4)  SSE=450.7  exitflag=3  lambda=-0.2236  elapsed   17s  ETA   69s
+          -> new best lambda = -0.2236 at (1,6,4)
+[ 30/150] (L,m,q)=(1,6,5)  SSE=485.6  exitflag=3  lambda=-0.3909  elapsed   17s  ETA   67s
+[ 31/150] (L,m,q)=(2,1,1)  SSE=570.2  exitflag=3  lambda=-5.0591  elapsed   17s  ETA   65s
+[ 32/150] (L,m,q)=(2,1,2)  SSE=566  exitflag=3  lambda=-3.2677  elapsed   17s  ETA   63s
+[ 33/150] (L,m,q)=(2,1,3)  SSE=562.2  exitflag=3  lambda=-1.0663  elapsed   19s  ETA   67s
+[ 34/150] (L,m,q)=(2,1,4)  SSE=561.8  exitflag=0  lambda=-1.0807  elapsed   21s  ETA   72s
+[ 35/150] (L,m,q)=(2,1,5)  SSE=561.5  exitflag=0  lambda=-1.0717  elapsed   24s  ETA   78s
+[ 36/150] (L,m,q)=(2,2,1)  SSE=569.9  exitflag=3  lambda=-3.1200  elapsed   24s  ETA   76s
+[ 37/150] (L,m,q)=(2,2,2)  SSE=570.7  exitflag=3  lambda=-1.7936  elapsed   24s  ETA   74s
+[ 38/150] (L,m,q)=(2,2,3)  SSE=566.5  exitflag=0  lambda=-1.2426  elapsed   26s  ETA   77s
+[ 39/150] (L,m,q)=(2,2,4)  SSE=563.8  exitflag=3  lambda=-1.3282  elapsed   28s  ETA   79s
+[ 40/150] (L,m,q)=(2,2,5)  SSE=568.1  exitflag=3  lambda=-1.3148  elapsed   29s  ETA   79s
+[ 41/150] (L,m,q)=(2,3,1)  SSE=569.8  exitflag=3  lambda=-2.1658  elapsed   29s  ETA   77s
+[ 42/150] (L,m,q)=(2,3,2)  SSE=573.4  exitflag=3  lambda=-1.1181  elapsed   29s  ETA   76s
+[ 43/150] (L,m,q)=(2,3,3)  SSE=573.5  exitflag=3  lambda=-1.0707  elapsed   30s  ETA   74s
+[ 44/150] (L,m,q)=(2,3,4)  SSE=571.6  exitflag=3  lambda=-1.0583  elapsed   30s  ETA   72s
+[ 45/150] (L,m,q)=(2,3,5)  SSE=570.3  exitflag=3  lambda=-0.8516  elapsed   32s  ETA   74s
+[ 46/150] (L,m,q)=(2,4,1)  SSE=569.7  exitflag=3  lambda=-1.5785  elapsed   32s  ETA   72s
+[ 47/150] (L,m,q)=(2,4,2)  SSE=576  exitflag=3  lambda=-0.8090  elapsed   32s  ETA   70s
+[ 48/150] (L,m,q)=(2,4,3)  SSE=571.2  exitflag=3  lambda=-0.8113  elapsed   35s  ETA   73s
+[ 49/150] (L,m,q)=(2,4,4)  SSE=571.3  exitflag=3  lambda=-0.6822  elapsed   35s  ETA   72s
+[ 50/150] (L,m,q)=(2,4,5)  SSE=568.3  exitflag=4  lambda=-0.7637  elapsed   35s  ETA   71s
+[ 51/150] (L,m,q)=(2,5,1)  SSE=569.6  exitflag=3  lambda=-1.1023  elapsed   36s  ETA   70s
+[ 52/150] (L,m,q)=(2,5,2)  SSE=570.5  exitflag=3  lambda=-1.1459  elapsed   37s  ETA   70s
+[ 53/150] (L,m,q)=(2,5,3)  SSE=572.1  exitflag=3  lambda=-0.5761  elapsed   37s  ETA   68s
+[ 54/150] (L,m,q)=(2,5,4)  SSE=571.2  exitflag=3  lambda=-0.6203  elapsed   38s  ETA   67s
+[ 55/150] (L,m,q)=(2,5,5)  SSE=563.6  exitflag=3  lambda=-0.6871  elapsed   39s  ETA   68s
+[ 56/150] (L,m,q)=(2,6,1)  SSE=569.3  exitflag=3  lambda=-0.8176  elapsed   39s  ETA   66s
+[ 57/150] (L,m,q)=(2,6,2)  SSE=576.6  exitflag=3  lambda=-0.9109  elapsed   39s  ETA   64s
+[ 58/150] (L,m,q)=(2,6,3)  SSE=569.7  exitflag=3  lambda=-0.7706  elapsed   40s  ETA   63s
+[ 59/150] (L,m,q)=(2,6,4)  SSE=567.4  exitflag=3  lambda=-0.6150  elapsed   40s  ETA   62s
+[ 60/150] (L,m,q)=(2,6,5)  SSE=568.3  exitflag=3  lambda=-0.5774  elapsed   41s  ETA   61s
+[ 61/150] (L,m,q)=(3,1,1)  SSE=578.4  exitflag=3  lambda=-5.0793  elapsed   41s  ETA   59s
+[ 62/150] (L,m,q)=(3,1,2)  SSE=576.8  exitflag=3  lambda=-3.7981  elapsed   41s  ETA   58s
+[ 63/150] (L,m,q)=(3,1,3)  SSE=576.8  exitflag=3  lambda=-3.6465  elapsed   42s  ETA   57s
+[ 64/150] (L,m,q)=(3,1,4)  SSE=576.1  exitflag=0  lambda=-2.0798  elapsed   44s  ETA   59s
+[ 65/150] (L,m,q)=(3,1,5)  SSE=575.6  exitflag=3  lambda=-2.1793  elapsed   46s  ETA   60s
+[ 66/150] (L,m,q)=(3,2,1)  SSE=578  exitflag=3  lambda=-2.0894  elapsed   46s  ETA   58s
+[ 67/150] (L,m,q)=(3,2,2)  SSE=577.8  exitflag=3  lambda=-5.8163  elapsed   46s  ETA   57s
+[ 68/150] (L,m,q)=(3,2,3)  SSE=577.5  exitflag=3  lambda=-1.7544  elapsed   46s  ETA   56s
+[ 69/150] (L,m,q)=(3,2,4)  SSE=577.2  exitflag=3  lambda=-1.6641  elapsed   47s  ETA   56s
+[ 70/150] (L,m,q)=(3,2,5)  SSE=577.1  exitflag=3  lambda=-1.4872  elapsed   49s  ETA   57s
+[ 71/150] (L,m,q)=(3,3,1)  SSE=577.4  exitflag=3  lambda=-25.5287  elapsed   50s  ETA   55s
+[ 72/150] (L,m,q)=(3,3,2)  SSE=577.5  exitflag=3  lambda=-1.2290  elapsed   51s  ETA   55s
+[ 73/150] (L,m,q)=(3,3,3)  SSE=577.4  exitflag=3  lambda=-1.3884  elapsed   51s  ETA   54s
+[ 74/150] (L,m,q)=(3,3,4)  SSE=577.6  exitflag=3  lambda=-1.2219  elapsed   51s  ETA   53s
+[ 75/150] (L,m,q)=(3,3,5)  SSE=577.3  exitflag=3  lambda=-1.0734  elapsed   52s  ETA   52s
+[ 76/150] (L,m,q)=(3,4,1)  SSE=577.2  exitflag=3  lambda=-13.2702  elapsed   52s  ETA   50s
+[ 77/150] (L,m,q)=(3,4,2)  SSE=577.6  exitflag=3  lambda=-1.3819  elapsed   52s  ETA   49s
+[ 78/150] (L,m,q)=(3,4,3)  SSE=577.5  exitflag=3  lambda=-1.0698  elapsed   52s  ETA   48s
+[ 79/150] (L,m,q)=(3,4,4)  SSE=577.3  exitflag=3  lambda=-0.9765  elapsed   52s  ETA   47s
+[ 80/150] (L,m,q)=(3,4,5)  SSE=577.4  exitflag=3  lambda=-1.0043  elapsed   53s  ETA   46s
+[ 81/150] (L,m,q)=(3,5,1)  SSE=577  exitflag=3  lambda=-21.6461  elapsed   53s  ETA   45s
+[ 82/150] (L,m,q)=(3,5,2)  SSE=577.4  exitflag=3  lambda=-2.6697  elapsed   53s  ETA   44s
+[ 83/150] (L,m,q)=(3,5,3)  SSE=577.7  exitflag=3  lambda=-1.1629  elapsed   54s  ETA   43s
+[ 84/150] (L,m,q)=(3,5,4)  SSE=577  exitflag=3  lambda=-0.8273  elapsed   54s  ETA   43s
+[ 85/150] (L,m,q)=(3,5,5)  SSE=577.3  exitflag=3  lambda=-0.7736  elapsed   54s  ETA   42s
+[ 86/150] (L,m,q)=(3,6,1)  SSE=576.1  exitflag=3  lambda=-26.7363  elapsed   55s  ETA   41s
+[ 87/150] (L,m,q)=(3,6,2)  SSE=576.6  exitflag=3  lambda=-0.5964  elapsed   55s  ETA   40s
+[ 88/150] (L,m,q)=(3,6,3)  SSE=577.2  exitflag=4  lambda=-0.6110  elapsed   55s  ETA   39s
+[ 89/150] (L,m,q)=(3,6,4)  SSE=576.3  exitflag=3  lambda=-0.5738  elapsed   55s  ETA   38s
+[ 90/150] (L,m,q)=(3,6,5)  SSE=576.1  exitflag=3  lambda=-0.5528  elapsed   56s  ETA   37s
+[ 91/150] (L,m,q)=(4,1,1)  SSE=578.1  exitflag=3  lambda=-3.9636  elapsed   56s  ETA   36s
+[ 92/150] (L,m,q)=(4,1,2)  SSE=577.9  exitflag=3  lambda=-4.2923  elapsed   56s  ETA   35s
+[ 93/150] (L,m,q)=(4,1,3)  SSE=577.8  exitflag=0  lambda=-3.2904  elapsed   58s  ETA   35s
+[ 94/150] (L,m,q)=(4,1,4)  SSE=577.6  exitflag=0  lambda=-3.4245  elapsed   60s  ETA   36s
+[ 95/150] (L,m,q)=(4,1,5)  SSE=577.6  exitflag=0  lambda=-3.3118  elapsed   62s  ETA   36s
+[ 96/150] (L,m,q)=(4,2,1)  SSE=577.6  exitflag=3  lambda=-54.5534  elapsed   62s  ETA   35s
+[ 97/150] (L,m,q)=(4,2,2)  SSE=577.8  exitflag=3  lambda=-2.0660  elapsed   63s  ETA   34s
+[ 98/150] (L,m,q)=(4,2,3)  SSE=577.7  exitflag=0  lambda=-2.1654  elapsed   65s  ETA   34s
+[ 99/150] (L,m,q)=(4,2,4)  SSE=577.5  exitflag=3  lambda=-2.1581  elapsed   67s  ETA   34s
+[100/150] (L,m,q)=(4,2,5)  SSE=577.6  exitflag=3  lambda=-1.9526  elapsed   68s  ETA   34s
+[101/150] (L,m,q)=(4,3,1)  SSE=577.6  exitflag=3  lambda=-39.0195  elapsed   68s  ETA   33s
+[102/150] (L,m,q)=(4,3,2)  SSE=577.6  exitflag=3  lambda=-1.7496  elapsed   68s  ETA   32s
+[103/150] (L,m,q)=(4,3,3)  SSE=577.6  exitflag=3  lambda=-1.3337  elapsed   69s  ETA   31s
+[104/150] (L,m,q)=(4,3,4)  SSE=577.4  exitflag=3  lambda=-1.1754  elapsed   69s  ETA   31s
+[105/150] (L,m,q)=(4,3,5)  SSE=577.4  exitflag=3  lambda=-1.2003  elapsed   69s  ETA   30s
+[106/150] (L,m,q)=(4,4,1)  SSE=576.6  exitflag=3  lambda=-116.0952  elapsed   70s  ETA   29s
+[107/150] (L,m,q)=(4,4,2)  SSE=577.2  exitflag=4  lambda=-1.0302  elapsed   70s  ETA   28s
+[108/150] (L,m,q)=(4,4,3)  SSE=576.6  exitflag=3  lambda=-1.0047  elapsed   70s  ETA   27s
+[109/150] (L,m,q)=(4,4,4)  SSE=577  exitflag=3  lambda=-0.8761  elapsed   70s  ETA   26s
+[110/150] (L,m,q)=(4,4,5)  SSE=576.6  exitflag=3  lambda=-0.8283  elapsed   71s  ETA   26s
+[111/150] (L,m,q)=(4,5,1)  SSE=575.9  exitflag=3  lambda=-25.4457  elapsed   71s  ETA   25s
+[112/150] (L,m,q)=(4,5,2)  SSE=576.7  exitflag=4  lambda=-0.8763  elapsed   71s  ETA   24s
+[113/150] (L,m,q)=(4,5,3)  SSE=577.2  exitflag=3  lambda=-0.8901  elapsed   71s  ETA   23s
+[114/150] (L,m,q)=(4,5,4)  SSE=576.5  exitflag=3  lambda=-0.7637  elapsed   71s  ETA   23s
+[115/150] (L,m,q)=(4,5,5)  SSE=576.7  exitflag=3  lambda=-0.7699  elapsed   72s  ETA   22s
+[116/150] (L,m,q)=(4,6,1)  SSE=575.4  exitflag=3  lambda=-5.6642  elapsed   72s  ETA   21s
+[117/150] (L,m,q)=(4,6,2)  SSE=576.4  exitflag=3  lambda=-0.7407  elapsed   72s  ETA   20s
+[118/150] (L,m,q)=(4,6,3)  SSE=576.4  exitflag=3  lambda=-0.6402  elapsed   72s  ETA   20s
+[119/150] (L,m,q)=(4,6,4)  SSE=575.9  exitflag=3  lambda=-0.6578  elapsed   73s  ETA   19s
+[120/150] (L,m,q)=(4,6,5)  SSE=575.9  exitflag=3  lambda=-0.5716  elapsed   73s  ETA   18s
+[121/150] (L,m,q)=(5,1,1)  SSE=578.1  exitflag=3  lambda=-16.7195  elapsed   73s  ETA   18s
+[122/150] (L,m,q)=(5,1,2)  SSE=578.1  exitflag=3  lambda=-3.5587  elapsed   73s  ETA   17s
+[123/150] (L,m,q)=(5,1,3)  SSE=577.6  exitflag=3  lambda=-4.9215  elapsed   75s  ETA   16s
+[124/150] (L,m,q)=(5,1,4)  SSE=577.7  exitflag=3  lambda=-3.6832  elapsed   76s  ETA   16s
+[125/150] (L,m,q)=(5,1,5)  SSE=577.5  exitflag=0  lambda=-3.1313  elapsed   78s  ETA   16s
+[126/150] (L,m,q)=(5,2,1)  SSE=577.8  exitflag=3  lambda=-19.2922  elapsed   79s  ETA   15s
+[127/150] (L,m,q)=(5,2,2)  SSE=578  exitflag=3  lambda=-2.1675  elapsed   79s  ETA   14s
+[128/150] (L,m,q)=(5,2,3)  SSE=577.9  exitflag=3  lambda=-2.0790  elapsed   79s  ETA   14s
+[129/150] (L,m,q)=(5,2,4)  SSE=577.9  exitflag=3  lambda=-2.1622  elapsed   79s  ETA   13s
+[130/150] (L,m,q)=(5,2,5)  SSE=577.8  exitflag=3  lambda=-2.0297  elapsed   81s  ETA   12s
+[131/150] (L,m,q)=(5,3,1)  SSE=577.5  exitflag=3  lambda=-58.8233  elapsed   81s  ETA   12s
+[132/150] (L,m,q)=(5,3,2)  SSE=577.7  exitflag=3  lambda=-1.7256  elapsed   82s  ETA   11s
+[133/150] (L,m,q)=(5,3,3)  SSE=577.5  exitflag=3  lambda=-1.5662  elapsed   83s  ETA   11s
+[134/150] (L,m,q)=(5,3,4)  SSE=577.4  exitflag=3  lambda=-1.3067  elapsed   83s  ETA   10s
+[135/150] (L,m,q)=(5,3,5)  SSE=577.3  exitflag=3  lambda=-1.1065  elapsed   83s  ETA    9s
+[136/150] (L,m,q)=(5,4,1)  SSE=577.4  exitflag=3  lambda=-1.1329  elapsed   84s  ETA    9s
+[137/150] (L,m,q)=(5,4,2)  SSE=577.2  exitflag=4  lambda=-1.2449  elapsed   84s  ETA    8s
+[138/150] (L,m,q)=(5,4,3)  SSE=577.1  exitflag=3  lambda=-1.0038  elapsed   84s  ETA    7s
+[139/150] (L,m,q)=(5,4,4)  SSE=577  exitflag=3  lambda=-1.0552  elapsed   84s  ETA    7s
+[140/150] (L,m,q)=(5,4,5)  SSE=576.7  exitflag=3  lambda=-0.8883  elapsed   85s  ETA    6s
+[141/150] (L,m,q)=(5,5,1)  SSE=576.4  exitflag=3  lambda=-4.8306  elapsed   85s  ETA    5s
+[142/150] (L,m,q)=(5,5,2)  SSE=576.8  exitflag=4  lambda=-0.8722  elapsed   85s  ETA    5s
+[143/150] (L,m,q)=(5,5,3)  SSE=576.9  exitflag=4  lambda=-1.0336  elapsed   85s  ETA    4s
+[144/150] (L,m,q)=(5,5,4)  SSE=576.8  exitflag=3  lambda=-0.8454  elapsed   85s  ETA    4s
+[145/150] (L,m,q)=(5,5,5)  SSE=576.5  exitflag=3  lambda=-0.7230  elapsed   86s  ETA    3s
+[146/150] (L,m,q)=(5,6,1)  SSE=576.1  exitflag=3  lambda=-7.9592  elapsed   86s  ETA    2s
+[147/150] (L,m,q)=(5,6,2)  SSE=576.5  exitflag=3  lambda=-0.7643  elapsed   86s  ETA    2s
+[148/150] (L,m,q)=(5,6,3)  SSE=576.4  exitflag=3  lambda=-0.5695  elapsed   86s  ETA    1s
+[149/150] (L,m,q)=(5,6,4)  SSE=576.1  exitflag=3  lambda=-0.6516  elapsed   87s  ETA    1s
+[150/150] (L,m,q)=(5,6,5)  SSE=576  exitflag=3  lambda=-0.5900  elapsed   87s  ETA    0s
+Done in 87s. Best (L,m,q)=(1,6,4), lambda=-0.2236, p=3.68e-54
+
+--- Reconstruction Differences ---
+Sum of Squared Errors (SSE): 450.693
+Root Mean Squared Error (RMSE): 0.212359
+Mean Absolute Difference:    0.174158
+Maximum Absolute Difference: 0.751675
