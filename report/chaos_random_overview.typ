@@ -623,8 +623,44 @@ To achieve this goal, we need to calibrate the different thresold. For this purp
 - Random: AR1 colored, smoothed noise, white gaussian, white uniform
 
 First approach with a light $m=6$ (`cor_dim_sweep('database/generated_sig/deter_test_sweep',6,'auto',true);`)
+Then the best parameters are:
+- slope threshold = 0.6133
+- integer tolerance = 0.0089
 
-
+#figure(
+  {
+    set text(size: 8pt)
+    table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto, 1fr),
+      align: (left, center, center, center, center, center, center, center, left),
+      inset: (x: 4pt, y: 6pt),
+      stroke: 0.5pt + luma(180),
+      fill: (_, y) => if y < 2 { luma(235) } else if calc.even(y) { white } else { luma(248) },
+      table.header(
+        table.cell(rowspan: 2, align: bottom + left)[*File Name*],
+        table.cell(colspan: 7, align: center)[*Correlation Dimension ($D_2$)*],
+        table.cell(rowspan: 2, align: bottom + left)[*Signal Classification*],
+        [$m = 2$], [$m = 3$], [$m = 4$], [$m = 5$], [$m = 6$], [$m = 7$], [$m = 8$],
+      ),
+      [`IMF_1.mat`], [1.7750], [2.2491], [2.7086], [3.2103], [3.7157], [4.2578], [4.7511], [Chaotic (Deterministic Chaos)],
+      [`IMF_2.mat`], [1.9160], [2.2545], [2.5356], [2.7806], [3.0716], [3.2206], [3.4551], [Chaotic (Deterministic Chaos)],
+      [`IMF_3.mat`], [1.8357], [1.9064], [1.9733], [2.0934], [2.2050], [2.2917], [2.3822], [Chaotic (Deterministic Chaos)],
+      [`IMF_4.mat`], [1.5845], [1.7361], [1.8060], [1.8520], [1.8976], [1.9433], [1.9405], [Chaotic (Deterministic Chaos)],
+      [`IMF_5.mat`], [1.3163], [1.4298], [1.5092], [1.6351], [1.6892], [1.7175], [1.7411], [Chaotic (Deterministic Chaos)],
+      [`IMF_6.mat`], [1.1042], [1.2291], [1.2834], [1.3332], [1.4115], [1.4361], [1.4747], [Chaotic (Deterministic Chaos)],
+      [`IMF_7.mat`], [1.0255], [1.0656], [1.1011], [1.1564], [1.1565], [1.2046], [1.2063], [Chaotic (Deterministic Chaos)],
+      [`IMF_8.mat`], [0.9688], [0.9804], [0.9927], [1.0056], [1.0139], [1.0263], [1.0580], [Chaotic (Deterministic Chaos)],
+      [`IMF_9.mat`], [0.8287], [0.8298], [0.8399], [0.8430], [0.8503], [0.8537], [0.8582], [Deterministic Regular (1D Periodic / Trend)],
+      [`IMF_10.mat`], [0.8991], [0.9008], [0.9025], [0.9069], [0.9069], [0.9075], [0.9084], [Deterministic Regular (1D Periodic / Trend)],
+      [`IMF_frac_alea_2.mat`], [1.8882], [2.7148], [3.4541], [4.1162], [4.7309], [5.3553], [5.9842], [Random / Stochastic Noise],
+      [`residual.mat`], [0.8371], [0.8364], [0.8399], [0.8426], [0.8402], [0.8385], [0.8432], [Deterministic Regular (1D Periodic / Trend)],
+    )
+  },
+  caption: [Evolution of the correlation dimension $D_2$ across embedding dimensions $m in [2, 8]$ and resulting signal classifications.],
+)
+#rslt[
+  The correlation dimension coefficient works well as a tool to detect chaoticity. Moreover, it may be ablet to distinguish between deterministic chaos and deterministic regular behaviour.
+]
 
 #pagebreak()
 

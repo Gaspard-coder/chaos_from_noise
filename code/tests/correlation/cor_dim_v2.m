@@ -114,8 +114,12 @@ else
     D2_sat = D2_vals(end); % Use final converged value instead of tail mean
 
     % Tighter, physically grounded thresholds
-    saturation_slope_thresh = 0.05; % True plateau requires near-zero slope
-    integer_tol = 0.10;             % Tolerance around integer manifolds (2, 3, ...)
+    %saturation_slope_thresh = 0.05; % True plateau requires near-zero slope
+    %integer_tol = 0.10;             % Tolerance around integer manifolds (2, 3, ...)
+
+    %updated coefficients with cor_dim_sweep:
+    saturation_slope_thresh = 0.6133;
+    integer_tol = 0.0089;
 
     if tail_slope > saturation_slope_thresh
         is_saturated = false;
