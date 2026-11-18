@@ -1,0 +1,54 @@
+param= 2,3,6
+
+2026-11-18 01:51:51 | INFO | Saving execution logs to: chaostest_GPU_20261118_015151.log
+2026-11-18 01:51:53 | INFO | Starting GPU optimization across 36 combinations (1024 parallel starts) on cuda:0...
+2026-11-18 01:52:21 | WARNING | /home/infres/gvibert-24/lp_neural_network_py310/chaostest_GPU.py:95: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matricesor `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at  ../aten/src/ATen/native/TensorShape.cpp:2981.)
+  dy_dxlag = (deriv_u * A_d.T) @ B_d  # Shape: (T_full, m)
+
+2026-11-18 01:52:21 | INFO | [  1/ 36] (L=1, m=1, q=1) | SSE = 9.074 | lambda = -0.7608 | Elapsed: 28.1s
+2026-11-18 01:52:21 | INFO |   └─> New best lambda: -0.7608 at triplet (L=1, m=1, q=1) (SSE=9.074)
+2026-11-18 01:53:52 | INFO | [  2/ 36] (L=1, m=1, q=2) | SSE = 1.006 | lambda = -0.1458 | Elapsed: 119.1s
+2026-11-18 01:53:52 | INFO |   └─> New best lambda: -0.1458 at triplet (L=1, m=1, q=2) (SSE=1.006)
+2026-11-18 01:55:25 | INFO | [  3/ 36] (L=1, m=1, q=3) | SSE = 1.006 | lambda = -0.1434 | Elapsed: 212.3s
+2026-11-18 01:55:25 | INFO |   └─> New best lambda: -0.1434 at triplet (L=1, m=1, q=3) (SSE=1.006)
+2026-11-18 01:57:03 | INFO | [  4/ 36] (L=1, m=1, q=4) | SSE = 1.006 | lambda = -0.1433 | Elapsed: 310.2s
+2026-11-18 01:57:03 | INFO |   └─> New best lambda: -0.1433 at triplet (L=1, m=1, q=4) (SSE=1.006)
+2026-11-18 01:58:44 | INFO | [  5/ 36] (L=1, m=1, q=5) | SSE = 1.006 | lambda = -0.1431 | Elapsed: 411.1s
+2026-11-18 01:58:44 | INFO |   └─> New best lambda: -0.1431 at triplet (L=1, m=1, q=5) (SSE=1.006)
+2026-11-18 02:00:29 | INFO | [  6/ 36] (L=1, m=1, q=6) | SSE = 1.006 | lambda = -0.1442 | Elapsed: 515.7s
+2026-11-18 02:01:14 | INFO | [  7/ 36] (L=1, m=2, q=1) | SSE = 9.055 | lambda = -0.5643 | Elapsed: 560.9s
+2026-11-18 02:03:14 | INFO | [  8/ 36] (L=1, m=2, q=2) | SSE = 1.017 | lambda = +0.3522 | Elapsed: 680.4s
+2026-11-18 02:03:14 | INFO |   └─> New best lambda: +0.3522 at triplet (L=1, m=2, q=2) (SSE=1.017)
+2026-11-18 02:05:16 | INFO | [  9/ 36] (L=1, m=2, q=3) | SSE = 1.012 | lambda = +0.4299 | Elapsed: 802.9s
+2026-11-18 02:05:16 | INFO |   └─> New best lambda: +0.4299 at triplet (L=1, m=2, q=3) (SSE=1.012)
+2026-11-18 02:07:24 | INFO | [ 10/ 36] (L=1, m=2, q=4) | SSE = 1.005 | lambda = +0.3364 | Elapsed: 930.7s
+2026-11-18 02:09:35 | INFO | [ 11/ 36] (L=1, m=2, q=5) | SSE = 1.006 | lambda = +0.3528 | Elapsed: 1062.2s
+2026-11-18 02:11:51 | INFO | [ 12/ 36] (L=1, m=2, q=6) | SSE = 1.013 | lambda = +0.2903 | Elapsed: 1197.7s
+2026-11-18 02:12:38 | INFO | [ 13/ 36] (L=1, m=3, q=1) | SSE = 9.036 | lambda = -0.7608 | Elapsed: 1244.4s
+2026-11-18 02:14:39 | INFO | [ 14/ 36] (L=1, m=3, q=2) | SSE = 1.009 | lambda = -0.0726 | Elapsed: 1365.6s
+2026-11-18 02:16:41 | INFO | [ 15/ 36] (L=1, m=3, q=3) | SSE = 1.005 | lambda = -0.0929 | Elapsed: 1488.1s
+2026-11-18 02:18:50 | INFO | [ 16/ 36] (L=1, m=3, q=4) | SSE = 1.006 | lambda = -0.0037 | Elapsed: 1617.2s
+2026-11-18 02:21:02 | INFO | [ 17/ 36] (L=1, m=3, q=5) | SSE = 1.005 | lambda = -0.1086 | Elapsed: 1748.6s
+2026-11-18 02:23:20 | INFO | [ 18/ 36] (L=1, m=3, q=6) | SSE = 1.006 | lambda = +0.0297 | Elapsed: 1886.5s
+2026-11-18 02:23:47 | INFO | [ 19/ 36] (L=2, m=1, q=1) | SSE = 50.88 | lambda = -0.7608 | Elapsed: 1914.4s
+2026-11-18 02:25:20 | INFO | [ 20/ 36] (L=2, m=1, q=2) | SSE = 4.49 | lambda = +0.1610 | Elapsed: 2007.3s
+2026-11-18 02:26:56 | INFO | [ 21/ 36] (L=2, m=1, q=3) | SSE = 4.513 | lambda = +0.1445 | Elapsed: 2102.5s
+2026-11-18 02:28:34 | INFO | [ 22/ 36] (L=2, m=1, q=4) | SSE = 4.518 | lambda = +0.1466 | Elapsed: 2200.8s
+2026-11-18 02:30:15 | INFO | [ 23/ 36] (L=2, m=1, q=5) | SSE = 4.542 | lambda = +0.1388 | Elapsed: 2302.2s
+2026-11-18 02:32:02 | INFO | [ 24/ 36] (L=2, m=1, q=6) | SSE = 4.494 | lambda = +0.1449 | Elapsed: 2408.9s
+2026-11-18 02:32:48 | INFO | [ 25/ 36] (L=2, m=2, q=1) | SSE = 57.52 | lambda = -0.7608 | Elapsed: 2455.1s
+2026-11-18 02:34:50 | INFO | [ 26/ 36] (L=2, m=2, q=2) | SSE = 4.483 | lambda = +0.2150 | Elapsed: 2577.0s
+2026-11-18 02:36:54 | INFO | [ 27/ 36] (L=2, m=2, q=3) | SSE = 4.504 | lambda = +0.2194 | Elapsed: 2700.6s
+2026-11-18 02:39:04 | INFO | [ 28/ 36] (L=2, m=2, q=4) | SSE = 4.491 | lambda = +0.2201 | Elapsed: 2830.5s
+2026-11-18 02:41:18 | INFO | [ 29/ 36] (L=2, m=2, q=5) | SSE = 4.47 | lambda = +0.2248 | Elapsed: 2964.7s
+2026-11-18 02:43:33 | INFO | [ 30/ 36] (L=2, m=2, q=6) | SSE = 4.518 | lambda = +0.2054 | Elapsed: 3100.1s
+2026-11-18 02:44:19 | INFO | [ 31/ 36] (L=2, m=3, q=1) | SSE = 57.52 | lambda = -0.7608 | Elapsed: 3146.1s
+2026-11-18 02:46:23 | INFO | [ 32/ 36] (L=2, m=3, q=2) | SSE = 4.481 | lambda = +0.1923 | Elapsed: 3270.0s
+2026-11-18 02:48:26 | INFO | [ 33/ 36] (L=2, m=3, q=3) | SSE = 4.488 | lambda = +0.1935 | Elapsed: 3392.7s
+2026-11-18 02:50:35 | INFO | [ 34/ 36] (L=2, m=3, q=4) | SSE = 4.481 | lambda = +0.1925 | Elapsed: 3521.4s
+2026-11-18 02:52:48 | INFO | [ 35/ 36] (L=2, m=3, q=5) | SSE = 4.468 | lambda = +0.2071 | Elapsed: 3654.6s
+2026-11-18 02:55:04 | INFO | [ 36/ 36] (L=2, m=3, q=6) | SSE = 4.519 | lambda = +0.1832 | Elapsed: 3790.9s
+2026-11-18 02:55:04 | INFO | 
+2026-11-18 02:55:04 | INFO | Done in 3790.9s!
+2026-11-18 02:55:04 | INFO | PyTorch Best Orders (L, m, q): (1, 2, 3) with lambda = +0.4299 (SSE = 1.0116)
+2026-11-18 02:55:08 | INFO | Saved reconstruction plot to: reconstruction.png
