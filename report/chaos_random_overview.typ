@@ -93,6 +93,8 @@ Parameters:
 
 According to the bibliography `Empirical_Mode_Decomposition_-_an_introduction`, we first use emd with `MaxNumIMF = 8` (3 spikes in the residual) and `Interpolation = spline`, others parameters still at default. #highlight(fill:yellow)[(empirical quality criteria, to discuss)]
 
+Finally we generated `MaxNumIM = 10`
+
 = Tools for IMF characterization
 
 == runstest
@@ -147,6 +149,22 @@ Dynamical systems theory assumes that deterministic systems will eventually revi
 
 3. Quantifying determinism
 The core theory of RQA states that the visual structures within a Recurrence Plot correlate to the system's physical behavior. Random noise produces isolated, scattered recurrence points. Conversely, deterministic systems produce points that organize into diagonal lines, which occur when two distinct segments of the phase space trajectory evolve similarly over consecutive time steps. The algorithm calculates the Determinism (DET) metric by dividing the number of recurrence points that form diagonal lines by the total number of recurrence points (excluding the main identity diagonal). A DET above 40% is classified here as primarily deterministic, while a lower score indicates random or noisy behavior. #highlight[Where the 40% criteria  comes from?]
+
+== The Lyapunov exponent
+Well-known criteria to identify chaotic behaviour but how to compute it given the fact that we don't now the sampling frequency $F_s$ of the reconstructed components IMFs?
+
+=== Going back on the working of the EMD MATLAB function
+The initial decomposition into IMFs keeps the same sampling frequency as the input signal. What changes for every IMF is the instantaneous frequency (characteristic oscillation frequency). 
+
+=== Rosenstein's algorithm and `lyapunovExponent` MATLAB function
+Algorithms that calculate Lyapunov Exponents (like Rosenstein's or Wolf's) are strictly designed for stationary deterministic systems. Real-world signals (like atmospheric noise) are highly non-stationary. If you apply the LLE algorithm directly to raw, non-stationary data, the reconstructed phase-space attractor is mathematically invalid.
+
+EMD solves this. By decomposing the signal into IMFs, EMD acts as an adaptive filter that isolates components which satisfy the conditions of stationarity (zero local mean, symmetric envelopes). Therefore, calculating the LE on an IMF is mathematically sounder than calculating it on the raw signal.
+
+#impt[
+  When you run the code above on pure white noise, you will likely get positive Lyapunov exponents for the IMFs. You must cite Flandrin et al. (2004) "Empirical Mode Decomposition as a Filter Bank" to explain this. EMD forces broadband white noise into narrow-band IMFs. Because these IMFs become band-limited, they exhibit short-term predictability, which algorithms misinterpret as chaos (a positive LE). You can use your white noise results as a baseline to prove that the Lyapunov exponents of your atmospheric noise are statistically different from pure stochastic artifacts.
+]
+
 
 = Experiments
 
