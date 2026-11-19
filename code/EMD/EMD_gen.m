@@ -26,6 +26,10 @@ function [imf, residual, info] = EMD_gen(data, folder, varargin)
 %   residual - Residual signal vector.
 %   info     - Diagnostic structure returned by emd.
 
+% Rq: The decomposition stops if one of the stop criterias is reached
+% It means that even if you ask MaxNumIMF=10, if the other criterias
+% (MaxNumExtrema and MaxEnergyRatio) are reached before, it stops
+
 % Validate time-series vector format
 if ~isvector(data)
     error('Input data must be a 1D time-series vector.');
@@ -39,6 +43,8 @@ end
 
 % Perform Empirical Mode Decomposition using passed Name-Value options
 [imf, residual, info] = emd(data, varargin{:});
+fprintf('Number of IMFs extracted: %d\n', size(imf, 2));
+disp(info)
 
 % Save individual IMF .mat files
 numIMFs = size(imf, 2);
