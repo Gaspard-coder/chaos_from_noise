@@ -8,7 +8,8 @@ function plot_multiple_HXC_cached(m, t, data_folder)
 [H_max, C_max, H_min, C_min] = get_theoretical_bounds(m);
 
 %Find .mat files starting with IMF
-file_pattern = fullfile(data_folder, 'IMF*.mat');
+% file_pattern = fullfile(data_folder, 'IMF*.mat');
+file_pattern = fullfile(data_folder, '*.mat');
 file_list = dir(file_pattern);
 num_files = length(file_list);
 
