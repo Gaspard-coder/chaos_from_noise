@@ -238,3 +238,5 @@ Never use "largest $lambda$" to judge which solver/method is better. A poorly co
 1. Lower NMSE / SSE / RMSE for the same (L, m, q): For a fixed architecture $(L, m, q)$ on the standardized signal, all three codes minimize the exact same nonlinear least-squares loss. Whichever method achieves the strictly lower NMSE (and SSE/RMSE) on the same (L, m, q) is objectively the stronger optimizer, because it avoided poor local minima.
 2. Jacobian Stability Across Starts (lamT_min .. lamT_max): Between solvers achieving comparable NMSE, the superior method is the one whose top polished starts agree on $lambda_T$ (minimal spread), proving the network derivatives are well-regularized rather than saturated.
 3. Benchmarking to compare the estimated exponent with the theoritical one
+
+= Alternative approach

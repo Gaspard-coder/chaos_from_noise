@@ -1,0 +1,4 @@
+2026-11-23 11:47:55 | INFO | logging to chaostest_GPU_20261123_114755.log
+2026-11-23 11:47:55 | INFO | gradient check [tanh    ] max relative error = 4.20e-17  OK
+2026-11-23 11:47:55 | INFO | gradient check [logistic] max relative error = 3.69e-17  OK
+2026-11-23 11:47:55 | INFO | gradient check [sigmoid ] max relative error = 4.53e-17  OK

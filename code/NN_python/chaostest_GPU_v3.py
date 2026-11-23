@@ -212,11 +212,11 @@ def random_feature_init(model, n_cand, n_keep, chunk, gen):
         Hty = torch.matmul(H.transpose(1, 2), model.y)                                  # (S, q+1)
         ridge = 1e-10 * HtH.diagonal(dim1=1, dim2=2).mean(1)
         HtH = HtH + ridge[:, None, None] * torch.eye(q + 1, device=dev, dtype=dt)
-        w, info = torch.linalg.solve_ex(HtH, Hty.unsqueeze(2))
+        w = torch.linalg.solve(HtH, Hty.unsqueeze(2))
         w = w.squeeze(2)
         r = model.y[None, :] - torch.bmm(H, w.unsqueeze(2)).squeeze(2)
         sse = (r * r).sum(1)
-        sse = torch.where((info == 0) & torch.isfinite(sse), sse, torch.full_like(sse, math.inf))
+        sse = torch.where(torch.isfinite(sse), sse, torch.full_like(sse, math.inf))
         ths.append(torch.cat([B.reshape(S, -1), C, w[:, :q], w[:, q:q + 1]], dim=1))
         sses.append(sse)
     th, sse = torch.cat(ths), torch.cat(sses)
@@ -579,16 +579,21 @@ def parse():
     r.add_argument("--select", choices=["lambda_T", "lambda_h", "sse"], default="lambda_T")
     r.add_argument("--max-lam-spread", type=float, default=0.1)
     r.add_argument("--max-sse-ratio", type=float, default=math.inf)
-    r.add_argument("--out", default=None,
-                   help="output json (default: results_NAME.json, NAME = input file name without extension)")
+    r.add_argument("--out", default=None, help="output json (default: results_NAME.json, NAME = input file name without extension)")
     r.add_argument("--plot", action="store_true")
-    r.add_argument("--log", default=f"chaostest_GPU_{time.strftime('%Y%m%d_%H%M%S')}.log")
+    r.add_argument("--log", default=None, help="Log file name (defaults to input file name)")
     r.add_argument("--check", action="store_true", help="test the analytic gradient and exit")
     return p.parse_args()
 
 
 def main():
     args = parse()
+    if args.log is None:
+            if args.input:
+                base_name = os.path.splitext(os.path.basename(args.input))[0]
+                args.log = f"{base_name}.log"
+            else:
+                args.log = "chaostest_GPU.log"
     log = setup_logger(args.log).info
     log(f"logging to {args.log}")
     if args.check:

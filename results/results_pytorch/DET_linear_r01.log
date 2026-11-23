@@ -1,0 +1,313 @@
+2026-11-23 17:38:15 | INFO | logging to DET_linear_r01.log
+2026-11-23 17:38:20 | INFO | GPU 0: Tesla K80 (cc 3.7, 11.2 GiB)
+2026-11-23 17:38:21 | INFO | GPU 1: Tesla K80 (cc 3.7, 11.2 GiB)
+2026-11-23 17:38:22 | INFO | GPU 2: Tesla K80 (cc 3.7, 11.2 GiB)
+2026-11-23 17:38:23 | INFO | GPU 3: Tesla K80 (cc 3.7, 11.2 GiB)
+2026-11-23 17:38:23 | INFO | 
+=== DET_linear_r01.mat: N=10000, 150 combos, 256 starts (from 4096 candidates), top-4 polished, 4 GPUs (cuda:0,cuda:1,cuda:2,cuda:3), hybrid ===
+2026-11-23 17:38:48 | INFO |   [  1/150] [GPU 3] (L=1, m=1, q=4) | init SSE=2.21e-02 -> SSE=6.866e-10 | lam_T=+0.0000 lam_h=+0.0000 | t: init 0.9s screen 4.4s polish 13.0s lambda 0.01s | total 24s
+2026-11-23 17:38:48 | INFO |   [  2/150] [GPU 0] (L=1, m=1, q=1) | init SSE=2.72e-01 -> SSE=4.219e-06 | lam_T=-0.0000 lam_h=-0.0000 | t: init 3.9s screen 2.4s polish 15.7s lambda 0.00s | total 24s
+2026-11-23 17:38:48 | INFO |   [  3/150] [GPU 2] (L=1, m=1, q=3) | init SSE=2.22e-02 -> SSE=3.869e-08 | lam_T=-0.0000 lam_h=-0.0000 | t: init 1.7s screen 4.1s polish 14.4s lambda 0.01s | total 25s
+2026-11-23 17:38:54 | INFO |   [  4/150] [GPU 1] (L=1, m=1, q=2) | init SSE=4.74e-02 -> SSE=1.483e-07 | lam_T=-0.0000 lam_h=-0.0000 | t: init 3.1s screen 4.4s polish 19.7s lambda 0.01s | total 30s
+2026-11-23 17:39:06 | INFO |   [  5/150] [GPU 3] (L=1, m=1, q=5) | init SSE=1.65e-02 -> SSE=2.261e-09 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.5s screen 4.7s polish 12.9s lambda 0.01s | total 42s
+2026-11-23 17:39:08 | INFO |   [  6/150] [GPU 0] (L=1, m=2, q=1) | init SSE=2.84e-01 -> SSE=7.517e-06 | lam_T=+3.5044 lam_h=+3.5045 | t: init 0.4s screen 2.8s polish 15.5s lambda 1.44s | total 45s
+2026-11-23 17:39:08 | INFO |   [  7/150] [GPU 2] (L=1, m=2, q=2) | init SSE=1.29e-01 -> SSE=5.042e-08 | lam_T=+0.3979 lam_h=+0.4035 | t: init 0.4s screen 3.7s polish 14.5s lambda 1.09s | total 45s
+2026-11-23 17:39:19 | INFO |   [  8/150] [GPU 1] (L=1, m=2, q=3) | init SSE=2.62e-02 -> SSE=3.217e-09 | lam_T=+0.0163 lam_h=-0.0010 | t: init 0.5s screen 4.6s polish 19.6s lambda 0.69s | total 56s
+2026-11-23 17:39:24 | INFO |   [  9/150] [GPU 3] (L=1, m=2, q=4) | init SSE=2.52e-02 -> SSE=3.931e-10 | lam_T=+0.0001 lam_h=+0.0018 | t: init 0.4s screen 4.3s polish 12.9s lambda 0.66s | total 61s
+2026-11-23 17:39:26 | INFO |   [ 10/150] [GPU 2] (L=1, m=3, q=1) | init SSE=2.70e-01 -> SSE=2.603e-06 | lam_T=+2.0516 lam_h=+2.0488 | t: init 0.3s screen 2.7s polish 15.2s lambda 0.00s | total 63s
+2026-11-23 17:39:28 | INFO |   [ 11/150] [GPU 0] (L=1, m=2, q=5) | init SSE=1.91e-02 -> SSE=1.338e-10 | lam_T=+0.5664 lam_h=+0.5653 | t: init 0.4s screen 4.9s polish 14.8s lambda 0.01s | total 65s
+2026-11-23 17:39:41 | INFO |   [ 12/150] [GPU 3] (L=1, m=3, q=3) | init SSE=7.87e-02 -> SSE=3.301e-08 | lam_T=+0.8571 lam_h=+0.8575 | t: init 0.4s screen 3.9s polish 13.0s lambda 0.01s | total 78s
+2026-11-23 17:39:43 | INFO |   [ 13/150] [GPU 1] (L=1, m=3, q=2) | init SSE=2.31e-02 -> SSE=6.305e-08 | lam_T=+1.1822 lam_h=+1.1823 | t: init 0.3s screen 4.1s polish 20.1s lambda 0.01s | total 80s
+2026-11-23 17:39:45 | INFO |   [ 14/150] [GPU 2] (L=1, m=3, q=4) | init SSE=3.25e-02 -> SSE=2.301e-10 | lam_T=+1.1220 lam_h=+1.1227 | t: init 0.5s screen 4.4s polish 14.5s lambda 0.01s | total 82s
+2026-11-23 17:39:48 | INFO |   [ 15/150] [GPU 0] (L=1, m=3, q=5) | init SSE=2.25e-02 -> SSE=6.339e-09 | lam_T=+0.7547 lam_h=+0.7575 | t: init 0.5s screen 4.6s polish 14.8s lambda 0.01s | total 85s
+2026-11-23 17:39:57 | INFO |   [ 16/150] [GPU 3] (L=1, m=4, q=1) | init SSE=2.84e-01 -> SSE=3.215e-06 | lam_T=+4.4038 lam_h=+4.4037 | t: init 0.4s screen 2.7s polish 13.2s lambda 0.00s | total 94s
+2026-11-23 17:40:04 | INFO |   [ 17/150] [GPU 2] (L=1, m=4, q=3) | init SSE=8.98e-02 -> SSE=6.808e-09 | lam_T=+0.4645 lam_h=+0.4637 | t: init 0.4s screen 4.1s polish 14.5s lambda 0.01s | total 101s
+2026-11-23 17:40:08 | INFO |   [ 18/150] [GPU 0] (L=1, m=4, q=4) | init SSE=1.67e-02 -> SSE=9.572e-09 | lam_T=+0.0632 lam_h=+0.0613 | t: init 0.4s screen 4.5s polish 14.9s lambda 0.01s | total 104s
+2026-11-23 17:40:08 | INFO |   [ 19/150] [GPU 1] (L=1, m=4, q=2) | init SSE=9.70e-02 -> SSE=2.526e-07 | lam_T=+1.2040 lam_h=+1.1831 | t: init 0.4s screen 4.4s polish 20.0s lambda 0.01s | total 105s
+2026-11-23 17:40:15 | INFO |   [ 20/150] [GPU 3] (L=1, m=4, q=5) | init SSE=4.93e-02 -> SSE=1.959e-08 | lam_T=+0.2855 lam_h=+0.2256 | t: init 0.4s screen 4.7s polish 13.0s lambda 0.01s | total 112s
+2026-11-23 17:40:22 | INFO |   [ 21/150] [GPU 2] (L=1, m=5, q=1) | init SSE=2.79e-01 -> SSE=9.299e-06 | lam_T=+3.3975 lam_h=+3.3971 | t: init 0.3s screen 2.9s polish 14.3s lambda 0.00s | total 119s
+2026-11-23 17:40:27 | INFO |   [ 22/150] [GPU 0] (L=1, m=5, q=2) | init SSE=5.48e-02 -> SSE=1.213e-07 | lam_T=+0.6782 lam_h=+0.6783 | t: init 0.3s screen 3.8s polish 15.4s lambda 0.01s | total 124s
+2026-11-23 17:40:33 | INFO |   [ 23/150] [GPU 1] (L=1, m=5, q=3) | init SSE=9.24e-02 -> SSE=5.212e-08 | lam_T=+0.3227 lam_h=+0.3215 | t: init 0.4s screen 4.7s polish 19.7s lambda 0.01s | total 130s
+2026-11-23 17:40:34 | INFO |   [ 24/150] [GPU 3] (L=1, m=5, q=4) | init SSE=1.00e-01 -> SSE=2.710e-09 | lam_T=+0.9272 lam_h=+0.9269 | t: init 0.4s screen 4.5s polish 13.3s lambda 0.01s | total 130s
+2026-11-23 17:40:42 | INFO |   [ 25/150] [GPU 2] (L=1, m=5, q=5) | init SSE=6.64e-02 -> SSE=1.941e-09 | lam_T=+0.3275 lam_h=+0.3340 | t: init 0.5s screen 5.0s polish 14.3s lambda 0.01s | total 138s
+2026-11-23 17:40:45 | INFO |   [ 26/150] [GPU 0] (L=1, m=6, q=1) | init SSE=2.81e-01 -> SSE=7.665e-06 | lam_T=+4.0567 lam_h=+4.0567 | t: init 0.4s screen 3.4s polish 14.0s lambda 0.00s | total 142s
+2026-11-23 17:40:51 | INFO |   [ 27/150] [GPU 3] (L=1, m=6, q=3) | init SSE=6.96e-02 -> SSE=6.422e-09 | lam_T=+0.5453 lam_h=+0.5455 | t: init 0.4s screen 4.0s polish 13.0s lambda 0.01s | total 148s
+2026-11-23 17:40:58 | INFO |   [ 28/150] [GPU 1] (L=1, m=6, q=2) | init SSE=1.65e-01 -> SSE=1.300e-07 | lam_T=+1.9364 lam_h=+1.9362 | t: init 0.4s screen 4.5s polish 20.1s lambda 0.01s | total 155s
+2026-11-23 17:41:01 | INFO |   [ 29/150] [GPU 2] (L=1, m=6, q=4) | init SSE=5.52e-02 -> SSE=8.979e-09 | lam_T=+0.0642 lam_h=+0.0450 | t: init 0.4s screen 4.5s polish 14.4s lambda 0.01s | total 158s
+2026-11-23 17:41:05 | INFO |   [ 30/150] [GPU 0] (L=1, m=6, q=5) | init SSE=4.45e-02 -> SSE=5.511e-08 | lam_T=+0.1610 lam_h=+0.1442 | t: init 0.4s screen 5.1s polish 14.9s lambda 0.01s | total 162s
+2026-11-23 17:41:07 | INFO |   [ 31/150] [GPU 3] (L=2, m=1, q=1) | init SSE=2.86e-01 -> SSE=3.843e-06 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.3s screen 2.1s polish 13.6s lambda 0.00s | total 164s
+2026-11-23 17:41:20 | INFO |   [ 32/150] [GPU 2] (L=2, m=1, q=3) | init SSE=3.65e-02 -> SSE=7.599e-08 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.4s screen 4.0s polish 14.2s lambda 0.01s | total 176s
+2026-11-23 17:41:23 | INFO |   [ 33/150] [GPU 1] (L=2, m=1, q=2) | init SSE=1.07e-01 -> SSE=9.114e-08 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.3s screen 4.2s polish 19.9s lambda 0.00s | total 179s
+2026-11-23 17:41:25 | INFO |   [ 34/150] [GPU 0] (L=2, m=1, q=4) | init SSE=3.84e-02 -> SSE=1.596e-08 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.4s screen 4.6s polish 14.8s lambda 0.01s | total 182s
+2026-11-23 17:41:26 | INFO |   [ 35/150] [GPU 3] (L=2, m=1, q=5) | init SSE=7.90e-03 -> SSE=1.160e-09 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.4s screen 4.9s polish 13.2s lambda 0.01s | total 182s
+2026-11-23 17:41:38 | INFO |   [ 36/150] [GPU 2] (L=2, m=2, q=1) | init SSE=2.78e-01 -> SSE=4.524e-06 | lam_T=+2.8452 lam_h=+2.8454 | t: init 0.3s screen 2.6s polish 15.1s lambda 0.00s | total 194s
+2026-11-23 17:41:43 | INFO |   [ 37/150] [GPU 3] (L=2, m=2, q=4) | init SSE=4.47e-02 -> SSE=3.848e-09 | lam_T=+0.0050 lam_h=-0.0009 | t: init 0.4s screen 4.3s polish 13.0s lambda 0.01s | total 200s
+2026-11-23 17:41:44 | INFO |   [ 38/150] [GPU 0] (L=2, m=2, q=3) | init SSE=3.00e-02 -> SSE=3.456e-08 | lam_T=+0.4911 lam_h=+0.4903 | t: init 0.4s screen 4.1s polish 14.7s lambda 0.01s | total 201s
+2026-11-23 17:41:47 | INFO |   [ 39/150] [GPU 1] (L=2, m=2, q=2) | init SSE=2.26e-02 -> SSE=1.197e-07 | lam_T=+1.4001 lam_h=+1.3998 | t: init 0.4s screen 4.4s polish 19.9s lambda 0.00s | total 204s
+2026-11-23 17:41:58 | INFO |   [ 40/150] [GPU 2] (L=2, m=2, q=5) | init SSE=3.86e-02 -> SSE=5.523e-10 | lam_T=+0.0259 lam_h=-0.0009 | t: init 0.4s screen 4.9s polish 14.7s lambda 0.01s | total 214s
+2026-11-23 17:42:00 | INFO |   [ 41/150] [GPU 3] (L=2, m=3, q=1) | init SSE=2.78e-01 -> SSE=4.308e-06 | lam_T=+2.6213 lam_h=+2.6217 | t: init 0.3s screen 2.5s polish 13.6s lambda 0.00s | total 217s
+2026-11-23 17:42:04 | INFO |   [ 42/150] [GPU 0] (L=2, m=3, q=2) | init SSE=1.21e-01 -> SSE=2.123e-07 | lam_T=+0.0000 lam_h=+0.0010 | t: init 0.3s screen 3.8s polish 15.4s lambda 0.00s | total 220s
+2026-11-23 17:42:12 | INFO |   [ 43/150] [GPU 1] (L=2, m=3, q=3) | init SSE=2.07e-02 -> SSE=1.561e-08 | lam_T=+1.6257 lam_h=+1.6262 | t: init 0.4s screen 4.5s polish 19.7s lambda 0.01s | total 229s
+2026-11-23 17:42:17 | INFO |   [ 44/150] [GPU 2] (L=2, m=3, q=4) | init SSE=4.14e-02 -> SSE=5.981e-09 | lam_T=+0.1722 lam_h=+0.1802 | t: init 0.5s screen 4.5s polish 14.4s lambda 0.01s | total 234s
+2026-11-23 17:42:18 | INFO |   [ 45/150] [GPU 3] (L=2, m=3, q=5) | init SSE=4.81e-02 -> SSE=4.794e-09 | lam_T=+0.2373 lam_h=+0.1665 | t: init 0.4s screen 4.5s polish 13.2s lambda 0.01s | total 235s
+2026-11-23 17:42:22 | INFO |   [ 46/150] [GPU 0] (L=2, m=4, q=1) | init SSE=2.81e-01 -> SSE=3.020e-06 | lam_T=+4.5400 lam_h=+4.5400 | t: init 0.4s screen 3.0s polish 15.2s lambda 0.00s | total 239s
+2026-11-23 17:42:36 | INFO |   [ 47/150] [GPU 2] (L=2, m=4, q=3) | init SSE=4.35e-02 -> SSE=7.900e-08 | lam_T=+0.3155 lam_h=+0.3145 | t: init 0.4s screen 3.9s polish 14.4s lambda 0.01s | total 252s
+2026-11-23 17:42:36 | INFO |   [ 48/150] [GPU 3] (L=2, m=4, q=4) | init SSE=5.69e-02 -> SSE=1.334e-09 | lam_T=+0.2302 lam_h=+0.2280 | t: init 0.4s screen 4.5s polish 13.2s lambda 0.01s | total 253s
+2026-11-23 17:42:37 | INFO |   [ 49/150] [GPU 1] (L=2, m=4, q=2) | init SSE=7.23e-02 -> SSE=1.568e-07 | lam_T=+0.8441 lam_h=+0.8427 | t: init 0.4s screen 4.3s polish 20.0s lambda 0.01s | total 253s
+2026-11-23 17:42:43 | INFO |   [ 50/150] [GPU 0] (L=2, m=4, q=5) | init SSE=1.37e-02 -> SSE=8.786e-09 | lam_T=+0.3397 lam_h=+0.3384 | t: init 0.4s screen 4.8s polish 15.1s lambda 0.01s | total 259s
+2026-11-23 17:42:53 | INFO |   [ 51/150] [GPU 3] (L=2, m=5, q=2) | init SSE=2.88e-02 -> SSE=7.790e-08 | lam_T=+0.9277 lam_h=+0.9289 | t: init 0.3s screen 3.6s polish 12.9s lambda 0.01s | total 270s
+2026-11-23 17:42:54 | INFO |   [ 52/150] [GPU 2] (L=2, m=5, q=1) | init SSE=2.77e-01 -> SSE=1.453e-05 | lam_T=+1.8837 lam_h=+1.8824 | t: init 0.4s screen 3.0s polish 15.1s lambda 0.00s | total 271s
+2026-11-23 17:43:02 | INFO |   [ 53/150] [GPU 1] (L=2, m=5, q=3) | init SSE=8.69e-02 -> SSE=9.654e-09 | lam_T=+1.0188 lam_h=+1.0194 | t: init 0.4s screen 4.8s polish 19.8s lambda 0.01s | total 278s
+2026-11-23 17:43:03 | INFO |   [ 54/150] [GPU 0] (L=2, m=5, q=4) | init SSE=6.36e-02 -> SSE=5.101e-08 | lam_T=+0.5666 lam_h=+0.5666 | t: init 0.5s screen 4.6s polish 14.9s lambda 0.01s | total 279s
+2026-11-23 17:43:11 | INFO |   [ 55/150] [GPU 2] (L=2, m=6, q=1) | init SSE=4.27e-01 -> SSE=1.623e-05 | lam_T=+3.8036 lam_h=+3.8037 | t: init 0.3s screen 3.2s polish 13.4s lambda 0.00s | total 288s
+2026-11-23 17:43:11 | INFO |   [ 56/150] [GPU 3] (L=2, m=5, q=5) | init SSE=5.62e-02 -> SSE=5.181e-09 | lam_T=+0.1104 lam_h=+0.0841 | t: init 0.4s screen 4.8s polish 13.3s lambda 0.01s | total 288s
+2026-11-23 17:43:22 | INFO |   [ 57/150] [GPU 0] (L=2, m=6, q=3) | init SSE=6.89e-02 -> SSE=7.997e-09 | lam_T=+0.6471 lam_h=+0.6457 | t: init 0.4s screen 4.2s polish 15.1s lambda 0.01s | total 299s
+2026-11-23 17:43:26 | INFO |   [ 58/150] [GPU 1] (L=2, m=6, q=2) | init SSE=1.45e-01 -> SSE=1.709e-07 | lam_T=+1.3366 lam_h=+1.3366 | t: init 0.4s screen 4.3s polish 20.0s lambda 0.01s | total 303s
+2026-11-23 17:43:30 | INFO |   [ 59/150] [GPU 3] (L=2, m=6, q=5) | init SSE=3.96e-02 -> SSE=1.335e-08 | lam_T=+0.5830 lam_h=+0.5841 | t: init 0.5s screen 4.8s polish 13.0s lambda 0.01s | total 306s
+2026-11-23 17:43:31 | INFO |   [ 60/150] [GPU 2] (L=2, m=6, q=4) | init SSE=9.98e-02 -> SSE=1.421e-08 | lam_T=+1.2311 lam_h=+1.2308 | t: init 0.4s screen 4.6s polish 14.7s lambda 0.01s | total 308s
+2026-11-23 17:43:41 | INFO |   [ 61/150] [GPU 0] (L=3, m=1, q=1) | init SSE=2.87e-01 -> SSE=3.425e-06 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.3s screen 2.4s polish 15.9s lambda 0.00s | total 318s
+2026-11-23 17:43:47 | INFO |   [ 62/150] [GPU 3] (L=3, m=1, q=3) | init SSE=2.66e-02 -> SSE=4.226e-08 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.4s screen 3.7s polish 12.9s lambda 0.01s | total 323s
+2026-11-23 17:43:50 | INFO |   [ 63/150] [GPU 2] (L=3, m=1, q=4) | init SSE=3.28e-02 -> SSE=2.309e-08 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.4s screen 4.5s polish 14.3s lambda 0.01s | total 327s
+2026-11-23 17:43:51 | INFO |   [ 64/150] [GPU 1] (L=3, m=1, q=2) | init SSE=5.01e-02 -> SSE=7.104e-08 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.3s screen 4.3s polish 19.7s lambda 0.00s | total 327s
+2026-11-23 17:44:01 | INFO |   [ 65/150] [GPU 0] (L=3, m=1, q=5) | init SSE=1.71e-02 -> SSE=4.486e-09 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.5s screen 4.9s polish 14.9s lambda 0.01s | total 338s
+2026-11-23 17:44:03 | INFO |   [ 66/150] [GPU 3] (L=3, m=2, q=1) | init SSE=2.74e-01 -> SSE=3.068e-06 | lam_T=+3.5276 lam_h=+3.5276 | t: init 0.3s screen 2.5s polish 13.7s lambda 0.00s | total 340s
+2026-11-23 17:44:09 | INFO |   [ 67/150] [GPU 2] (L=3, m=2, q=2) | init SSE=5.85e-02 -> SSE=4.756e-08 | lam_T=+1.0315 lam_h=+1.0325 | t: init 0.3s screen 3.8s polish 14.4s lambda 0.00s | total 345s
+2026-11-23 17:44:15 | INFO |   [ 68/150] [GPU 1] (L=3, m=2, q=3) | init SSE=8.01e-03 -> SSE=9.645e-09 | lam_T=+1.2937 lam_h=+1.2937 | t: init 0.4s screen 4.5s polish 19.6s lambda 0.01s | total 352s
+2026-11-23 17:44:21 | INFO |   [ 69/150] [GPU 0] (L=3, m=2, q=4) | init SSE=2.66e-02 -> SSE=8.023e-08 | lam_T=+0.5300 lam_h=+0.5291 | t: init 0.4s screen 4.4s polish 14.8s lambda 0.01s | total 358s
+2026-11-23 17:44:21 | INFO |   [ 70/150] [GPU 3] (L=3, m=2, q=5) | init SSE=1.16e-02 -> SSE=5.244e-09 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.5s screen 4.8s polish 13.0s lambda 0.01s | total 358s
+2026-11-23 17:44:27 | INFO |   [ 71/150] [GPU 2] (L=3, m=3, q=1) | init SSE=2.71e-01 -> SSE=5.180e-06 | lam_T=+5.3628 lam_h=+5.3628 | t: init 0.3s screen 3.0s polish 15.3s lambda 0.00s | total 364s
+2026-11-23 17:44:39 | INFO |   [ 72/150] [GPU 3] (L=3, m=3, q=4) | init SSE=7.71e-02 -> SSE=3.941e-08 | lam_T=+0.1808 lam_h=+0.1812 | t: init 0.4s screen 4.1s polish 12.9s lambda 0.01s | total 376s
+2026-11-23 17:44:40 | INFO |   [ 73/150] [GPU 1] (L=3, m=3, q=2) | init SSE=3.26e-02 -> SSE=1.492e-07 | lam_T=+1.7795 lam_h=+1.7797 | t: init 0.3s screen 4.2s polish 20.1s lambda 0.01s | total 376s
+2026-11-23 17:44:40 | INFO |   [ 74/150] [GPU 0] (L=3, m=3, q=3) | init SSE=4.91e-02 -> SSE=1.380e-09 | lam_T=+0.3451 lam_h=+0.3450 | t: init 0.4s screen 4.1s polish 14.8s lambda 0.01s | total 377s
+2026-11-23 17:44:47 | INFO |   [ 75/150] [GPU 2] (L=3, m=3, q=5) | init SSE=2.69e-02 -> SSE=1.282e-08 | lam_T=+0.2430 lam_h=+0.2438 | t: init 0.5s screen 4.7s polish 14.4s lambda 0.01s | total 383s
+2026-11-23 17:44:55 | INFO |   [ 76/150] [GPU 3] (L=3, m=4, q=1) | init SSE=3.22e-01 -> SSE=4.540e-06 | lam_T=+5.4359 lam_h=+5.4359 | t: init 0.3s screen 2.9s polish 13.3s lambda 0.00s | total 392s
+2026-11-23 17:45:00 | INFO |   [ 77/150] [GPU 0] (L=3, m=4, q=3) | init SSE=5.92e-02 -> SSE=7.819e-08 | lam_T=+0.2856 lam_h=+0.2613 | t: init 0.4s screen 4.2s polish 14.9s lambda 0.01s | total 396s
+2026-11-23 17:45:04 | INFO |   [ 78/150] [GPU 1] (L=3, m=4, q=2) | init SSE=1.38e-01 -> SSE=1.351e-07 | lam_T=+0.7617 lam_h=+0.7613 | t: init 0.4s screen 4.1s polish 20.0s lambda 0.01s | total 401s
+2026-11-23 17:45:06 | INFO |   [ 79/150] [GPU 2] (L=3, m=4, q=4) | init SSE=4.18e-02 -> SSE=9.027e-09 | lam_T=+0.0750 lam_h=+0.0043 | t: init 0.4s screen 4.4s polish 14.4s lambda 0.01s | total 403s
+2026-11-23 17:45:14 | INFO |   [ 80/150] [GPU 3] (L=3, m=4, q=5) | init SSE=2.99e-02 -> SSE=5.174e-10 | lam_T=+0.0001 lam_h=+0.0034 | t: init 0.5s screen 4.8s polish 13.1s lambda 0.01s | total 411s
+2026-11-23 17:45:18 | INFO |   [ 81/150] [GPU 0] (L=3, m=5, q=1) | init SSE=2.83e-01 -> SSE=1.688e-05 | lam_T=+5.2498 lam_h=+5.2498 | t: init 0.3s screen 3.0s polish 15.4s lambda 0.00s | total 415s
+2026-11-23 17:45:25 | INFO |   [ 82/150] [GPU 2] (L=3, m=5, q=3) | init SSE=9.33e-02 -> SSE=1.830e-08 | lam_T=+0.6003 lam_h=+0.6007 | t: init 0.4s screen 4.2s polish 14.5s lambda 0.01s | total 422s
+2026-11-23 17:45:29 | INFO |   [ 83/150] [GPU 1] (L=3, m=5, q=2) | init SSE=7.09e-02 -> SSE=7.547e-08 | lam_T=+0.4738 lam_h=+0.4069 | t: init 0.3s screen 4.4s polish 20.1s lambda 0.01s | total 426s
+2026-11-23 17:45:32 | INFO |   [ 84/150] [GPU 3] (L=3, m=5, q=4) | init SSE=6.93e-02 -> SSE=1.394e-10 | lam_T=+0.3673 lam_h=+0.3673 | t: init 0.4s screen 4.4s polish 13.0s lambda 0.01s | total 428s
+2026-11-23 17:45:39 | INFO |   [ 85/150] [GPU 0] (L=3, m=5, q=5) | init SSE=4.04e-02 -> SSE=8.085e-10 | lam_T=+0.3013 lam_h=+0.3024 | t: init 0.5s screen 5.0s polish 14.9s lambda 0.01s | total 435s
+2026-11-23 17:45:43 | INFO |   [ 86/150] [GPU 2] (L=3, m=6, q=1) | init SSE=2.74e-01 -> SSE=1.800e-06 | lam_T=+2.2261 lam_h=+2.2256 | t: init 0.3s screen 3.1s polish 14.6s lambda 0.00s | total 440s
+2026-11-23 17:45:49 | INFO |   [ 87/150] [GPU 3] (L=3, m=6, q=3) | init SSE=7.46e-02 -> SSE=3.173e-08 | lam_T=+0.4034 lam_h=+0.4021 | t: init 0.4s screen 4.1s polish 13.3s lambda 0.01s | total 446s
+2026-11-23 17:45:54 | INFO |   [ 88/150] [GPU 1] (L=3, m=6, q=2) | init SSE=1.10e-01 -> SSE=2.285e-07 | lam_T=+0.6338 lam_h=+0.6330 | t: init 0.4s screen 4.2s polish 20.1s lambda 0.01s | total 451s
+2026-11-23 17:45:59 | INFO |   [ 89/150] [GPU 0] (L=3, m=6, q=4) | init SSE=9.86e-02 -> SSE=4.036e-09 | lam_T=+0.2934 lam_h=+0.2922 | t: init 0.4s screen 4.7s polish 15.2s lambda 0.01s | total 456s
+2026-11-23 17:46:03 | INFO |   [ 90/150] [GPU 2] (L=3, m=6, q=5) | init SSE=6.08e-02 -> SSE=1.388e-09 | lam_T=+0.2797 lam_h=+0.2032 | t: init 0.4s screen 4.8s polish 14.7s lambda 0.01s | total 460s
+2026-11-23 17:46:06 | INFO |   [ 91/150] [GPU 3] (L=4, m=1, q=1) | init SSE=2.78e-01 -> SSE=3.267e-06 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.4s screen 2.3s polish 13.6s lambda 0.00s | total 462s
+2026-11-23 17:46:18 | INFO |   [ 92/150] [GPU 1] (L=4, m=1, q=2) | init SSE=4.88e-02 -> SSE=1.419e-07 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.3s screen 4.3s polish 19.9s lambda 0.00s | total 475s
+2026-11-23 17:46:18 | INFO |   [ 93/150] [GPU 0] (L=4, m=1, q=3) | init SSE=5.96e-02 -> SSE=1.255e-09 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.5s screen 4.2s polish 14.9s lambda 0.01s | total 475s
+2026-11-23 17:46:22 | INFO |   [ 94/150] [GPU 2] (L=4, m=1, q=4) | init SSE=3.56e-02 -> SSE=6.032e-10 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.4s screen 4.6s polish 14.3s lambda 0.01s | total 479s
+2026-11-23 17:46:24 | INFO |   [ 95/150] [GPU 3] (L=4, m=1, q=5) | init SSE=3.16e-02 -> SSE=8.180e-10 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.4s screen 4.8s polish 12.9s lambda 0.01s | total 480s
+2026-11-23 17:46:38 | INFO |   [ 96/150] [GPU 0] (L=4, m=2, q=2) | init SSE=1.29e-01 -> SSE=1.793e-07 | lam_T=+0.1250 lam_h=+0.1330 | t: init 0.3s screen 3.8s polish 15.2s lambda 0.00s | total 494s
+2026-11-23 17:46:41 | INFO |   [ 97/150] [GPU 2] (L=4, m=2, q=3) | init SSE=4.43e-02 -> SSE=1.245e-09 | lam_T=-0.0000 lam_h=-0.0001 | t: init 0.4s screen 4.0s polish 14.4s lambda 0.01s | total 498s
+2026-11-23 17:46:42 | INFO |   [ 98/150] [GPU 3] (L=4, m=2, q=4) | init SSE=2.95e-02 -> SSE=2.720e-09 | lam_T=-0.0000 lam_h=-0.0001 | t: init 0.4s screen 4.3s polish 13.3s lambda 0.01s | total 498s
+2026-11-23 17:46:42 | INFO |   [ 99/150] [GPU 1] (L=4, m=2, q=1) | init SSE=2.76e-01 -> SSE=3.517e-06 | lam_T=+2.6571 lam_h=+2.6569 | t: init 0.4s screen 3.1s polish 20.5s lambda 0.00s | total 499s
+2026-11-23 17:46:58 | INFO |   [100/150] [GPU 0] (L=4, m=2, q=5) | init SSE=1.95e-02 -> SSE=3.872e-09 | lam_T=+0.2025 lam_h=+0.2015 | t: init 0.4s screen 5.0s polish 15.3s lambda 0.01s | total 515s
+2026-11-23 17:46:59 | INFO |   [101/150] [GPU 3] (L=4, m=3, q=2) | init SSE=1.37e-01 -> SSE=8.320e-08 | lam_T=+1.6965 lam_h=+1.6969 | t: init 0.4s screen 3.5s polish 13.3s lambda 0.01s | total 516s
+2026-11-23 17:47:00 | INFO |   [102/150] [GPU 2] (L=4, m=3, q=1) | init SSE=2.89e-01 -> SSE=3.703e-06 | lam_T=+1.5886 lam_h=+1.5870 | t: init 0.4s screen 3.0s polish 15.1s lambda 0.00s | total 516s
+2026-11-23 17:47:07 | INFO |   [103/150] [GPU 1] (L=4, m=3, q=3) | init SSE=8.55e-02 -> SSE=1.003e-08 | lam_T=+0.8013 lam_h=+0.8017 | t: init 0.4s screen 4.5s polish 19.6s lambda 0.01s | total 524s
+2026-11-23 17:47:17 | INFO |   [104/150] [GPU 3] (L=4, m=3, q=5) | init SSE=1.30e-02 -> SSE=2.653e-09 | lam_T=+0.0013 lam_h=+0.0104 | t: init 0.4s screen 4.7s polish 13.0s lambda 0.01s | total 534s
+2026-11-23 17:47:18 | INFO |   [105/150] [GPU 2] (L=4, m=4, q=1) | init SSE=3.12e-01 -> SSE=4.018e-06 | lam_T=+3.9298 lam_h=+3.9297 | t: init 0.3s screen 2.9s polish 14.7s lambda 0.00s | total 534s
+2026-11-23 17:47:18 | INFO |   [106/150] [GPU 0] (L=4, m=3, q=4) | init SSE=4.24e-02 -> SSE=4.370e-10 | lam_T=+0.0175 lam_h=-0.0013 | t: init 0.4s screen 4.4s polish 14.9s lambda 0.01s | total 535s
+2026-11-23 17:47:32 | INFO |   [107/150] [GPU 1] (L=4, m=4, q=2) | init SSE=5.21e-02 -> SSE=7.337e-08 | lam_T=+0.6540 lam_h=+0.6549 | t: init 0.4s screen 4.3s polish 20.0s lambda 0.01s | total 548s
+2026-11-23 17:47:34 | INFO |   [108/150] [GPU 3] (L=4, m=4, q=3) | init SSE=6.26e-02 -> SSE=4.399e-09 | lam_T=+0.4914 lam_h=+0.4896 | t: init 0.3s screen 3.9s polish 13.0s lambda 0.01s | total 551s
+2026-11-23 17:47:37 | INFO |   [109/150] [GPU 2] (L=4, m=4, q=4) | init SSE=5.33e-02 -> SSE=3.288e-09 | lam_T=+0.6324 lam_h=+0.6321 | t: init 0.4s screen 4.7s polish 14.4s lambda 0.01s | total 554s
+2026-11-23 17:47:38 | INFO |   [110/150] [GPU 0] (L=4, m=4, q=5) | init SSE=4.75e-02 -> SSE=1.338e-09 | lam_T=+0.1458 lam_h=+0.1452 | t: init 0.4s screen 4.7s polish 15.0s lambda 0.01s | total 555s
+2026-11-23 17:47:52 | INFO |   [111/150] [GPU 3] (L=4, m=5, q=2) | init SSE=5.41e-02 -> SSE=1.752e-07 | lam_T=+0.8436 lam_h=+0.8434 | t: init 0.4s screen 3.6s polish 13.2s lambda 0.01s | total 568s
+2026-11-23 17:47:56 | INFO |   [112/150] [GPU 2] (L=4, m=5, q=3) | init SSE=1.60e-01 -> SSE=3.479e-08 | lam_T=+0.4747 lam_h=+0.4741 | t: init 0.5s screen 4.2s polish 14.5s lambda 0.01s | total 573s
+2026-11-23 17:47:56 | INFO |   [113/150] [GPU 1] (L=4, m=5, q=1) | init SSE=3.28e-01 -> SSE=2.589e-06 | lam_T=+2.5343 lam_h=+2.5338 | t: init 0.3s screen 3.7s polish 20.6s lambda 0.00s | total 573s
+2026-11-23 17:47:58 | INFO |   [114/150] [GPU 0] (L=4, m=5, q=4) | init SSE=5.80e-02 -> SSE=2.093e-09 | lam_T=+0.0640 lam_h=+0.0597 | t: init 0.4s screen 4.5s polish 14.9s lambda 0.01s | total 575s
+2026-11-23 17:48:10 | INFO |   [115/150] [GPU 3] (L=4, m=5, q=5) | init SSE=3.22e-02 -> SSE=5.789e-09 | lam_T=+0.6252 lam_h=+0.6237 | t: init 0.4s screen 4.7s polish 13.1s lambda 0.01s | total 587s
+2026-11-23 17:48:14 | INFO |   [116/150] [GPU 2] (L=4, m=6, q=1) | init SSE=2.73e-01 -> SSE=3.925e-06 | lam_T=+1.9560 lam_h=+1.9551 | t: init 0.3s screen 3.1s polish 14.8s lambda 0.00s | total 591s
+2026-11-23 17:48:18 | INFO |   [117/150] [GPU 0] (L=4, m=6, q=3) | init SSE=7.35e-02 -> SSE=6.999e-08 | lam_T=+0.4574 lam_h=+0.4568 | t: init 0.4s screen 4.3s polish 15.0s lambda 0.01s | total 595s
+2026-11-23 17:48:21 | INFO |   [118/150] [GPU 1] (L=4, m=6, q=2) | init SSE=1.77e-01 -> SSE=1.776e-07 | lam_T=+1.0661 lam_h=+1.0662 | t: init 0.4s screen 4.4s polish 20.1s lambda 0.01s | total 598s
+2026-11-23 17:48:28 | INFO |   [119/150] [GPU 3] (L=4, m=6, q=4) | init SSE=5.03e-02 -> SSE=1.355e-08 | lam_T=+0.4645 lam_h=+0.4647 | t: init 0.4s screen 4.4s polish 13.3s lambda 0.01s | total 605s
+2026-11-23 17:48:34 | INFO |   [120/150] [GPU 2] (L=4, m=6, q=5) | init SSE=1.50e-02 -> SSE=1.372e-09 | lam_T=+0.2521 lam_h=+0.2435 | t: init 0.5s screen 4.9s polish 14.7s lambda 0.01s | total 611s
+2026-11-23 17:48:36 | INFO |   [121/150] [GPU 0] (L=5, m=1, q=1) | init SSE=2.72e-01 -> SSE=4.892e-06 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.3s screen 2.3s polish 15.9s lambda 0.00s | total 613s
+2026-11-23 17:48:45 | INFO |   [122/150] [GPU 3] (L=5, m=1, q=3) | init SSE=1.62e-02 -> SSE=1.421e-09 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.4s screen 3.9s polish 13.0s lambda 0.01s | total 622s
+2026-11-23 17:48:46 | INFO |   [123/150] [GPU 1] (L=5, m=1, q=2) | init SSE=2.74e-02 -> SSE=9.277e-08 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.3s screen 4.1s polish 20.0s lambda 0.00s | total 622s
+2026-11-23 17:48:53 | INFO |   [124/150] [GPU 2] (L=5, m=1, q=4) | init SSE=9.70e-03 -> SSE=4.415e-10 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.4s screen 4.5s polish 14.1s lambda 0.01s | total 630s
+2026-11-23 17:48:57 | INFO |   [125/150] [GPU 0] (L=5, m=1, q=5) | init SSE=2.10e-02 -> SSE=2.719e-10 | lam_T=-0.0000 lam_h=-0.0000 | t: init 0.5s screen 5.0s polish 14.9s lambda 0.01s | total 633s
+2026-11-23 17:49:02 | INFO |   [126/150] [GPU 3] (L=5, m=2, q=1) | init SSE=2.81e-01 -> SSE=2.902e-06 | lam_T=+4.6979 lam_h=+4.6979 | t: init 0.3s screen 2.4s polish 13.6s lambda 0.00s | total 638s
+2026-11-23 17:49:10 | INFO |   [127/150] [GPU 1] (L=5, m=2, q=2) | init SSE=4.17e-02 -> SSE=5.566e-08 | lam_T=+0.4903 lam_h=+0.4934 | t: init 0.4s screen 4.4s polish 19.9s lambda 0.00s | total 647s
+2026-11-23 17:49:13 | INFO |   [128/150] [GPU 2] (L=5, m=2, q=3) | init SSE=8.71e-02 -> SSE=6.473e-08 | lam_T=+0.0000 lam_h=+0.0011 | t: init 0.4s screen 4.1s polish 14.7s lambda 0.01s | total 649s
+2026-11-23 17:49:17 | INFO |   [129/150] [GPU 0] (L=5, m=2, q=4) | init SSE=1.25e-02 -> SSE=5.836e-10 | lam_T=-0.0000 lam_h=-0.0003 | t: init 0.4s screen 4.5s polish 15.2s lambda 0.01s | total 653s
+2026-11-23 17:49:20 | INFO |   [130/150] [GPU 3] (L=5, m=2, q=5) | init SSE=2.61e-02 -> SSE=5.982e-09 | lam_T=+0.0231 lam_h=+0.0108 | t: init 0.4s screen 4.7s polish 13.2s lambda 0.01s | total 657s
+2026-11-23 17:49:32 | INFO |   [131/150] [GPU 2] (L=5, m=3, q=2) | init SSE=7.01e-02 -> SSE=3.838e-08 | lam_T=+0.4649 lam_h=+0.4642 | t: init 0.4s screen 3.7s polish 14.9s lambda 0.00s | total 668s
+2026-11-23 17:49:35 | INFO |   [132/150] [GPU 1] (L=5, m=3, q=1) | init SSE=2.67e-01 -> SSE=4.106e-06 | lam_T=+4.9819 lam_h=+4.9819 | t: init 0.3s screen 3.6s polish 20.6s lambda 0.00s | total 672s
+2026-11-23 17:49:36 | INFO |   [133/150] [GPU 0] (L=5, m=3, q=3) | init SSE=9.87e-02 -> SSE=7.007e-11 | lam_T=+1.9531 lam_h=+1.9532 | t: init 0.5s screen 4.0s polish 14.8s lambda 0.01s | total 673s
+2026-11-23 17:49:38 | INFO |   [134/150] [GPU 3] (L=5, m=3, q=4) | init SSE=1.36e-02 -> SSE=1.006e-08 | lam_T=+0.9484 lam_h=+0.9490 | t: init 0.4s screen 4.4s polish 12.9s lambda 0.01s | total 674s
+2026-11-23 17:49:51 | INFO |   [135/150] [GPU 2] (L=5, m=3, q=5) | init SSE=3.27e-02 -> SSE=1.106e-08 | lam_T=+0.0002 lam_h=+0.0043 | t: init 0.4s screen 4.9s polish 14.4s lambda 0.01s | total 688s
+2026-11-23 17:49:55 | INFO |   [136/150] [GPU 3] (L=5, m=4, q=3) | init SSE=4.50e-02 -> SSE=2.411e-08 | lam_T=+0.8628 lam_h=+0.8620 | t: init 0.4s screen 3.9s polish 13.0s lambda 0.01s | total 692s
+2026-11-23 17:49:55 | INFO |   [137/150] [GPU 0] (L=5, m=4, q=2) | init SSE=7.67e-02 -> SSE=9.721e-08 | lam_T=+1.6820 lam_h=+1.6808 | t: init 0.3s screen 3.7s polish 15.3s lambda 0.01s | total 692s
+2026-11-23 17:49:59 | INFO |   [138/150] [GPU 1] (L=5, m=4, q=1) | init SSE=2.75e-01 -> SSE=4.131e-06 | lam_T=+3.4182 lam_h=+3.4181 | t: init 0.4s screen 3.5s polish 20.6s lambda 0.00s | total 696s
+2026-11-23 17:50:11 | INFO |   [139/150] [GPU 2] (L=5, m=4, q=4) | init SSE=2.86e-02 -> SSE=2.476e-09 | lam_T=+1.0411 lam_h=+1.0404 | t: init 0.4s screen 4.5s polish 14.5s lambda 0.01s | total 707s
+2026-11-23 17:50:13 | INFO |   [140/150] [GPU 3] (L=5, m=4, q=5) | init SSE=3.59e-02 -> SSE=5.067e-09 | lam_T=+0.9301 lam_h=+0.9303 | t: init 0.4s screen 4.6s polish 13.3s lambda 0.01s | total 710s
+2026-11-23 17:50:15 | INFO |   [141/150] [GPU 0] (L=5, m=5, q=1) | init SSE=2.72e-01 -> SSE=2.543e-06 | lam_T=+1.6633 lam_h=+1.6615 | t: init 0.3s screen 3.0s polish 15.9s lambda 0.00s | total 711s
+2026-11-23 17:50:24 | INFO |   [142/150] [GPU 1] (L=5, m=5, q=2) | init SSE=1.43e-01 -> SSE=1.016e-07 | lam_T=+0.4096 lam_h=+0.4095 | t: init 0.3s screen 4.4s polish 20.1s lambda 0.01s | total 721s
+2026-11-23 17:50:30 | INFO |   [143/150] [GPU 2] (L=5, m=5, q=3) | init SSE=1.58e-01 -> SSE=1.768e-07 | lam_T=+0.4765 lam_h=+0.4636 | t: init 0.4s screen 4.2s polish 14.6s lambda 0.01s | total 727s
+2026-11-23 17:50:31 | INFO |   [144/150] [GPU 3] (L=5, m=5, q=4) | init SSE=7.36e-02 -> SSE=3.046e-08 | lam_T=+1.9618 lam_h=+1.9620 | t: init 0.4s screen 4.4s polish 13.0s lambda 0.01s | total 728s
+2026-11-23 17:50:35 | INFO |   [145/150] [GPU 0] (L=5, m=5, q=5) | init SSE=7.16e-02 -> SSE=1.169e-10 | lam_T=+0.0733 lam_h=+0.0843 | t: init 0.5s screen 5.1s polish 14.7s lambda 0.01s | total 732s
+2026-11-23 17:50:48 | INFO |   [146/150] [GPU 1] (L=5, m=6, q=1) | init SSE=3.48e-01 -> SSE=1.841e-06 | lam_T=+2.3880 lam_h=+2.3884 | t: init 0.4s screen 3.8s polish 19.4s lambda 0.00s | total 745s
+2026-11-23 17:50:49 | INFO |   [147/150] [GPU 3] (L=5, m=6, q=3) | init SSE=8.44e-02 -> SSE=4.082e-09 | lam_T=+0.9440 lam_h=+0.9440 | t: init 0.4s screen 4.0s polish 13.1s lambda 0.01s | total 745s
+2026-11-23 17:50:49 | INFO |   [148/150] [GPU 2] (L=5, m=6, q=2) | init SSE=9.54e-02 -> SSE=5.613e-08 | lam_T=+1.5157 lam_h=+1.5162 | t: init 0.3s screen 3.8s polish 15.0s lambda 0.01s | total 746s
+2026-11-23 17:50:55 | INFO |   [149/150] [GPU 0] (L=5, m=6, q=4) | init SSE=6.96e-02 -> SSE=1.187e-09 | lam_T=+0.0121 lam_h=+0.0055 | t: init 0.4s screen 4.8s polish 15.2s lambda 0.01s | total 752s
+2026-11-23 17:51:14 | INFO |   [150/150] [GPU 1] (L=5, m=6, q=5) | init SSE=2.25e-02 -> SSE=4.821e-09 | lam_T=+0.1284 lam_h=+0.1275 | t: init 0.4s screen 5.4s polish 19.8s lambda 0.01s | total 770s
+2026-11-23 17:51:14 | INFO | 
+   L  m  q |        SSE      NMSE |    lam_T    lam_h | lam_T over polished starts (min..max)
+2026-11-23 17:51:14 | INFO |    1  1  1 |  4.219e-06  4.22e-10 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    1  1  2 |  1.483e-07  1.48e-11 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    1  1  3 |  3.869e-08  3.87e-12 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    1  1  4 |  6.866e-10  6.87e-14 |  +0.0000  +0.0000 | -0.0000 .. +0.0000
+2026-11-23 17:51:14 | INFO |    1  1  5 |  2.261e-09  2.26e-13 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    1  2  1 |  7.517e-06  7.52e-10 |  +3.5044  +3.5045 | -0.0000 .. +4.4082  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  2  2 |  5.042e-08  5.04e-12 |  +0.3979  +0.4035 | +0.2554 .. +1.5432  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  2  3 |  3.217e-09  3.22e-13 |  +0.0163  -0.0010 | -0.0000 .. +0.5765  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  2  4 |  3.931e-10  3.93e-14 |  +0.0001  +0.0018 | +0.0001 .. +0.3721  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  2  5 |  1.338e-10  1.34e-14 |  +0.5664  +0.5653 | -0.0000 .. +0.5664  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  3  1 |  2.603e-06  2.61e-10 |  +2.0516  +2.0488 | +2.0516 .. +4.9911  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  3  2 |  6.305e-08  6.31e-12 |  +1.1822  +1.1823 | +0.0297 .. +1.1822  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  3  3 |  3.301e-08  3.30e-12 |  +0.8571  +0.8575 | -0.0001 .. +0.8571  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  3  4 |  2.301e-10  2.30e-14 |  +1.1220  +1.1227 | +0.0002 .. +1.1220  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  3  5 |  6.339e-09  6.34e-13 |  +0.7547  +0.7575 | +0.0003 .. +0.7547  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  4  1 |  3.215e-06  3.22e-10 |  +4.4038  +4.4037 | +0.5003 .. +4.4072  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  4  2 |  2.526e-07  2.53e-11 |  +1.2040  +1.1831 | +0.3383 .. +1.2040  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  4  3 |  6.808e-09  6.82e-13 |  +0.4645  +0.4637 | +0.4645 .. +1.2425  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  4  4 |  9.572e-09  9.58e-13 |  +0.0632  +0.0613 | +0.0632 .. +1.2636  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  4  5 |  1.959e-08  1.96e-12 |  +0.2855  +0.2256 | +0.0000 .. +0.2855  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  5  1 |  9.299e-06  9.31e-10 |  +3.3975  +3.3971 | +0.8894 .. +4.1515  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  5  2 |  1.213e-07  1.21e-11 |  +0.6782  +0.6783 | +0.6729 .. +0.9180  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  5  3 |  5.212e-08  5.22e-12 |  +0.3227  +0.3215 | +0.3227 .. +0.9262  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  5  4 |  2.710e-09  2.71e-13 |  +0.9272  +0.9269 | +0.0350 .. +0.9272  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  5  5 |  1.941e-09  1.94e-13 |  +0.3275  +0.3340 | +0.0867 .. +0.3775  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  6  1 |  7.665e-06  7.68e-10 |  +4.0567  +4.0567 | +0.5732 .. +4.0567  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  6  2 |  1.300e-07  1.30e-11 |  +1.9364  +1.9362 | +0.6643 .. +2.4385  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  6  3 |  6.422e-09  6.43e-13 |  +0.5453  +0.5455 | +0.4567 .. +0.9980  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  6  4 |  8.979e-09  9.00e-13 |  +0.0642  +0.0450 | +0.0642 .. +0.4322  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    1  6  5 |  5.511e-08  5.52e-12 |  +0.1610  +0.1442 | +0.0252 .. +1.1058  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  1  1 |  3.843e-06  3.85e-10 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    2  1  2 |  9.114e-08  9.12e-12 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    2  1  3 |  7.599e-08  7.60e-12 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    2  1  4 |  1.596e-08  1.60e-12 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    2  1  5 |  1.160e-09  1.16e-13 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    2  2  1 |  4.524e-06  4.53e-10 |  +2.8452  +2.8454 | +2.3788 .. +3.8815  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  2  2 |  1.197e-07  1.20e-11 |  +1.4001  +1.3998 | +0.0959 .. +1.4314  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  2  3 |  3.456e-08  3.46e-12 |  +0.4911  +0.4903 | +0.0000 .. +0.9039  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  2  4 |  3.848e-09  3.85e-13 |  +0.0050  -0.0009 | -0.0000 .. +0.8870  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  2  5 |  5.523e-10  5.53e-14 |  +0.0259  -0.0009 | +0.0076 .. +1.2124  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  3  1 |  4.308e-06  4.32e-10 |  +2.6213  +2.6217 | +2.3277 .. +5.2457  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  3  2 |  2.123e-07  2.13e-11 |  +0.0000  +0.0010 | +0.0000 .. +1.2843  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  3  3 |  1.561e-08  1.56e-12 |  +1.6257  +1.6262 | +0.0031 .. +1.6257  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  3  4 |  5.981e-09  5.99e-13 |  +0.1722  +0.1802 | -0.0000 .. +0.9952  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  3  5 |  4.794e-09  4.80e-13 |  +0.2373  +0.1665 | -0.0000 .. +0.2373  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  4  1 |  3.020e-06  3.03e-10 |  +4.5400  +4.5400 | +1.5083 .. +5.6925  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  4  2 |  1.568e-07  1.57e-11 |  +0.8441  +0.8427 | +0.7641 .. +2.2370  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  4  3 |  7.900e-08  7.92e-12 |  +0.3155  +0.3145 | +0.0202 .. +0.7210  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  4  4 |  1.334e-09  1.34e-13 |  +0.2302  +0.2280 | +0.0002 .. +0.5756  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  4  5 |  8.786e-09  8.81e-13 |  +0.3397  +0.3384 | +0.0411 .. +0.4106  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  5  1 |  1.453e-05  1.46e-09 |  +1.8837  +1.8824 | +1.8147 .. +3.2900  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  5  2 |  7.790e-08  7.81e-12 |  +0.9277  +0.9289 | +0.8402 .. +1.1390  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  5  3 |  9.654e-09  9.68e-13 |  +1.0188  +1.0194 | +0.2142 .. +1.4320  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  5  4 |  5.101e-08  5.12e-12 |  +0.5666  +0.5666 | +0.1126 .. +0.5666  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  5  5 |  5.181e-09  5.20e-13 |  +0.1104  +0.0841 | +0.1104 .. +0.9281  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  6  1 |  1.623e-05  1.63e-09 |  +3.8036  +3.8037 | +1.9221 .. +4.3798  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  6  2 |  1.709e-07  1.72e-11 |  +1.3366  +1.3366 | +0.6769 .. +1.3366  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  6  3 |  7.997e-09  8.03e-13 |  +0.6471  +0.6457 | +0.2349 .. +1.3755  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  6  4 |  1.421e-08  1.43e-12 |  +1.2311  +1.2308 | +0.5007 .. +1.2311  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    2  6  5 |  1.335e-08  1.34e-12 |  +0.5830  +0.5841 | +0.1486 .. +2.1472  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  1  1 |  3.425e-06  3.43e-10 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    3  1  2 |  7.104e-08  7.11e-12 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    3  1  3 |  4.226e-08  4.23e-12 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    3  1  4 |  2.309e-08  2.31e-12 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    3  1  5 |  4.486e-09  4.49e-13 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    3  2  1 |  3.068e-06  3.07e-10 |  +3.5276  +3.5276 | +2.8335 .. +4.9245  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  2  2 |  4.756e-08  4.76e-12 |  +1.0315  +1.0325 | +0.0212 .. +1.3753  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  2  3 |  9.645e-09  9.66e-13 |  +1.2937  +1.2937 | +0.2181 .. +1.2937  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  2  4 |  8.023e-08  8.04e-12 |  +0.5300  +0.5291 | +0.0000 .. +0.5300  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  2  5 |  5.244e-09  5.25e-13 |  -0.0000  -0.0000 | -0.0000 .. +0.2907  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  3  1 |  5.180e-06  5.19e-10 |  +5.3628  +5.3628 | +3.0731 .. +5.3628  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  3  2 |  1.492e-07  1.50e-11 |  +1.7795  +1.7797 | +0.9477 .. +1.7795  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  3  3 |  1.380e-09  1.38e-13 |  +0.3451  +0.3450 | -0.0000 .. +0.3451  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  3  4 |  3.941e-08  3.95e-12 |  +0.1808  +0.1812 | -0.0000 .. +0.1808  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  3  5 |  1.282e-08  1.29e-12 |  +0.2430  +0.2438 | -0.0000 .. +0.7654  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  4  1 |  4.540e-06  4.56e-10 |  +5.4359  +5.4359 | +1.4473 .. +5.4359  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  4  2 |  1.351e-07  1.36e-11 |  +0.7617  +0.7613 | +0.3997 .. +1.6359  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  4  3 |  7.819e-08  7.85e-12 |  +0.2856  +0.2613 | +0.0233 .. +0.7177  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  4  4 |  9.027e-09  9.06e-13 |  +0.0750  +0.0043 | +0.0750 .. +0.4329  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  4  5 |  5.174e-10  5.19e-14 |  +0.0001  +0.0034 | +0.0001 .. +0.7853  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  5  1 |  1.688e-05  1.70e-09 |  +5.2498  +5.2498 | +1.8386 .. +5.2498  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  5  2 |  7.547e-08  7.58e-12 |  +0.4738  +0.4069 | +0.4738 .. +2.2716  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  5  3 |  1.830e-08  1.84e-12 |  +0.6003  +0.6007 | +0.1929 .. +0.6003  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  5  4 |  1.394e-10  1.40e-14 |  +0.3673  +0.3673 | +0.3673 .. +0.6256  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  5  5 |  8.085e-10  8.12e-14 |  +0.3013  +0.3024 | +0.1940 .. +1.0678  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  6  1 |  1.800e-06  1.81e-10 |  +2.2261  +2.2256 | +0.9206 .. +3.9243  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  6  2 |  2.285e-07  2.30e-11 |  +0.6338  +0.6330 | +0.6338 .. +1.2181  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  6  3 |  3.173e-08  3.19e-12 |  +0.4034  +0.4021 | +0.4034 .. +2.1525  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  6  4 |  4.036e-09  4.06e-13 |  +0.2934  +0.2922 | +0.2934 .. +1.9061  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    3  6  5 |  1.388e-09  1.40e-13 |  +0.2797  +0.2032 | +0.0562 .. +0.6708  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  1  1 |  3.267e-06  3.27e-10 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    4  1  2 |  1.419e-07  1.42e-11 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    4  1  3 |  1.255e-09  1.26e-13 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    4  1  4 |  6.032e-10  6.04e-14 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    4  1  5 |  8.180e-10  8.19e-14 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    4  2  1 |  3.517e-06  3.53e-10 |  +2.6571  +2.6569 | +2.6571 .. +4.5654  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  2  2 |  1.793e-07  1.80e-11 |  +0.1250  +0.1330 | -0.0000 .. +1.9133  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  2  3 |  1.245e-09  1.25e-13 |  -0.0000  -0.0001 | -0.0000 .. +1.0782  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  2  4 |  2.720e-09  2.73e-13 |  -0.0000  -0.0001 | -0.0000 .. +1.0795  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  2  5 |  3.872e-09  3.88e-13 |  +0.2025  +0.2015 | -0.0000 .. +0.2025  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  3  1 |  3.703e-06  3.72e-10 |  +1.5886  +1.5870 | +1.5886 .. +4.4732  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  3  2 |  8.320e-08  8.35e-12 |  +1.6965  +1.6969 | +0.7875 .. +2.1200  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  3  3 |  1.003e-08  1.01e-12 |  +0.8013  +0.8017 | +0.0126 .. +1.5440  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  3  4 |  4.370e-10  4.39e-14 |  +0.0175  -0.0013 | -0.0001 .. +0.7450  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  3  5 |  2.653e-09  2.66e-13 |  +0.0013  +0.0104 | -0.0000 .. +0.4855  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  4  1 |  4.018e-06  4.04e-10 |  +3.9298  +3.9297 | +1.0306 .. +4.7628  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  4  2 |  7.337e-08  7.37e-12 |  +0.6540  +0.6549 | +0.6540 .. +2.1404  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  4  3 |  4.399e-09  4.42e-13 |  +0.4914  +0.4896 | +0.1262 .. +0.6432  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  4  4 |  3.288e-09  3.30e-13 |  +0.6324  +0.6321 | +0.0554 .. +0.6324  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  4  5 |  1.338e-09  1.34e-13 |  +0.1458  +0.1452 | -0.0000 .. +0.3054  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  5  1 |  2.589e-06  2.60e-10 |  +2.5343  +2.5338 | +2.1623 .. +6.2223  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  5  2 |  1.752e-07  1.76e-11 |  +0.8436  +0.8434 | +0.4990 .. +0.8436  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  5  3 |  3.479e-08  3.50e-12 |  +0.4747  +0.4741 | +0.4525 .. +0.7106  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  5  4 |  2.093e-09  2.11e-13 |  +0.0640  +0.0597 | +0.0640 .. +0.8508  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  5  5 |  5.789e-09  5.82e-13 |  +0.6252  +0.6237 | +0.0266 .. +0.6252  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  6  1 |  3.925e-06  3.95e-10 |  +1.9560  +1.9551 | +1.3761 .. +4.7331  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  6  2 |  1.776e-07  1.79e-11 |  +1.0661  +1.0662 | +0.4650 .. +1.2420  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  6  3 |  6.999e-08  7.05e-12 |  +0.4574  +0.4568 | +0.2954 .. +0.6734  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  6  4 |  1.355e-08  1.36e-12 |  +0.4645  +0.4647 | +0.1118 .. +0.6426  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    4  6  5 |  1.372e-09  1.38e-13 |  +0.2521  +0.2435 | +0.1141 .. +1.0789  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  1  1 |  4.892e-06  4.90e-10 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    5  1  2 |  9.277e-08  9.29e-12 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    5  1  3 |  1.421e-09  1.42e-13 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    5  1  4 |  4.415e-10  4.42e-14 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    5  1  5 |  2.719e-10  2.72e-14 |  -0.0000  -0.0000 | -0.0000 .. -0.0000
+2026-11-23 17:51:14 | INFO |    5  2  1 |  2.902e-06  2.91e-10 |  +4.6979  +4.6979 | +2.8739 .. +4.6979  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  2  2 |  5.566e-08  5.58e-12 |  +0.4903  +0.4934 | +0.0077 .. +1.2876  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  2  3 |  6.473e-08  6.49e-12 |  +0.0000  +0.0011 | -0.0000 .. +0.0707
+2026-11-23 17:51:14 | INFO |    5  2  4 |  5.836e-10  5.85e-14 |  -0.0000  -0.0003 | -0.0000 .. +0.8922  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  2  5 |  5.982e-09  6.00e-13 |  +0.0231  +0.0108 | +0.0001 .. +0.0231  <== selected
+2026-11-23 17:51:14 | INFO |    5  3  1 |  4.106e-06  4.12e-10 |  +4.9819  +4.9819 | +2.6884 .. +6.1869  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  3  2 |  3.838e-08  3.86e-12 |  +0.4649  +0.4642 | +0.4649 .. +1.0319  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  3  3 |  7.007e-11  7.04e-15 |  +1.9531  +1.9532 | +0.0000 .. +1.9531  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  3  4 |  1.006e-08  1.01e-12 |  +0.9484  +0.9490 | +0.0002 .. +0.9484  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  3  5 |  1.106e-08  1.11e-12 |  +0.0002  +0.0043 | -0.0000 .. +0.0796
+2026-11-23 17:51:14 | INFO |    5  4  1 |  4.131e-06  4.16e-10 |  +3.4182  +3.4181 | +1.9751 .. +3.4182  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  4  2 |  9.721e-08  9.78e-12 |  +1.6820  +1.6808 | +1.0483 .. +1.9279  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  4  3 |  2.411e-08  2.43e-12 |  +0.8628  +0.8620 | +0.3332 .. +0.8628  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  4  4 |  2.476e-09  2.49e-13 |  +1.0411  +1.0404 | +0.7390 .. +1.3379  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  4  5 |  5.067e-09  5.10e-13 |  +0.9301  +0.9303 | +0.0208 .. +1.5812  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  5  1 |  2.543e-06  2.56e-10 |  +1.6633  +1.6615 | +1.6633 .. +4.6883  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  5  2 |  1.016e-07  1.02e-11 |  +0.4096  +0.4095 | +0.4096 .. +1.0062  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  5  3 |  1.768e-07  1.78e-11 |  +0.4765  +0.4636 | +0.4439 .. +1.8107  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  5  4 |  3.046e-08  3.07e-12 |  +1.9618  +1.9620 | +0.2101 .. +1.9618  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  5  5 |  1.169e-10  1.18e-14 |  +0.0733  +0.0843 | +0.0733 .. +0.8155  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  6  1 |  1.841e-06  1.86e-10 |  +2.3880  +2.3884 | +1.0293 .. +4.2384  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  6  2 |  5.613e-08  5.66e-12 |  +1.5157  +1.5162 | +0.5428 .. +3.0652  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  6  3 |  4.082e-09  4.12e-13 |  +0.9440  +0.9440 | +0.4140 .. +1.2821  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  6  4 |  1.187e-09  1.20e-13 |  +0.0121  +0.0055 | +0.0121 .. +0.6650  (unstable lambda)
+2026-11-23 17:51:14 | INFO |    5  6  5 |  4.821e-09  4.86e-13 |  +0.1284  +0.1275 | +0.0914 .. +0.8250  (unstable lambda)
+2026-11-23 17:51:14 | INFO | 
+  RESULT DET_linear_r01.mat: (L,m,q)=(5,2,5)  lambda_T=+0.0231  lambda_h=+0.0108  SSE=5.982e-09  NMSE=6.00e-13  [770.8s]
+2026-11-23 17:51:14 | INFO | 
+saved results_DET_linear_r01.json
