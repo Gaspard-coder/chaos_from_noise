@@ -4,10 +4,13 @@
 - PyTorch 1.12.1 + cu113
 - Python 3.10
 - numpy 1.26.4
+- scipy
 
 The best approach is to use a python virtual environnement (venv, uv,...) to lock the version
 
-### 3.1 Pipeline
+# How it works
+
+## Pipeline
 
 1. Load the signal(s) and standardise. Build the grid of (L, m, q) (combos with too few samples for P parameters are skipped).
 2. Screening pass. One task per (L, m, q, start). Each start is initialised from the best of --rf-cand random hidden layers (the output weights A and D are solved by linear least squares for each candidate; --rf-cand 0 gives a plain random start), then refined by LM limited to --screen-nfev evaluations.
@@ -18,7 +21,7 @@ Efficiency measures: BLAS threads are forced to 1 in every process (otherwise pr
 
 Random starts are reproducible: each start uses numpy SeedSequence(\[seed, L, m, q, start\]).
 
-### 3.2 Functions
+## Functions
 
 | Function / class | Role |
 | --- | --- |
@@ -36,7 +39,7 @@ Random starts are reproducible: each start uses numpy SeedSequence(\[seed, L, m,
 | analyse(x, name, cfg, workers) | Runs the full pipeline for one signal |
 | plot\_reconstruction | Saves a PNG of the first 1000 points of signal and fit |
 
-### 3.3 Options
+## Options
 
 | Option | Default | Meaning |
 | --- | --- | --- |
