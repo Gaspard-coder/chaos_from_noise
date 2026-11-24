@@ -1,0 +1,17 @@
+{
+  "_note": "EDIT dt, file and key to match how you generated the .mat files. lambda = largest Lyapunov exponent per TIME UNIT (per iteration for maps, dt = 1), valid ONLY for the classical parameters named below.",
+  "systems": [
+    {"name": "lorenz",   "file": "lorenz.mat",   "key": "x", "column": 0,
+     "lambda": 0.9056, "dt": 0.05,
+     "_params": "sigma=10, rho=28, beta=8/3"},
+    {"name": "rossler",  "file": "rossler.mat",  "key": "x", "column": 0,
+     "lambda": 0.0714, "dt": 0.2,
+     "_params": "a=0.2, b=0.2, c=5.7"},
+    {"name": "logistic", "file": "logistic.mat", "key": "x",
+     "lambda": 0.6931, "dt": 1,
+     "_params": "r=4, lambda = ln 2"},
+    {"name": "henon",    "file": "henon.mat",    "key": "x", "column": 0,
+     "lambda": 0.4192, "dt": 1,
+     "_params": "a=1.4, b=0.3"}
+  ]
+}
