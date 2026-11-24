@@ -1,8 +1,6 @@
 # Environment
 
-- Hardware: Tesla K80 GPU
-- Cuda 11.3
-- PyTorch 1.12.1 + cu113
+- Hardware: 128 threads lame 26 GPU
 - Python 3.10
 - numpy 1.26.4
 - scipy
@@ -66,7 +64,7 @@ Random starts are reproducible: each start uses numpy SeedSequence(\[seed, L, m,
 
 Examples :
 
-```python
+```bash
     python main\_jacobian.py --signal file --input imfs.mat --key imf --imf all --workers 32 --lags 1 2 4 --max-m 3 --max-q 6
     python main_jacobian.py --signal logistic --r 3.9 --n 2000 --max-l 1 --max-m 2 --max-q 3
     python main_jacobian.py --signal white --n 10000
@@ -80,3 +78,39 @@ After a first batch on references with (5,6,5), the method seems promising. We w
 To achieve that, we created `jacobian_sweep.py`. Starting from the references systems specified in `systems_example.json`, it tries to find empirically the best set of parameters to approxmate the Lyapunov Exponent.
 
 NB: it reuses the main_jacobian_v3.py function so it needs it in the same directory.
+
+Example of use:
+
+```bash
+   python jacobian_sweep.py --config systems.json --lags 1 2 --ms 1 2 3 4 --qs 1 2 3 4 5 6 7 8 9 10
+```
+
+## Details
+
+It imports your main_jacobian_v3.py (same folder) and reuses its multi-start LM fitting. For each system and each (L, m, q) in the grid, it compares λ̂ to your theoretical value. Defaults are L 1–5, m 1–6, q 1–5, which includes (5, 6, 5). You can override the grid per system in the JSON.
+
+It prints a per-system table and a cross-system ranking by mean relative error, with the rank of (5, 6, 5) reported. Results are saved per system, and --resume skips finished systems.
+
+Things to know:
+
+L division. For L > 1 the companion map advances L samples per step, so λ must be divided by L to be per sample. main_jacobian_v3.py doesn't do this, and it multiplies consecutive Jacobians, which is only a true orbit when L = 1. I compute both a legacy and an orbit-consistent estimator, both divided by L; they coincide when L = 1. Please check my reading of your lyapunov(), because it affects every L > 1 result you've seen.
+Sampling interval. Set dt to the value you used to generate the flows. If λ·dt is below about 0.02, the script warns that the series is oversampled. The dt values in the template (0.05 for Lorenz, 0.2 for Rössler) are my guesses. The theoretical λ values (0.9056, 0.0714, ln 2, 0.4192) hold only for the classical parameters named in the template.
+Maps versus flows. The logistic and Hénon maps will favour small m, since their true embedding is 1 and 2. Lorenz and Rössler are closer to your oscillatory IMFs, so weight them more.
+Selection by luck. The minimum error over about 150 combos is partly luck. Trust combos that rank well across all four systems, then validate the few winners on new realizations.
+
+## Orbit-Consistent (orb) vs. Legacy (leg) Estimator
+
+When the neural network fits a delay-embedded map with lag L, it learns the L-step transition:
+Xt+L​=F(Xt​),J(Xt​)=∂Xt​∂Xt+L​​
+
+The two estimators differ in how they multiply these Jacobians to compute the Lyapunov exponent:
+
+    Orbit-consistent (orb): Steps along the actual orbit of the L-step map—multiplying J(Xt+kL​)⋯J(Xt+L​)J(Xt​) (stepping by L, and averaging over the L interleaved sub-orbits). By the chain rule, each matrix maps the tangent space at Xt+kL​ directly into the tangent space at Xt+(k+1)L​, giving the true derivative of FK.
+
+    Legacy (leg): Multiplies Jacobians at every consecutive index—J(Xt+K−1​)⋯J(Xt+1​)J(Xt​) (stepping by 1 instead of L).
+
+        When L=1, both estimators are mathematically identical (which is why (1, 3, 10) and (1, 4, 8) have the exact same numbers in both tables).
+
+        When L>1, leg is mathematically inconsistent: J(Xt​) maps a perturbation from t→t+L, not t→t+1, so it composes Jacobians across mismatched tangent spaces. That is why no L=2 or L=3 combo makes the top 8 in leg, whereas L=2 performs very well in orb.
+
+Bottom line: Always use orb whenever L>1.
