@@ -83,6 +83,7 @@ Example of use:
 
 ```bash
    python jacobian_sweep.py --config systems.json --lags 1 2 --ms 1 2 3 4 --qs 1 2 3 4 5 6 7 8 9 10
+   python main_jacobian_v4.py --input deter_test_sweep --pattern "DET_*.mat" --key x --auto-dt --lags 2 --ms 4 --qs 10 --out det_results.json
 ```
 
 ## Details

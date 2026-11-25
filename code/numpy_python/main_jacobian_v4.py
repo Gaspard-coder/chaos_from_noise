@@ -4,30 +4,32 @@
 main_jacobian_v4.py  --  Largest Lyapunov Exponent estimator via single-hidden-layer
 neural network + analytic companion Jacobians (BenSaida method, v4).
 
-Updates over v3:
-  1. Orbit-consistent (`orb`) Lyapunov estimator: chains Jacobians along the true
+Features:
+  1. Single-file OR batch-folder processing via --input (processes every .mat file
+     when --input points to a directory).
+  2. Orbit-consistent (`orb`) Lyapunov estimator: chains Jacobians along the true
      L-step orbit (rows r, r+L, r+2L, ...) and averages over all L interleaved
-     sub-orbits instead of multiplying consecutive mismatched Jacobians.
-  2. Proper normalization: divides the per-map-step exponent by L * (dt * decimate)
-     so all reported values are per TIME UNIT (or per sample when dt=1, decimate=1),
-     matching jacobian_sweep.py.
-  3. Direct --dt and --decimate CLI flags so oversampled continuous flows (Lorenz,
-     Rossler) can be run directly without modifying .mat files.
-  4. Backward-compatible module API (n_params, _init_worker, _problem, _screen_task,
+     sub-orbits.
+  3. Proper normalization: divides the per-map-step exponent by L * (dt * decimate)
+     so all reported values are per TIME UNIT (or per sample when dt=1, decimate=1).
+  4. Optional --auto-dt flag to automatically assign benchmark dt & decimate values
+     from filenames (e.g., lorenz_x -> dt=0.02, decimate=5; rossler_x -> dt=0.1,
+     decimate=5; discrete maps/noise -> dt=1, decimate=1).
+  5. Backward-compatible module API (n_params, _init_worker, _problem, _screen_task,
      run_lm, lyapunov, available_cpus) for jacobian_sweep.py.
 
 Examples:
-    # Discrete map (dt=1, decimate=1)
-    python main_jacobian_v4.py --input deter_test_sweep/DET_henon_map_r02.mat \
-        --key x --lags 2 --ms 4 --qs 10
+    # 1. Process an entire folder with a fixed (L, m, q) and automatic dt/decimate
+    python main_jacobian_v4.py --input deter_test_sweep --key x --auto-dt \
+        --lags 2 --ms 4 --qs 10 --out batch_results
 
-    # Continuous flow (Lorenz: dt=0.02, decimate=5 -> tau=0.1)
+    # 2. Process only chaotic/deterministic files matching a glob pattern
+    python main_jacobian_v4.py --input deter_test_sweep --pattern "DET_*.mat" \
+        --key x --auto-dt --lags 2 --ms 4 --qs 10 --out det_results.json
+
+    # 3. Single file with explicit dt and decimate
     python main_jacobian_v4.py --input deter_test_sweep/DET_lorenz_x_r02.mat \
         --key x --dt 0.02 --decimate 5 --lags 2 --ms 4 --qs 10
-
-    # Grid search with BenSaida stability selection
-    python main_jacobian_v4.py --input deter_test_sweep/DET_rossler_x_r02.mat \
-        --key x --dt 0.1 --decimate 5 --max-l 2 --max-m 4 --max-q 10
 """
 
 import os
@@ -42,6 +44,8 @@ for _v in (
     os.environ[_v] = "1"
 
 import argparse
+import csv
+import fnmatch
 import json
 import math
 import time
@@ -68,7 +72,7 @@ def n_params(q, m):
 
 
 # ----------------------------------------------------------------------------
-# Data loading & delay embedding
+# Data loading, parameter inference & delay embedding
 # ----------------------------------------------------------------------------
 def load_series(path, key=None, column=0):
     """Load a 1-D float64 time series from .mat (v5/v7 or v7.3 HDF5), .npy, or text."""
@@ -115,6 +119,20 @@ def load_series(path, key=None, column=0):
     if not np.all(np.isfinite(data)):
         raise ValueError(f"{path}: series contains NaN or Inf")
     return data.copy()
+
+
+def infer_dt_decimate(filepath, n_raw):
+    """Infer benchmark (dt, decimate) from standard signal names in the filename."""
+    name = os.path.basename(filepath).lower()
+    if "lorenz" in name:
+        return 0.02, 5
+    if "rossler" in name:
+        return 0.1, 5
+    if "linear" in name or "exponential" in name:
+        return 1.0 / max(n_raw - 1, 1), 1
+    if "quadratic" in name or "polynomial" in name:
+        return 2.0 / max(n_raw - 1, 1), 1
+    return 1.0, 1
 
 
 def _problem(L, m, q, x=None):
@@ -171,7 +189,6 @@ def _eval_res_and_jac(prob, th, fn):
     J[:, 1 : 1 + q] = H
     G = dH * w  # (T, q)
     J[:, 1 + q : 1 + 2 * q] = G
-    # Block for W (flattened row-major: unit j, input i -> col 1 + 2*q + j*m + i)
     J[:, 1 + 2 * q :].reshape(T, q, m)[:] = G[:, :, None] * X[:, None, :]
     return r, J
 
@@ -202,7 +219,6 @@ def _rf_init(prob, rng, n_cand, fn, ridge=1e-8):
         Z = X @ W.T + c
         H, _ = _activate(Z, fn)
         Phi = np.column_stack([np.ones(prob.T, dtype=np.float64), H])
-        # Ridge regression for [b0, w]
         A = Phi.T @ Phi + eye
         rhs = Phi.T @ y
         try:
@@ -288,15 +304,12 @@ def lyapunov(X, th, q, fn, stride=1):
     _, w, c, W = _unpack(th, q, m)
     Z = X_sub @ W.T + c
     _, dH = _activate(Z, fn)
-    # Gradient df/dX_t at every point along the orbit: shape (K, m)
     grads = (dH * w) @ W
 
     Q = np.eye(m, dtype=np.float64)
     lyap_sum = np.zeros(m, dtype=np.float64)
 
     for t in range(K):
-        # Companion matrix multiplication Z_mat = J_t @ Q:
-        # Row 0 is grads[t] @ Q; rows 1..m-1 are shifted rows 0..m-2 of Q
         if m == 1:
             Z_mat = grads[t, 0] * Q
         else:
@@ -338,7 +351,6 @@ def _screen_task(task):
     L, m, q, st = task
     cfg = _G["cfg"]
     prob = _problem(L, m, q)
-    # Deterministic per-(L, m, q, start) RNG seed
     ss = np.random.SeedSequence([cfg["seed"], L, m, q, st])
     rng = np.random.default_rng(ss)
     th0 = _rf_init(prob, rng, cfg["rf_cand"], cfg["activation"])
@@ -360,7 +372,7 @@ def _polish_task(task):
 
 
 # ----------------------------------------------------------------------------
-# Grid search & BenSaida model selection
+# Grid search, BenSaida selection & single-file pipeline
 # ----------------------------------------------------------------------------
 def build_grid(N, lags, ms, qs):
     combos = [
@@ -370,18 +382,15 @@ def build_grid(N, lags, ms, qs):
         for q in qs
         if N - m * L > n_params(q, m) + 1
     ]
-    combos.sort(
-        key=lambda c: -n_params(c[2], c[1])
-    )  # heaviest first for load balancing
+    combos.sort(key=lambda c: -n_params(c[2], c[1]))
     return combos
 
 
-def fit_and_estimate(x, combos, fit_cfg, workers, starts, topk):
+def fit_and_estimate(x, combos, fit_cfg, workers, starts, topk, quiet=False):
     t0 = time.time()
     with ProcessPoolExecutor(
         max_workers=workers, initializer=_init_worker, initargs=(x, fit_cfg)
     ) as pool:
-        # Pass 1: screening
         stasks = [(L, m, q, st) for (L, m, q) in combos for st in range(starts)]
         screened = {c: [] for c in combos}
         done = {c: 0 for c in combos}
@@ -393,13 +402,14 @@ def fit_and_estimate(x, combos, fit_cfg, workers, starts, topk):
             done[c] += 1
             if done[c] == starts:
                 n_done += 1
-                if n_done % max(1, len(combos) // 10) == 0 or n_done == len(combos):
+                if not quiet and (
+                    n_done % max(1, len(combos) // 10) == 0 or n_done == len(combos)
+                ):
                     print(
                         f"  screen {n_done:4d}/{len(combos)} combos  [{time.time() - t0:6.1f}s]",
                         flush=True,
                     )
 
-        # Pass 2: polish top-k starts per combo
         ptasks = []
         for c, lst in screened.items():
             lst = sorted((v for v in lst if np.isfinite(v[0])), key=lambda v: v[0])
@@ -413,7 +423,7 @@ def fit_and_estimate(x, combos, fit_cfg, workers, starts, topk):
         ):
             L, m, q, _, sse, lam_orb = fut.result()
             polished[(L, m, q)].append((sse, lam_orb))
-            if i % max(1, len(ptasks) // 10) == 0 or i == len(ptasks):
+            if not quiet and (i % max(1, len(ptasks) // 10) == 0 or i == len(ptasks)):
                 print(
                     f"  polish {i:4d}/{len(ptasks)} runs    [{time.time() - t0:6.1f}s]",
                     flush=True,
@@ -438,6 +448,110 @@ def select_bensaida(rows, tau, max_spread):
     return max(ok, key=lambda r: (r["lambda"], -(r["L"] + r["m"] + r["q"])))
 
 
+def process_one_file(filepath, args, lags, ms, qs, quiet=False):
+    """Load one file, run grid search, and return its full result dictionary."""
+    x_raw = load_series(filepath, key=args.key, column=args.column)
+    n_raw = len(x_raw)
+
+    if args.auto_dt:
+        inferred_dt, inferred_dec = infer_dt_decimate(filepath, n_raw)
+    else:
+        inferred_dt, inferred_dec = 1.0, 1
+
+    dt = float(args.dt) if args.dt is not None else inferred_dt
+    d = max(1, int(args.decimate)) if args.decimate is not None else inferred_dec
+
+    x = x_raw[::d]
+    std = float(np.std(x))
+    if std == 0.0 or not np.isfinite(std):
+        raise ValueError(f"{filepath}: series is constant (std=0)")
+    x = (x - np.mean(x)) / std
+    N = len(x)
+    tau = dt * d
+
+    combos = build_grid(N, lags, ms, qs)
+    if not combos:
+        raise ValueError(
+            f"{filepath}: no valid (L, m, q) combinations fit N={N} points."
+        )
+
+    if not quiet:
+        print(
+            f"Input: {filepath} | N={N} (decimate={d}) | dt={dt:g} | tau={tau:g} | "
+            f"grid={len(combos)} combos",
+            flush=True,
+        )
+
+    fit_cfg = dict(
+        activation=args.activation,
+        seed=args.seed,
+        rf_cand=args.rf_cand,
+        screen_nfev=args.screen_nfev,
+        screen_tol=args.screen_tol,
+        polish_nfev=args.polish_nfev,
+        polish_tol=args.polish_tol,
+        tau=tau,
+    )
+
+    polished = fit_and_estimate(
+        x, combos, fit_cfg, args.workers, args.starts, args.topk, quiet=quiet
+    )
+
+    var = float(np.var(x))
+    rows = []
+    for L, m, q in sorted(combos):
+        lst = sorted(
+            (v for v in polished[(L, m, q)] if np.isfinite(v[0])), key=lambda v: v[0]
+        )
+        if not lst:
+            continue
+        sse, lam = lst[0]
+        vals = [v[1] for v in lst if np.isfinite(v[1])]
+        spread = (max(vals) - min(vals)) if vals else float("nan")
+        rows.append(
+            {
+                "L": L,
+                "m": m,
+                "q": q,
+                "n_par": n_params(q, m),
+                "sse": sse,
+                "nmse": sse / ((N - m * L) * var),
+                "lambda_orb": lam,
+                "lambda_step": lam * L * tau,
+                "spread": spread,
+                "lambda": lam,
+            }
+        )
+
+    best = select_bensaida(rows, tau, args.max_lam_spread)
+    return {
+        "input": filepath,
+        "file": os.path.basename(filepath),
+        "N": N,
+        "dt": dt,
+        "decimate": d,
+        "tau": tau,
+        "selected": best,
+        "rows": rows,
+    }
+
+
+def collect_mat_files(folder, pattern="*.mat", recursive=False):
+    matches = []
+    if recursive:
+        for root, _, filenames in os.walk(folder):
+            for fn in filenames:
+                if fnmatch.fnmatch(fn, pattern):
+                    matches.append(os.path.join(root, fn))
+    else:
+        for fn in os.listdir(folder):
+            full = os.path.join(folder, fn)
+            if os.path.isfile(full) and fnmatch.fnmatch(fn, pattern):
+                matches.append(full)
+    matches.sort()
+    return matches
+
+
 # ----------------------------------------------------------------------------
 # CLI entry point
 # ----------------------------------------------------------------------------
@@ -445,7 +559,21 @@ def parse_args():
     p = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    p.add_argument("--input", required=True, help="Input file (.mat, .npy, .csv, .txt)")
+    p.add_argument(
+        "--input",
+        required=True,
+        help="Input file (.mat, .npy, .csv, .txt) OR folder containing .mat files",
+    )
+    p.add_argument(
+        "--pattern",
+        default="*.mat",
+        help="Filename glob filter when --input is a folder (default '*.mat')",
+    )
+    p.add_argument(
+        "--recursive",
+        action="store_true",
+        help="Search subdirectories recursively when --input is a folder",
+    )
     p.add_argument("--key", default=None, help="Variable name inside .mat file")
     p.add_argument(
         "--column", type=int, default=0, help="Column index if 2-D array (default 0)"
@@ -453,11 +581,19 @@ def parse_args():
     p.add_argument(
         "--dt",
         type=float,
-        default=1.0,
-        help="Sampling interval of input series (default 1.0)",
+        default=None,
+        help="Sampling interval of input series (default 1.0 unless --auto-dt is set)",
     )
     p.add_argument(
-        "--decimate", type=int, default=1, help="Keep every d-th sample (default 1)"
+        "--decimate",
+        type=int,
+        default=None,
+        help="Keep every d-th sample (default 1 unless --auto-dt is set)",
+    )
+    p.add_argument(
+        "--auto-dt",
+        action="store_true",
+        help="Infer dt and decimate automatically from benchmark signal names (lorenz_x, rossler_x, etc.)",
     )
 
     g = p.add_argument_group("hyperparameter grid")
@@ -524,73 +660,27 @@ def parse_args():
     )
     o.add_argument("--seed", type=int, default=0)
     o.add_argument("--workers", type=int, default=available_cpus())
-    o.add_argument("--out", default=None, help="Optional JSON output path")
+    o.add_argument(
+        "--out",
+        default=None,
+        help="Output JSON file (single-file or batch summary) OR output directory for batch mode",
+    )
+    o.add_argument(
+        "--resume",
+        action="store_true",
+        help="In batch directory mode, skip files whose <stem>.json already exists in --out",
+    )
     return p.parse_args()
 
 
-def main():
-    args = parse_args()
-    d = max(1, int(args.decimate))
-    x = load_series(args.input, key=args.key, column=args.column)[::d]
-    x = (x - np.mean(x)) / np.std(
-        x
-    )  # Lyapunov exponent is invariant to affine rescaling
-    N = len(x)
-    tau = float(args.dt) * d
+def _json_default(o):
+    return o.item() if hasattr(o, "item") else str(o)
 
-    lags = args.lags if args.lags is not None else list(range(1, args.max_l + 1))
-    ms = args.ms if args.ms is not None else list(range(1, args.max_m + 1))
-    qs = args.qs if args.qs is not None else list(range(1, args.max_q + 1))
-    combos = build_grid(N, lags, ms, qs)
-    if not combos:
-        raise SystemExit(f"No valid (L, m, q) combinations fit N={N} points.")
 
-    print(
-        f"Input: {args.input} | N={N} (decimate={d}) | dt={args.dt:g} | tau={tau:g} | "
-        f"grid={len(combos)} combos",
-        flush=True,
-    )
-
-    fit_cfg = dict(
-        activation=args.activation,
-        seed=args.seed,
-        rf_cand=args.rf_cand,
-        screen_nfev=args.screen_nfev,
-        screen_tol=args.screen_tol,
-        polish_nfev=args.polish_nfev,
-        polish_tol=args.polish_tol,
-        tau=tau,
-    )
-
-    polished = fit_and_estimate(
-        x, combos, fit_cfg, args.workers, args.starts, args.topk
-    )
-
-    var = float(np.var(x))
-    rows = []
-    for L, m, q in sorted(combos):
-        lst = sorted(
-            (v for v in polished[(L, m, q)] if np.isfinite(v[0])), key=lambda v: v[0]
-        )
-        if not lst:
-            continue
-        sse, lam = lst[0]
-        vals = [v[1] for v in lst if np.isfinite(v[1])]
-        spread = (max(vals) - min(vals)) if vals else float("nan")
-        rows.append(
-            {
-                "L": L,
-                "m": m,
-                "q": q,
-                "n_par": n_params(q, m),
-                "sse": sse,
-                "nmse": sse / ((N - m * L) * var),
-                "lambda_orb": lam,
-                "lambda_step": lam * L * tau,
-                "spread": spread,
-                "lambda": lam,
-            }
-        )
+def run_single(filepath, args, lags, ms, qs):
+    payload = process_one_file(filepath, args, lags, ms, qs, quiet=False)
+    rows = payload["rows"]
+    best = payload["selected"]
 
     print("\n L  m  q |      NMSE | lambda (orb) | lam/step |  spread")
     print("-" * 58)
@@ -600,7 +690,6 @@ def main():
             f"{r['lambda_orb']:+12.5f} | {r['lambda_step']:+8.5f} | {r['spread']:7.4f}"
         )
 
-    best = select_bensaida(rows, tau, args.max_lam_spread)
     print("-" * 58)
     if best is not None:
         print(
@@ -612,23 +701,158 @@ def main():
         print("No valid finite Lyapunov estimate produced.")
 
     if args.out:
-        payload = dict(
-            input=args.input,
-            N=N,
-            dt=float(args.dt),
-            decimate=d,
-            tau=tau,
-            selected=best,
-            rows=rows,
-        )
+        out_dir = os.path.dirname(os.path.abspath(args.out))
+        os.makedirs(out_dir, exist_ok=True)
         with open(args.out, "w") as f:
-            json.dump(
-                payload,
-                f,
-                indent=2,
-                default=lambda o: o.item() if hasattr(o, "item") else str(o),
-            )
+            json.dump(payload, f, indent=2, default=_json_default)
         print(f"Saved results to {args.out}")
+
+
+def run_batch(folder, args, lags, ms, qs):
+    files = collect_mat_files(folder, pattern=args.pattern, recursive=args.recursive)
+    if not files:
+        raise SystemExit(f"No files matching '{args.pattern}' found in '{folder}'.")
+
+    out_is_json = bool(args.out and args.out.lower().endswith(".json"))
+    out_dir = None
+    if args.out and not out_is_json:
+        out_dir = args.out
+        os.makedirs(out_dir, exist_ok=True)
+
+    print(
+        f"Batch mode: {len(files)} file(s) in '{folder}' (pattern='{args.pattern}')",
+        flush=True,
+    )
+    print("=" * 88, flush=True)
+
+    t_batch = time.time()
+    all_payloads = []
+    summary_rows = []
+
+    for idx, fp in enumerate(files, 1):
+        fname = os.path.basename(fp)
+        stem = os.path.splitext(fname)[0]
+        per_file_json = os.path.join(out_dir, f"{stem}.json") if out_dir else None
+
+        if args.resume and per_file_json and os.path.exists(per_file_json):
+            with open(per_file_json) as f:
+                payload = json.load(f)
+            best = payload.get("selected")
+            lam_str = f"{best['lambda_orb']:+10.5f}" if best else "       nan"
+            print(
+                f"[{idx:3d}/{len(files)}] {fname:<28} | RESUMED | LE: {lam_str}",
+                flush=True,
+            )
+            all_payloads.append(payload)
+            summary_rows.append(_make_summary_row(payload))
+            continue
+
+        t0 = time.time()
+        try:
+            payload = process_one_file(fp, args, lags, ms, qs, quiet=True)
+            best = payload["selected"]
+            all_payloads.append(payload)
+            srow = _make_summary_row(payload)
+            summary_rows.append(srow)
+
+            if per_file_json:
+                with open(per_file_json, "w") as f:
+                    json.dump(payload, f, indent=2, default=_json_default)
+
+            if best is not None:
+                print(
+                    f"[{idx:3d}/{len(files)}] {fname:<28} | tau={payload['tau']:<7g} | "
+                    f"({best['L']},{best['m']},{best['q']:>2}) | "
+                    f"NMSE={best['nmse']:.2e} | LE={best['lambda_orb']:+10.5f} | "
+                    f"spread={best['spread']:.4f} [{time.time() - t0:.1f}s]",
+                    flush=True,
+                )
+            else:
+                print(
+                    f"[{idx:3d}/{len(files)}] {fname:<28} | NO VALID ESTIMATE [{time.time() - t0:.1f}s]",
+                    flush=True,
+                )
+        except Exception as exc:
+            print(f"[{idx:3d}/{len(files)}] {fname:<28} | ERROR: {exc}", flush=True)
+            summary_rows.append(
+                {
+                    "file": fname,
+                    "N": None,
+                    "dt": None,
+                    "decimate": None,
+                    "tau": None,
+                    "L": None,
+                    "m": None,
+                    "q": None,
+                    "nmse": float("nan"),
+                    "lambda_orb": float("nan"),
+                    "spread": float("nan"),
+                    "error": str(exc),
+                }
+            )
+
+    print("=" * 88)
+    print(f"Batch finished: {len(files)} files in {time.time() - t_batch:.1f}s")
+
+    if args.out:
+        if out_is_json:
+            parent = os.path.dirname(os.path.abspath(args.out))
+            os.makedirs(parent, exist_ok=True)
+            with open(args.out, "w") as f:
+                json.dump(
+                    {
+                        "folder": folder,
+                        "summary": summary_rows,
+                        "results": all_payloads,
+                    },
+                    f,
+                    indent=2,
+                    default=_json_default,
+                )
+            print(f"Saved batch JSON to {args.out}")
+        else:
+            sum_json = os.path.join(out_dir, "batch_summary.json")
+            sum_csv = os.path.join(out_dir, "batch_summary.csv")
+            with open(sum_json, "w") as f:
+                json.dump(summary_rows, f, indent=2, default=_json_default)
+            if summary_rows:
+                with open(sum_csv, "w", newline="") as f:
+                    w = csv.DictWriter(f, fieldnames=list(summary_rows[0].keys()))
+                    w.writeheader()
+                    w.writerows(summary_rows)
+            print(f"Saved per-file JSONs, {sum_json}, and {sum_csv}")
+
+
+def _make_summary_row(payload):
+    best = payload.get("selected")
+    return {
+        "file": payload["file"],
+        "N": payload["N"],
+        "dt": payload["dt"],
+        "decimate": payload["decimate"],
+        "tau": payload["tau"],
+        "L": best["L"] if best else None,
+        "m": best["m"] if best else None,
+        "q": best["q"] if best else None,
+        "nmse": best["nmse"] if best else float("nan"),
+        "lambda_orb": best["lambda_orb"] if best else float("nan"),
+        "spread": best["spread"] if best else float("nan"),
+        "error": "",
+    }
+
+
+def main():
+    args = parse_args()
+    lags = args.lags if args.lags is not None else list(range(1, args.max_l + 1))
+    ms = args.ms if args.ms is not None else list(range(1, args.max_m + 1))
+    qs = args.qs if args.qs is not None else list(range(1, args.max_q + 1))
+
+    if os.path.isdir(args.input):
+        run_batch(args.input, args, lags, ms, qs)
+    elif os.path.isfile(args.input):
+        run_single(args.input, args, lags, ms, qs)
+    else:
+        raise SystemExit(f"Input path does not exist: {args.input}")
 
 
 if __name__ == "__main__":
