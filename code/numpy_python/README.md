@@ -118,7 +118,29 @@ Bottom line: Always use orb whenever L>1.
 
 ## Applying the orbit-consistent approach
 
-As this approach gives better results, and in order to use the same hyperparameters, we created `main_jacobian_v4.py` to try the new best set of parameters (2,4,10)
+As this approach gives better results, and in order to use the same hyperparameters, we created `main_jacobian_v4.py` to try the new best set of parameters (2,4,10).
+
+## Dynamically choosing the parameters + verification gates
+
+Example:
+
+```bash
+python dynamical_jacobian.py \
+  --input imf_folder \
+  --pattern "IMF_*.mat" \
+  --key x \
+  --dt 1.0 \
+  --period-method psd \
+  --lag-method ami \
+  --dim-method cao \
+  --m-min 2 --m-max 6 \
+  --qs 2 3 4 5 6 8 10 \
+  --max-nmse 0.10 \
+  --max-le-step 0.50 \
+  --n-surrogates 19 \
+  --parlitz-check \
+  --out imf_verified_results
+```
 
 ### Linear Degeneracy
 

@@ -2,7 +2,7 @@
 
 #set page(
   paper: "a4",
-  margin : 2.5cm
+  margin: 2.5cm,
 )
 
 #set text(
@@ -70,8 +70,7 @@
 #outline()
 
 = Origin
-This short report aims to explain and explore different approach to compute the Lyapunov exponent using the well-knownn Jacobian matrix as well as the Oseledet's theorem. It heavily relies on the work of Ahmed BenSaïda with its very interesting paper : #link("https://aijcr.thebrpi.org/journals/Vol_2_No_8_August_2012/6.pdf"
-)[#underline(text(fill:blue)[Are Financial Markets Stochastic: A Test for Noisy Chaos])].
+This short report aims to explain and explore different approach to compute the Lyapunov exponent using the well-knownn Jacobian matrix as well as the Oseledet's theorem. It heavily relies on the work of Ahmed BenSaïda with its very interesting paper : #link("https://aijcr.thebrpi.org/journals/Vol_2_No_8_August_2012/6.pdf")[#underline(text(fill: blue)[Are Financial Markets Stochastic: A Test for Noisy Chaos])].
 
 The idea is not to be as extensive as BenSaïda's work but to see how his approach can be customed to detect chaos.
 
@@ -88,10 +87,10 @@ Given this mapping, we denote J the Jacobian matrix defined as :
 
 $
   J_t = mat(
-    dvp(f,x#sub[t-L]),dvp(f,x#sub[t-2L]),...,...,dvp(f,x#sub[t-mL]);
-    0,1,...,0,0;
-    dots.v,dots.v,dots.down,dots.v,dots.v;
-    0,0,...,1,0;
+    dvp(f, x#sub[t-L]), dvp(f, x#sub[t-2L]), ..., ..., dvp(f, x#sub[t-mL]);
+    0, 1, ..., 0, 0;
+    dots.v, dots.v, dots.down, dots.v, dots.v;
+    0, 0, ..., 1, 0;
   ).
 $
 We then note T the Jacobian product of the M first Jacobian matrix
@@ -99,7 +98,7 @@ $
   T_M = product_(t=1)^M J_t.
 $
 
-Then, we introduce $U_0 = mat(1;0;dots.v;0)$ an unitary vector leading to
+Then, we introduce $U_0 = mat(1; 0; dots.v; 0)$ an unitary vector leading to
 $
   V_M = (T_M U_0)'(T_M U_0),
 $
@@ -107,7 +106,7 @@ where the (.)' is the matrix transpose operator.
 
 Given the fact that $V_M$ is diagonalizable, we note $v_1 = max("Sp("V_M")")$ the largest eigenvalue of $V_M$.
 
-Finally, the #link("https://www.people.maths.bris.ac.uk/~macpd/ads/oseledets.pdf")[#underline(text(fill:blue)[Oseledet's theorem])] states that
+Finally, the #link("https://www.people.maths.bris.ac.uk/~macpd/ads/oseledets.pdf")[#underline(text(fill: blue)[Oseledet's theorem])] states that
 $
   lambda = lim_(M arrow.r infinity) 1/(2M) ln(v_1).
 $
@@ -129,9 +128,7 @@ Multiple candidate approach exist such as _spline_, _nearest neighbors_ or _neur
 
 BenSaïda showed that with a neural network approach, the approximation problem becomes
 $
-  hat(x_t) approx alpha_0 + sum_(j=1)^q alpha_j Psi(
-  beta_(0,j) + sum_(i=1)^m beta_(i,j) x_(t-i L)
-) + epsilon_t
+  hat(x_t) approx alpha_0 + sum_(j=1)^q alpha_j Psi(beta_(0,j) + sum_(i=1)^m beta_(i,j) x_(t-i L)) + epsilon_t
 $
 where:
 - q is the number of neurons of the network
@@ -146,10 +143,7 @@ As the logistic function $Psi = 1/(1+e^(-u))$ is usually used, the hyperbolic ta
 So, the reconstruction problem becomes
 $
   "Find the best set of parameters" theta = (m,L,q,A,B) "so the reconstructed timeseries"
-
-  \ hat(x_t) approx alpha_0 + sum_(j=1)^q alpha_j tanh(
-  beta_(0,j) + sum_(i=1)^m beta_(i,j) x_(t-i L)
-) + epsilon_t \
+  \ hat(x_t) approx alpha_0 + sum_(j=1)^q alpha_j tanh(beta_(0,j) + sum_(i=1)^m beta_(i,j) x_(t-i L)) + epsilon_t \
   "fits the most with the initial one"
 $
 
@@ -174,6 +168,46 @@ $(J_theta^T J_theta + mu I) Delta theta = - J_theta^T r(theta),$
 
 where $I$ is the identity matrix and $mu > 0$ is a damping factor. When $mu$ is large, the algorithm behaves like gradient descent (taking small, robust steps). As the solution approaches the minimum, $mu$ decreases, and the algorithm behaves like the Gauss-Newton method, offering fast quadratic convergence. This explicit utilization of the problem's squared-error structure makes NLS highly efficient for chaotic signal reconstruction.
 
+=== Dynamically Adapting Parameters per IMF
+First IMFs = "fast", highly dynamic signals => needs big set of parameters to handle it
+Last IMFs = "slow", smoother ones => nedds a set of parameters closer to (1,1,1) to not over-estimate the dynamic => Might need decimation
+
+Four steps to adapt the parameters to the signal:
+
+1. Mesure the dominant period $T_k$ and decimate adaptively: Estimate $T_k$ (in samples) from the peak of the IMF's Power Spectral Density or its mean zero-crossing period. To prevent phase-space collapse on slow modes (`IMF_6–IMF_10`), target a consistent 15–25 samples per cycle:
+$ D_k = max(1, floor.l T_k/20 floor.r) $
+
+Apply `decimate=D_k` (maybe anti-aliasing filter) and verify that the decimated length $N_("eff") = N / D_k$ still contains at least 20–30 full cycles (and >=500 samples). If `IMF_9` or `IMF_10` has fewer than ~10 cycles in your 10,000-sample record, exclude it—there is not enough trajectory recurrence to estimate $lambda$.
+
+2. Set the lag $L$ from the decimated IMF's correlation time
+Compute the first local minimum of Average Mutual Information (AMI) (or the first $1/e$ decay / zero-crossing of the autocorrelation function) on the decimated IMF. With ~20 samples per cycle, this naturally lands around $tau*L .approx 4"-"6$ decimated samples (roughly $T_k / 4$), unfolding the trajectory away from the main diagonal.
+
+3. Estimate embedding dimension (m) per IMF
+Use False Nearest Neighbors (FNN) or Cao's method on the decimated IMF to bracket a candidate range $[m_("min"), m_("max")]$ (typically $m in [2, 6]$ for narrowband IMFs).
+
+4. Select (L, m, q) via out-of-sample penalized error (BIC / GCV)
+Split each decimated IMF chronologically (e.g., 70% train, 30% validation—never random shuffle) and evaluate your candidate (L, m, q) grid on validation nmse. Select the configuration that minimizes the Bayesian Information Criterion (BIC) rather than raw training error:
+$"BIC" = N_("val") ln("NMSE"_("val")) + p ln(N_("val"))$
+
+where $p$ is the number of free parameters in your Jacobian/network model (for a single-hidden-layer network with $m$ inputs and $q$ hidden units, $p = q(m + 2) + 1$). This prevents both underfitting (q = 1, which caused your IMF_8–IMF_10 explosions) and overfitting to noise.
+
+5. Convert $lambda_("orb")$ back to common physical units
+Because each IMF uses its own decimate factor $D_k$, raw per-step exponents are not comparable across IMFs. Rescale every result to physical inverse time before comparing:$$\lambda_{\text{phys}, k} = \frac{\lambda_{\text{orb}, k}}{D_k \cdot \Delta t}$$
+
+=== Selecting the largest _trustworthy_ Lyapunov exponent
+
+Never take $max_k(lambda_k)$ over raw outputs. Instead, pass all 10 IMFs through four sequential trust gates, and only take the maximum among the survivors:
+- Pre-Gate — Per-IMF Timescale & Recurrence Adequacy: Estimate each IMF's dominant period $T_k$ (from its PSD peak or mean zero-crossing period) and set an adaptive decimation factor $D_k$ so every mode has ~15–25 samples per cycle.Set the embedding lag $L$ from the first local minimum of Average Mutual Information (AMI) on the decimated series.Reject any IMF whose decimated length $N_("eff") = N / D_k$ has fewer than 500 samples or fewer than 20 full cycles (e.g., ultra-low-frequency trend IMFs that never recur in phase space).
+- Gate 1 — Out-of-Sample Predictive Skill (NMSE):Fit $(L, m, q)$ on the first 70% of the decimated IMF and evaluate on the held-out final 30% (chronological split, never shuffled), using validation BIC to penalize excess parameters.Reject any IMF with $"NMSE"_("val") > 0.10$ (prefer $< 0.05$), since an inaccurate map cannot yield reliable local Jacobians.
+- Gate 2 — Sampling-Rate Plausibility:Reject any estimate with $lambda_("orb", k)} >= 0.5"-"1.0$ per decimated sample. Divergence faster than a single sampling interval reflects an ill-conditioned Jacobian rather than resolved dynamics. #highlight[To be discussed]
+- Gate 3 — Multi-Start & Capacity-Plateau Stability: Require tight convergence across polished random initializations ($"spread" < 0.25\, |lambda_("orb", k)|$).Verify that $lambda_("orb", k)$ sits on a flat plateau across neighboring hidden-unit counts $q^* plus.minus 1, 2$ rather than jumping erratically with network capacity.
+- Gate 4 — Cross-Dimension ($m$) Invariance (Gençay & Dechert Manifold Check): Sweep the embedding dimension $m$ from $m_(min)$ to $m_(max)$ (e.g., $m = 2 .dots 6$). Once $m$ reaches the unfolding dimension (estimated via False Nearest Neighbors or Cao's method) and $"NMSE"_("val")$ has saturated, $lambda_("orb", k)$ must remain stable as $m$ increases further.Reject any estimate where $lambda_("orb", k)$ jumps upward at larger $m$ without improving $"NMSE"_("val")$—this is the classic signature of a spurious exponent emerging in the $m - n$ directions transverse to an $n$-dimensional manifold.
+- Gate 5 — Geometric Cross-Check on the Attractor (Eckmann–Ruelle / Trajectory Divergence): Compute a second, non-Jacobian estimate of $lambda_1$ directly from the spreading of nearby trajectory vectors on the reconstructed attractor (Eckmann–Ruelle / Rosenstein / Kantz algorithm) using the same $(L^*, m^*)$.Because trajectory divergence is restricted to tangent vectors along the data manifold whereas an $m$-dimensional neural network differentiates across all of $R^m$, reject any IMF where the Jacobian $lambda_("orb", k)$ substantially exceeds the trajectory-divergence rate (and for smooth continuous-like IMFs, optionally verify Parlitz's time-reversal sign flip $lambda(-t) approx -lambda(t)$).
+- Gate 6 — Nonlinearity Confirmation via IAAFT Surrogates:Generate $B = 19–39$ IAAFT surrogates of the decimated IMF (preserving its exact power spectrum and amplitude distribution while destroying nonlinear phase coupling) and run the exact same $(L^*, m^*, q^*)$ estimator on each surrogate.Reject any IMF whose $"NMSE"_("val")$ is not significantly lower than the surrogate distribution ($p < 0.05$) or whose $lambda_("orb", k)$ overlaps with the surrogate $lambda$ values—this filters out narrowband linear stochastic noise created by the EMD filter bank.
+
+Once all 10 IMFs have been filtered, convert the survivors to common physical units via $lambda_("phys", k) = lambda_("orb", k) / (D_k . Delta t)$ and select $max_k lambda_("phys", k)$. If no IMF passes all six gates, report that the atmospheric noise series shows no verifiable deterministic chaos rather than forcing a maximum over spurious estimates.
+
+#pagebreak()
 == Limited-memory BFGS (L-BFGS) approach
 
 An alternative to the NLS formulation is to treat the reconstruction simply as a general unconstrained optimization problem. Instead of exploiting the sum-of-squares structure, we can minimize the general scalar loss function $S(theta)$ using quasi-Newton methods, specifically the Broyden–Fletcher–Goldfarb–Shanno (BFGS) algorithm.
@@ -195,9 +229,9 @@ While L-BFGS is a highly robust general-purpose optimizer, it relies purely on t
 #rslt[
   *Why this second method?*
 
-Compare to the NLS method, this approach is less smart and can be more heavy. Nevertheless, the approximation offered now by BenSaïda's `chaostest` function seems not to be precise enough for our use case.
+  Compare to the NLS method, this approach is less smart and can be more heavy. Nevertheless, the approximation offered now by BenSaïda's `chaostest` function seems not to be precise enough for our use case.
 
-The real interest on the BFGS method is that it can be easily implemented in Python using the `PyTorch` library. Coupled with the fact that with Télécom Paris I have access to pretty powerful GPUs, we can explore bigger parameters and therefore hope to achieve an exploitable approximation of the initial timeseries.
+  The real interest on the BFGS method is that it can be easily implemented in Python using the `PyTorch` library. Coupled with the fact that with Télécom Paris I have access to pretty powerful GPUs, we can explore bigger parameters and therefore hope to achieve an exploitable approximation of the initial timeseries.
 ]
 #pagebreak()
 = Open questions
@@ -303,4 +337,3 @@ $ y(k) approx lambda_1 k + c $
 + *Fast Pairwise Distance Calculations (`pdist2` / Vectorization):* Replaced the $O(M^2)$ inner loop distance calculations in both FNN and Rosenstein's algorithm with vectorized matrix operations (and `pdist2` when Statistics and Machine Learning Toolbox is available, with a fast fallback), yielding a *10x–50x speedup* on medium-to-large time series.
 + *Vectorized Divergence Tracking:* Eliminated the nested `for k = 0:max_pasos` loop by computing Euclidean norms across all time steps simultaneously.
 + *Bug Fix in FNN Loop Bounds:* In the original code, if the `for m_test` loop terminated early via `break` (`if M_test < 50`), the remaining entries in `fnn_porcentaje` stayed `0`, which falsely triggered `find(fnn_porcentaje < 5)` at an uncomputed dimension. Initializing `fnn_porcentaje` with `NaN` prevents this bug.
-

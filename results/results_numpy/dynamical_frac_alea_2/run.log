@@ -1,0 +1,117 @@
+[22:43:27] INFO    | Starting adaptive IMF Lyapunov pipeline on 10 file(s) | workers=128 | period=zcr | lag=ami | dim=cao | max_le_step=0.50 | surrogates=19
+[22:43:27] INFO    | ==============================================================================
+[22:43:27] INFO    | Processing: IMF_1.mat
+[22:43:27] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 3.0 samples | D_k = 1 -> N_eff = 10000 | cycles = 3387.7 | tau_eff = 1
+[22:43:27] INFO    |   [PRE-GATE] PASSED.
+[22:43:28] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 1 | m_est (cao) = 3 (diag={1: 0.0, 2: 0.179, 3: 0.462, 4: 0.638, 5: 0.732, 6: 0.794})
+[22:43:28] INFO    |   [STEP 3: BIC] Evaluating 42 (L,m,q) combos on chronological 70/30 split (N_tr=7000, N_val=3000)...
+[22:43:39] INFO    |   [STEP 3: BIC] Selected (L*=1, m*=3, q*=5) | BIC=-925.11 | NMSE_val=6.851e-01 | lambda_orb=-0.06514/step | lambda_phys=-0.06514/time | spread=0.0000
+[22:43:39] INFO    |   [GATE 1: NMSE]     NMSE_val = 6.851e-01 (threshold <= 1.000e-01) -> FAIL
+[22:43:39] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.06514 (threshold < 0.50 /step) -> PASS
+[22:43:39] INFO    |   [GATE 3: PLATEAU]  spread=0.0000 (<=0.0163: OK) | q-neighbors jump=0.0961 (ERRATIC) -> FAIL
+[22:43:39] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[22:43:39] INFO    |   [GATE 5: GEOMETRY] Jacobian=-0.06514 vs Trajectory(Rosenstein)=0.44786 -> PASS
+[22:43:39] INFO    |   [GATE 6: IAAFT]    Skipped (already failed an earlier gate) -> FAIL
+[22:43:39] INFO    |   [VERDICT] IMF_1.mat -> REJECTED (G1_NMSE,G3_PLATEAU,G6_IAAFT) (lambda_phys = -0.065137 +/- 0.000000 /time) [11.4s]
+[22:43:39] INFO    | ==============================================================================
+[22:43:39] INFO    | Processing: IMF_2.mat
+[22:43:39] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 7.2 samples | D_k = 1 -> N_eff = 10000 | cycles = 1385.9 | tau_eff = 1
+[22:43:39] INFO    |   [PRE-GATE] PASSED.
+[22:43:39] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 2 | m_est (cao) = 3 (diag={1: 0.001, 2: 0.18, 3: 0.412, 4: 0.652, 5: 0.762, 6: 0.817})
+[22:43:39] INFO    |   [STEP 3: BIC] Evaluating 42 (L,m,q) combos on chronological 70/30 split (N_tr=7000, N_val=3000)...
+[22:43:58] INFO    |   [STEP 3: BIC] Selected (L*=2, m*=4, q*=4) | BIC=-1656.23 | NMSE_val=5.377e-01 | lambda_orb=-0.06377/step | lambda_phys=-0.06377/time | spread=0.0000
+[22:43:58] INFO    |   [GATE 1: NMSE]     NMSE_val = 5.377e-01 (threshold <= 1.000e-01) -> FAIL
+[22:43:58] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.06377 (threshold < 0.50 /step) -> PASS
+[22:43:58] INFO    |   [GATE 3: PLATEAU]  spread=0.0000 (<=0.0159: OK) | q-neighbors jump=0.0368 (ERRATIC) -> FAIL
+[22:43:58] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[22:43:58] INFO    |   [GATE 5: GEOMETRY] Jacobian=-0.06377 vs Trajectory(Rosenstein)=0.20888 -> PASS
+[22:43:58] INFO    |   [GATE 6: IAAFT]    Skipped (already failed an earlier gate) -> FAIL
+[22:43:58] INFO    |   [VERDICT] IMF_2.mat -> REJECTED (G1_NMSE,G3_PLATEAU,G6_IAAFT) (lambda_phys = -0.063771 +/- 0.000007 /time) [19.4s]
+[22:43:58] INFO    | ==============================================================================
+[22:43:58] INFO    | Processing: IMF_3.mat
+[22:43:58] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 17.1 samples | D_k = 1 -> N_eff = 10000 | cycles = 584.0 | tau_eff = 1
+[22:43:58] INFO    |   [PRE-GATE] PASSED.
+[22:43:59] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 5 | m_est (cao) = 3 (diag={1: 0.002, 2: 0.176, 3: 0.423, 4: 0.654, 5: 0.758, 6: 0.827})
+[22:43:59] INFO    |   [STEP 3: BIC] Evaluating 42 (L,m,q) combos on chronological 70/30 split (N_tr=7000, N_val=3000)...
+[22:44:10] INFO    |   [STEP 3: BIC] Selected (L*=5, m*=4, q*=3) | BIC=-1699.40 | NMSE_val=5.373e-01 | lambda_orb=-0.02763/step | lambda_phys=-0.02763/time | spread=0.0000
+[22:44:10] INFO    |   [GATE 1: NMSE]     NMSE_val = 5.373e-01 (threshold <= 1.000e-01) -> FAIL
+[22:44:10] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.02763 (threshold < 0.50 /step) -> PASS
+[22:44:10] INFO    |   [GATE 3: PLATEAU]  spread=0.0000 (<=0.0100: OK) | q-neighbors jump=0.0129 (OK) -> PASS
+[22:44:10] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[22:44:10] INFO    |   [GATE 5: GEOMETRY] Jacobian=-0.02763 vs Trajectory(Rosenstein)=0.09047 -> PASS
+[22:44:10] INFO    |   [GATE 6: IAAFT]    Skipped (already failed an earlier gate) -> FAIL
+[22:44:10] INFO    |   [VERDICT] IMF_3.mat -> REJECTED (G1_NMSE,G6_IAAFT) (lambda_phys = -0.027632 +/- 0.000000 /time) [12.1s]
+[22:44:10] INFO    | ==============================================================================
+[22:44:10] INFO    | Processing: IMF_4.mat
+[22:44:10] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 41.7 samples | D_k = 2 -> N_eff = 5000 | cycles = 239.6 | tau_eff = 2
+[22:44:10] INFO    |   [PRE-GATE] PASSED.
+[22:44:11] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 6 | m_est (cao) = 3 (diag={1: 0.002, 2: 0.202, 3: 0.453, 4: 0.643, 5: 0.768, 6: 0.847})
+[22:44:11] INFO    |   [STEP 3: BIC] Evaluating 42 (L,m,q) combos on chronological 70/30 split (N_tr=3500, N_val=1500)...
+[22:44:17] INFO    |   [STEP 3: BIC] Selected (L*=6, m*=4, q*=2) | BIC=-710.38 | NMSE_val=5.795e-01 | lambda_orb=-0.03127/step | lambda_phys=-0.01563/time | spread=0.0000
+[22:44:17] INFO    |   [GATE 1: NMSE]     NMSE_val = 5.795e-01 (threshold <= 1.000e-01) -> FAIL
+[22:44:17] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.03127 (threshold < 0.50 /step) -> PASS
+[22:44:17] INFO    |   [GATE 3: PLATEAU]  spread=0.0000 (<=0.0100: OK) | q-neighbors jump=0.0202 (ERRATIC) -> FAIL
+[22:44:17] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[22:44:17] INFO    |   [GATE 5: GEOMETRY] Jacobian=-0.03127 vs Trajectory(Rosenstein)=0.07386 -> PASS
+[22:44:17] INFO    |   [GATE 6: IAAFT]    Skipped (already failed an earlier gate) -> FAIL
+[22:44:17] INFO    |   [VERDICT] IMF_4.mat -> REJECTED (G1_NMSE,G3_PLATEAU,G6_IAAFT) (lambda_phys = -0.015634 +/- 0.000000 /time) [7.1s]
+[22:44:17] INFO    | ==============================================================================
+[22:44:17] INFO    | Processing: IMF_5.mat
+[22:44:17] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 103.8 samples | D_k = 5 -> N_eff = 2000 | cycles = 96.3 | tau_eff = 5
+[22:44:17] INFO    |   [PRE-GATE] PASSED.
+[22:44:18] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 6 | m_est (cao) = 3 (diag={1: 0.006, 2: 0.196, 3: 0.467, 4: 0.695, 5: 0.802, 6: 0.854})
+[22:44:18] INFO    |   [STEP 3: BIC] Evaluating 42 (L,m,q) combos on chronological 70/30 split (N_tr=1400, N_val=600)...
+[22:44:20] INFO    |   [STEP 3: BIC] Selected (L*=6, m*=2, q*=2) | BIC=-199.23 | NMSE_val=6.463e-01 | lambda_orb=-0.03714/step | lambda_phys=-0.00743/time | spread=0.0000
+[22:44:20] INFO    |   [GATE 1: NMSE]     NMSE_val = 6.463e-01 (threshold <= 1.000e-01) -> FAIL
+[22:44:20] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.03714 (threshold < 0.50 /step) -> PASS
+[22:44:20] INFO    |   [GATE 3: PLATEAU]  spread=0.0000 (<=0.0100: OK) | q-neighbors jump=0.0068 (OK) -> PASS
+[22:44:20] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[22:44:20] INFO    |   [GATE 5: GEOMETRY] Jacobian=-0.03714 vs Trajectory(Rosenstein)=0.13838 -> PASS
+[22:44:20] INFO    |   [GATE 6: IAAFT]    Skipped (already failed an earlier gate) -> FAIL
+[22:44:20] INFO    |   [VERDICT] IMF_5.mat -> REJECTED (G1_NMSE,G6_IAAFT) (lambda_phys = -0.007428 +/- 0.000000 /time) [3.1s]
+[22:44:20] INFO    | ==============================================================================
+[22:44:20] INFO    | Processing: IMF_6.mat
+[22:44:20] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 256.2 samples | D_k = 12 -> N_eff = 834 | cycles = 39.0 | tau_eff = 12
+[22:44:20] INFO    |   [PRE-GATE] PASSED.
+[22:44:21] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 6 | m_est (cao) = 3 (diag={1: 0.004, 2: 0.239, 3: 0.496, 4: 0.747, 5: 0.842, 6: 0.891})
+[22:44:21] INFO    |   [STEP 3: BIC] Evaluating 42 (L,m,q) combos on chronological 70/30 split (N_tr=583, N_val=251)...
+[22:44:22] INFO    |   [STEP 3: BIC] Selected (L*=6, m*=2, q*=2) | BIC=-49.93 | NMSE_val=6.602e-01 | lambda_orb=-0.02708/step | lambda_phys=-0.00226/time | spread=0.0000
+[22:44:22] INFO    |   [GATE 1: NMSE]     NMSE_val = 6.602e-01 (threshold <= 1.000e-01) -> FAIL
+[22:44:22] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.02708 (threshold < 0.50 /step) -> PASS
+[22:44:22] INFO    |   [GATE 3: PLATEAU]  spread=0.0000 (<=0.0100: OK) | q-neighbors jump=0.0145 (OK) -> PASS
+[22:44:22] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (spurious jump +0.0217 at m=3 (NMSE 6.60e-01->7.05e-01)) -> FAIL
+[22:44:22] INFO    |   [GATE 5: GEOMETRY] Jacobian=-0.02708 vs Trajectory(Rosenstein)=0.12767 -> PASS
+[22:44:22] INFO    |   [GATE 6: IAAFT]    Skipped (already failed an earlier gate) -> FAIL
+[22:44:22] INFO    |   [VERDICT] IMF_6.mat -> REJECTED (G1_NMSE,G4_MANIFOLD,G6_IAAFT) (lambda_phys = -0.002257 +/- 0.000000 /time) [1.8s]
+[22:44:22] INFO    | ==============================================================================
+[22:44:22] INFO    | Processing: IMF_7.mat
+[22:44:22] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 586.8 samples | D_k = 29 -> N_eff = 345 | cycles = 17.0 | tau_eff = 29
+[22:44:22] WARNING |   [PRE-GATE] REJECTED: Insufficient recurrence: N_eff=345 (<500) or cycles=17.0 (<20.0)
+[22:44:22] INFO    | ==============================================================================
+[22:44:22] INFO    | Processing: IMF_8.mat
+[22:44:22] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 1623.0 samples | D_k = 81 -> N_eff = 124 | cycles = 6.2 | tau_eff = 81
+[22:44:22] WARNING |   [PRE-GATE] REJECTED: Insufficient recurrence: N_eff=124 (<500) or cycles=6.2 (<20.0)
+[22:44:22] INFO    | ==============================================================================
+[22:44:22] INFO    | Processing: IMF_9.mat
+[22:44:22] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 3440.5 samples | D_k = 172 -> N_eff = 59 | cycles = 2.9 | tau_eff = 172
+[22:44:22] WARNING |   [PRE-GATE] REJECTED: Insufficient recurrence: N_eff=59 (<500) or cycles=2.9 (<20.0)
+[22:44:22] INFO    | ==============================================================================
+[22:44:22] INFO    | Processing: IMF_10.mat
+[22:44:22] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 10000.0 samples | D_k = 500 -> N_eff = 20 | cycles = 1.0 | tau_eff = 500
+[22:44:22] WARNING |   [PRE-GATE] REJECTED: Insufficient recurrence: N_eff=20 (<500) or cycles=1.0 (<20.0)
+[22:44:22] INFO    | ==============================================================================
+[22:44:22] INFO    | FINAL IMF VERIFICATION SUMMARY (elapsed 54.8s)
+[22:44:22] INFO    | ==============================================================================
+[22:44:22] INFO    | IMF_1.mat          | LE_phys = -0.065137 +/- 0.000000   | FAIL [G1_NMSE,G3_PLATEAU,G6_IAAFT]
+[22:44:22] INFO    | IMF_2.mat          | LE_phys = -0.063771 +/- 0.000007   | FAIL [G1_NMSE,G3_PLATEAU,G6_IAAFT]
+[22:44:22] INFO    | IMF_3.mat          | LE_phys = -0.027632 +/- 0.000000   | FAIL [G1_NMSE,G6_IAAFT]
+[22:44:22] INFO    | IMF_4.mat          | LE_phys = -0.015634 +/- 0.000000   | FAIL [G1_NMSE,G3_PLATEAU,G6_IAAFT]
+[22:44:22] INFO    | IMF_5.mat          | LE_phys = -0.007428 +/- 0.000000   | FAIL [G1_NMSE,G6_IAAFT]
+[22:44:22] INFO    | IMF_6.mat          | LE_phys = -0.002257 +/- 0.000000   | FAIL [G1_NMSE,G4_MANIFOLD,G6_IAAFT]
+[22:44:22] INFO    | IMF_7.mat          | LE_phys = N/A                      | FAIL [PRE-GATE:Insufficient recurrence: N_eff=345 (<500) or cycles=17.0 (<20.0)]
+[22:44:22] INFO    | IMF_8.mat          | LE_phys = N/A                      | FAIL [PRE-GATE:Insufficient recurrence: N_eff=124 (<500) or cycles=6.2 (<20.0)]
+[22:44:22] INFO    | IMF_9.mat          | LE_phys = N/A                      | FAIL [PRE-GATE:Insufficient recurrence: N_eff=59 (<500) or cycles=2.9 (<20.0)]
+[22:44:22] INFO    | IMF_10.mat         | LE_phys = N/A                      | FAIL [PRE-GATE:Insufficient recurrence: N_eff=20 (<500) or cycles=1.0 (<20.0)]
+[22:44:22] INFO    | ------------------------------------------------------------------------------
+[22:44:22] INFO    | CONCLUSION: No IMF passed all 6 verification gates. Signal is consistent with stochastic/linear noise (no trustworthy deterministic chaos).
+[22:44:22] INFO    | Saved summary CSV/JSON and run.log to 'dynamical_frac_alea_2/'

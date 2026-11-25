@@ -1,0 +1,277 @@
+[23:03:56] INFO    | Starting adaptive IMF Lyapunov pipeline on 21 file(s) | workers=128 | period=zcr | lag=ami | dim=cao | max_le_step=0.50 | surrogates=19
+[23:03:56] INFO    | ==============================================================================
+[23:03:56] INFO    | Processing: DET_henon_map_r01.mat
+[23:03:56] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 3.5 samples | D_k = 1 -> N_eff = 10000 | cycles = 2891.9 | tau_eff = 1
+[23:03:56] INFO    |   [PRE-GATE] PASSED.
+[23:03:57] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 1 | m_est (cao) = 2 (diag={1: 0.0, 2: 0.937, 3: 0.983, 4: 0.994, 5: 0.986, 6: 1.005})
+[23:03:57] INFO    |   [STEP 3: BIC] Evaluating 35 (L,m,q) combos on chronological 70/30 split (N_tr=7000, N_val=3000)...
+[23:04:18] INFO    |   [STEP 3: BIC] Selected (L*=1, m*=5, q*=6) | BIC=-72331.36 | NMSE_val=2.894e-11 | lambda_orb=+0.42286/step | lambda_phys=+0.42286/time | spread=0.0000
+[23:04:18] INFO    |   [GATE 1: NMSE]     NMSE_val = 2.894e-11 (threshold <= 1.000e-01) -> PASS
+[23:04:18] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.42286 (threshold < 0.50 /step) -> PASS
+[23:04:18] INFO    |   [GATE 3: PLATEAU]  spread=0.0000 (<=0.1057: OK) | q-neighbors jump=0.0006 (OK) -> PASS
+[23:04:18] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[23:04:18] INFO    |   [GATE 5: GEOMETRY] Jacobian=0.42286 vs Trajectory(Rosenstein)=0.39868 -> PASS
+[23:04:18] INFO    |   [GATE 6: IAAFT]    Generating & fitting B=19 IAAFT surrogates...
+[23:04:33] INFO    |   [GATE 6: IAAFT]    NMSE_val=2.894e-11 vs surr=7.486e-01 (p=0.050) | LE=0.42286 vs surr=-0.12905 (p=0.050) -> PASS
+[23:04:33] INFO    |   [VERDICT] DET_henon_map_r01.mat -> VERIFIED CHAOTIC (lambda_phys = +0.422861 +/- 0.000001 /time) [37.4s]
+[23:04:33] INFO    | ==============================================================================
+[23:04:33] INFO    | Processing: DET_henon_map_r02.mat
+[23:04:33] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 3.5 samples | D_k = 1 -> N_eff = 10000 | cycles = 2877.9 | tau_eff = 1
+[23:04:33] INFO    |   [PRE-GATE] PASSED.
+[23:04:34] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 1 | m_est (cao) = 2 (diag={1: 0.0, 2: 0.933, 3: 0.987, 4: 0.992, 5: 0.991, 6: 1.007})
+[23:04:34] INFO    |   [STEP 3: BIC] Evaluating 35 (L,m,q) combos on chronological 70/30 split (N_tr=7000, N_val=3000)...
+[23:05:01] INFO    |   [STEP 3: BIC] Selected (L*=1, m*=4, q*=10) | BIC=-70423.99 | NMSE_val=5.256e-11 | lambda_orb=+0.42744/step | lambda_phys=+0.42744/time | spread=0.0001
+[23:05:01] INFO    |   [GATE 1: NMSE]     NMSE_val = 5.256e-11 (threshold <= 1.000e-01) -> PASS
+[23:05:01] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.42744 (threshold < 0.50 /step) -> PASS
+[23:05:01] INFO    |   [GATE 3: PLATEAU]  spread=0.0001 (<=0.1069: OK) | q-neighbors jump=0.0002 (OK) -> PASS
+[23:05:01] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[23:05:01] INFO    |   [GATE 5: GEOMETRY] Jacobian=0.42744 vs Trajectory(Rosenstein)=0.40867 -> PASS
+[23:05:01] INFO    |   [GATE 6: IAAFT]    Generating & fitting B=19 IAAFT surrogates...
+[23:05:21] INFO    |   [GATE 6: IAAFT]    NMSE_val=5.256e-11 vs surr=7.765e-01 (p=0.050) | LE=0.42744 vs surr=-0.13982 (p=0.050) -> PASS
+[23:05:21] INFO    |   [VERDICT] DET_henon_map_r02.mat -> VERIFIED CHAOTIC (lambda_phys = +0.427444 +/- 0.000067 /time) [47.4s]
+[23:05:21] INFO    | ==============================================================================
+[23:05:21] INFO    | Processing: DET_henon_map_r03.mat
+[23:05:21] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 3.5 samples | D_k = 1 -> N_eff = 10000 | cycles = 2854.4 | tau_eff = 1
+[23:05:21] INFO    |   [PRE-GATE] PASSED.
+[23:05:21] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 1 | m_est (cao) = 2 (diag={1: 0.0, 2: 0.932, 3: 0.983, 4: 0.983, 5: 0.992, 6: 1.004})
+[23:05:21] INFO    |   [STEP 3: BIC] Evaluating 35 (L,m,q) combos on chronological 70/30 split (N_tr=7000, N_val=3000)...
+[23:05:53] INFO    |   [STEP 3: BIC] Selected (L*=1, m*=6, q*=10) | BIC=-75654.77 | NMSE_val=8.548e-12 | lambda_orb=+0.41602/step | lambda_phys=+0.41602/time | spread=0.0002
+[23:05:53] INFO    |   [GATE 1: NMSE]     NMSE_val = 8.548e-12 (threshold <= 1.000e-01) -> PASS
+[23:05:53] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.41602 (threshold < 0.50 /step) -> PASS
+[23:05:53] INFO    |   [GATE 3: PLATEAU]  spread=0.0002 (<=0.1040: OK) | q-neighbors jump=0.0002 (OK) -> PASS
+[23:05:53] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[23:05:53] INFO    |   [GATE 5: GEOMETRY] Jacobian=0.41602 vs Trajectory(Rosenstein)=0.38623 -> PASS
+[23:05:53] INFO    |   [GATE 6: IAAFT]    Generating & fitting B=19 IAAFT surrogates...
+[23:06:19] INFO    |   [GATE 6: IAAFT]    NMSE_val=8.548e-12 vs surr=7.391e-01 (p=0.050) | LE=0.41602 vs surr=-0.07055 (p=0.050) -> PASS
+[23:06:19] INFO    |   [VERDICT] DET_henon_map_r03.mat -> VERIFIED CHAOTIC (lambda_phys = +0.416022 +/- 0.000168 /time) [58.6s]
+[23:06:19] INFO    | ==============================================================================
+[23:06:19] INFO    | Processing: DET_linear_r01.mat
+[23:06:19] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 10000.0 samples | D_k = 833 -> N_eff = 13 | cycles = 1.0 | tau_eff = 833
+[23:06:19] WARNING |   [PRE-GATE] REJECTED: Insufficient recurrence: N_eff=13 (<300) or cycles=1.0 (<10.0)
+[23:06:19] INFO    | ==============================================================================
+[23:06:19] INFO    | Processing: DET_linear_r02.mat
+[23:06:19] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 10000.0 samples | D_k = 833 -> N_eff = 13 | cycles = 1.0 | tau_eff = 833
+[23:06:19] WARNING |   [PRE-GATE] REJECTED: Insufficient recurrence: N_eff=13 (<300) or cycles=1.0 (<10.0)
+[23:06:19] INFO    | ==============================================================================
+[23:06:19] INFO    | Processing: DET_linear_r03.mat
+[23:06:19] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 10000.0 samples | D_k = 833 -> N_eff = 13 | cycles = 1.0 | tau_eff = 833
+[23:06:19] WARNING |   [PRE-GATE] REJECTED: Insufficient recurrence: N_eff=13 (<300) or cycles=1.0 (<10.0)
+[23:06:19] INFO    | ==============================================================================
+[23:06:19] INFO    | Processing: DET_logistic_map_r01.mat
+[23:06:19] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 2.5 samples | D_k = 1 -> N_eff = 10000 | cycles = 4002.2 | tau_eff = 1
+[23:06:19] INFO    |   [PRE-GATE] PASSED.
+[23:06:20] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 1 | m_est (cao) = 2 (diag={1: 0.85, 2: 0.971, 3: 0.993, 4: 0.986, 5: 1.0, 6: 0.993})
+[23:06:20] INFO    |   [STEP 3: BIC] Evaluating 35 (L,m,q) combos on chronological 70/30 split (N_tr=7000, N_val=3000)...
+[23:06:43] INFO    |   [STEP 3: BIC] Selected (L*=1, m*=2, q*=10) | BIC=-90488.81 | NMSE_val=6.984e-14 | lambda_orb=+0.81818/step | lambda_phys=+0.81818/time | spread=0.4721
+[23:06:43] INFO    |   [GATE 1: NMSE]     NMSE_val = 6.984e-14 (threshold <= 1.000e-01) -> PASS
+[23:06:43] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.81818 (threshold < 0.50 /step) -> FAIL
+[23:06:43] INFO    |   [GATE 3: PLATEAU]  spread=0.4721 (<=0.2045: HIGH) | q-neighbors jump=0.4588 (ERRATIC) -> FAIL
+[23:06:43] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[23:06:43] INFO    |   [GATE 5: GEOMETRY] Jacobian=0.81818 vs Trajectory(Rosenstein)=0.33520 -> FAIL
+[23:06:43] INFO    |   [GATE 6: IAAFT]    Generating & fitting B=19 IAAFT surrogates...
+[23:06:57] INFO    |   [GATE 6: IAAFT]    NMSE_val=6.984e-14 vs surr=3.748e-01 (p=0.050) | LE=0.81818 vs surr=-0.12789 (p=0.050) -> PASS
+[23:06:57] INFO    |   [VERDICT] DET_logistic_map_r01.mat -> REJECTED (G2_RATE,G3_PLATEAU,G5_GEOMETRY) (lambda_phys = +0.818183 +/- 0.472139 /time) [37.5s]
+[23:06:57] INFO    | ==============================================================================
+[23:06:57] INFO    | Processing: DET_logistic_map_r02.mat
+[23:06:57] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 2.8 samples | D_k = 1 -> N_eff = 10000 | cycles = 3608.2 | tau_eff = 1
+[23:06:57] INFO    |   [PRE-GATE] PASSED.
+[23:06:57] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 1 | m_est (cao) = 2 (diag={1: 0.856, 2: 0.971, 3: 1.0, 4: 0.991, 5: 0.995, 6: 0.998})
+[23:06:57] INFO    |   [STEP 3: BIC] Evaluating 35 (L,m,q) combos on chronological 70/30 split (N_tr=7000, N_val=3000)...
+[23:07:21] INFO    |   [STEP 3: BIC] Selected (L*=1, m*=2, q*=10) | BIC=-90435.85 | NMSE_val=7.109e-14 | lambda_orb=+0.73430/step | lambda_phys=+0.73430/time | spread=0.9516
+[23:07:21] INFO    |   [GATE 1: NMSE]     NMSE_val = 7.109e-14 (threshold <= 1.000e-01) -> PASS
+[23:07:21] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.73430 (threshold < 0.50 /step) -> FAIL
+[23:07:21] INFO    |   [GATE 3: PLATEAU]  spread=0.9516 (<=0.1836: HIGH) | q-neighbors jump=0.2983 (ERRATIC) -> FAIL
+[23:07:21] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[23:07:21] INFO    |   [GATE 5: GEOMETRY] Jacobian=0.73430 vs Trajectory(Rosenstein)=0.41656 -> FAIL
+[23:07:21] INFO    |   [GATE 6: IAAFT]    Generating & fitting B=19 IAAFT surrogates...
+[23:07:34] INFO    |   [GATE 6: IAAFT]    NMSE_val=7.109e-14 vs surr=5.086e-01 (p=0.050) | LE=0.73430 vs surr=-0.16670 (p=0.050) -> PASS
+[23:07:34] INFO    |   [VERDICT] DET_logistic_map_r02.mat -> REJECTED (G2_RATE,G3_PLATEAU,G5_GEOMETRY) (lambda_phys = +0.734302 +/- 0.951612 /time) [37.4s]
+[23:07:34] INFO    | ==============================================================================
+[23:07:34] INFO    | Processing: DET_logistic_map_r03.mat
+[23:07:34] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 2.9 samples | D_k = 1 -> N_eff = 10000 | cycles = 3441.4 | tau_eff = 1
+[23:07:34] INFO    |   [PRE-GATE] PASSED.
+[23:07:35] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 1 | m_est (cao) = 2 (diag={1: 0.837, 2: 0.962, 3: 1.0, 4: 0.989, 5: 0.999, 6: 0.998})
+[23:07:35] INFO    |   [STEP 3: BIC] Evaluating 35 (L,m,q) combos on chronological 70/30 split (N_tr=7000, N_val=3000)...
+[23:07:58] INFO    |   [STEP 3: BIC] Selected (L*=1, m*=2, q*=10) | BIC=-90102.05 | NMSE_val=7.946e-14 | lambda_orb=+0.70872/step | lambda_phys=+0.70872/time | spread=0.2099
+[23:07:58] INFO    |   [GATE 1: NMSE]     NMSE_val = 7.946e-14 (threshold <= 1.000e-01) -> PASS
+[23:07:58] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.70872 (threshold < 0.50 /step) -> FAIL
+[23:07:58] INFO    |   [GATE 3: PLATEAU]  spread=0.2099 (<=0.1772: HIGH) | q-neighbors jump=0.2149 (OK) -> FAIL
+[23:07:58] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (spurious jump +0.5998 at m=3 (NMSE 7.95e-14->1.17e-10)) -> FAIL
+[23:07:58] INFO    |   [GATE 5: GEOMETRY] Jacobian=0.70872 vs Trajectory(Rosenstein)=0.47141 -> PASS
+[23:07:58] INFO    |   [GATE 6: IAAFT]    Generating & fitting B=19 IAAFT surrogates...
+[23:08:12] INFO    |   [GATE 6: IAAFT]    NMSE_val=7.946e-14 vs surr=6.168e-01 (p=0.050) | LE=0.70872 vs surr=-0.05431 (p=0.050) -> PASS
+[23:08:12] INFO    |   [VERDICT] DET_logistic_map_r03.mat -> REJECTED (G2_RATE,G3_PLATEAU,G4_MANIFOLD) (lambda_phys = +0.708725 +/- 0.209918 /time) [37.8s]
+[23:08:12] INFO    | ==============================================================================
+[23:08:12] INFO    | Processing: DET_lorenz_x_r01.mat
+[23:08:12] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 159.0 samples | D_k = 13 -> N_eff = 770 | cycles = 62.9 | tau_eff = 13
+[23:08:12] INFO    |   [PRE-GATE] PASSED.
+[23:08:12] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 1 | m_est (cao) = 5 (diag={1: 0.001, 2: 0.216, 3: 0.419, 4: 0.812, 5: 0.929, 6: 1.004})
+[23:08:12] INFO    |   [STEP 3: BIC] Evaluating 35 (L,m,q) combos on chronological 70/30 split (N_tr=539, N_val=231)...
+[23:08:14] INFO    |   [STEP 3: BIC] Selected (L*=1, m*=4, q*=4) | BIC=-411.36 | NMSE_val=8.985e-02 | lambda_orb=+0.33857/step | lambda_phys=+0.02604/time | spread=0.0000
+[23:08:14] INFO    |   [GATE 1: NMSE]     NMSE_val = 8.985e-02 (threshold <= 1.000e-01) -> PASS
+[23:08:14] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.33857 (threshold < 0.50 /step) -> PASS
+[23:08:14] INFO    |   [GATE 3: PLATEAU]  spread=0.0000 (<=0.0846: OK) | q-neighbors jump=0.1049 (OK) -> PASS
+[23:08:14] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[23:08:14] INFO    |   [GATE 5: GEOMETRY] Jacobian=0.33857 vs Trajectory(Rosenstein)=0.23265 -> PASS
+[23:08:14] INFO    |   [GATE 6: IAAFT]    Generating & fitting B=19 IAAFT surrogates...
+[23:08:16] INFO    |   [GATE 6: IAAFT]    NMSE_val=8.985e-02 vs surr=5.183e-01 (p=0.050) | LE=0.33857 vs surr=-0.10280 (p=0.050) -> PASS
+[23:08:16] INFO    |   [VERDICT] DET_lorenz_x_r01.mat -> VERIFIED CHAOTIC (lambda_phys = +0.026044 +/- 0.000000 /time) [3.6s]
+[23:08:16] INFO    | ==============================================================================
+[23:08:16] INFO    | Processing: DET_lorenz_x_r02.mat
+[23:08:16] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 186.9 samples | D_k = 15 -> N_eff = 667 | cycles = 53.5 | tau_eff = 15
+[23:08:16] INFO    |   [PRE-GATE] PASSED.
+[23:08:16] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 1 | m_est (cao) = 6 (diag={1: 0.014, 2: 0.153, 3: 0.622, 4: 0.87, 5: 0.871, 6: 0.99})
+[23:08:16] INFO    |   [STEP 3: BIC] Evaluating 35 (L,m,q) combos on chronological 70/30 split (N_tr=466, N_val=201)...
+[23:08:18] INFO    |   [STEP 3: BIC] Selected (L*=1, m*=4, q*=5) | BIC=-246.34 | NMSE_val=1.247e-01 | lambda_orb=+0.45918/step | lambda_phys=+0.03061/time | spread=0.0000
+[23:08:18] INFO    |   [GATE 1: NMSE]     NMSE_val = 1.247e-01 (threshold <= 1.000e-01) -> FAIL
+[23:08:18] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.45918 (threshold < 0.50 /step) -> PASS
+[23:08:18] INFO    |   [GATE 3: PLATEAU]  spread=0.0000 (<=0.1148: OK) | q-neighbors jump=0.2424 (ERRATIC) -> FAIL
+[23:08:18] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[23:08:18] INFO    |   [GATE 5: GEOMETRY] Jacobian=0.45918 vs Trajectory(Rosenstein)=0.22584 -> FAIL
+[23:08:18] INFO    |   [GATE 6: IAAFT]    Generating & fitting B=19 IAAFT surrogates...
+[23:08:19] INFO    |   [GATE 6: IAAFT]    NMSE_val=1.247e-01 vs surr=6.050e-01 (p=0.050) | LE=0.45918 vs surr=-0.03563 (p=0.050) -> PASS
+[23:08:19] INFO    |   [VERDICT] DET_lorenz_x_r02.mat -> REJECTED (G1_NMSE,G3_PLATEAU,G5_GEOMETRY) (lambda_phys = +0.030612 +/- 0.000000 /time) [3.7s]
+[23:08:19] INFO    | ==============================================================================
+[23:08:19] INFO    | Processing: DET_lorenz_x_r03.mat
+[23:08:19] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 164.8 samples | D_k = 13 -> N_eff = 770 | cycles = 60.7 | tau_eff = 13
+[23:08:19] INFO    |   [PRE-GATE] PASSED.
+[23:08:19] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 1 | m_est (cao) = 5 (diag={1: 0.009, 2: 0.235, 3: 0.467, 4: 0.881, 5: 0.902, 6: 0.931})
+[23:08:19] INFO    |   [STEP 3: BIC] Evaluating 35 (L,m,q) combos on chronological 70/30 split (N_tr=539, N_val=231)...
+[23:08:21] INFO    |   [STEP 3: BIC] Selected (L*=1, m*=4, q*=4) | BIC=-443.91 | NMSE_val=7.785e-02 | lambda_orb=+0.35494/step | lambda_phys=+0.02730/time | spread=0.0000
+[23:08:21] INFO    |   [GATE 1: NMSE]     NMSE_val = 7.785e-02 (threshold <= 1.000e-01) -> PASS
+[23:08:21] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.35494 (threshold < 0.50 /step) -> PASS
+[23:08:21] INFO    |   [GATE 3: PLATEAU]  spread=0.0000 (<=0.0887: OK) | q-neighbors jump=0.1399 (ERRATIC) -> FAIL
+[23:08:21] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[23:08:21] INFO    |   [GATE 5: GEOMETRY] Jacobian=0.35494 vs Trajectory(Rosenstein)=0.19186 -> FAIL
+[23:08:21] INFO    |   [GATE 6: IAAFT]    Generating & fitting B=19 IAAFT surrogates...
+[23:08:23] INFO    |   [GATE 6: IAAFT]    NMSE_val=7.785e-02 vs surr=5.374e-01 (p=0.050) | LE=0.35494 vs surr=-0.13270 (p=0.050) -> PASS
+[23:08:23] INFO    |   [VERDICT] DET_lorenz_x_r03.mat -> REJECTED (G3_PLATEAU,G5_GEOMETRY) (lambda_phys = +0.027303 +/- 0.000000 /time) [3.7s]
+[23:08:23] INFO    | ==============================================================================
+[23:08:23] INFO    | Processing: DET_rossler_x_r01.mat
+[23:08:23] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 58.6 samples | D_k = 4 -> N_eff = 2500 | cycles = 170.7 | tau_eff = 4
+[23:08:23] INFO    |   [PRE-GATE] PASSED.
+[23:08:23] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 1 | m_est (cao) = 3 (diag={1: 0.0, 2: 0.635, 3: 0.905, 4: 0.954, 5: 0.978, 6: 0.993})
+[23:08:23] INFO    |   [STEP 3: BIC] Evaluating 35 (L,m,q) combos on chronological 70/30 split (N_tr=1750, N_val=750)...
+[23:08:31] INFO    |   [STEP 3: BIC] Selected (L*=1, m*=6, q*=10) | BIC=-10143.12 | NMSE_val=5.842e-07 | lambda_orb=+0.03418/step | lambda_phys=+0.00854/time | spread=0.0021
+[23:08:31] INFO    |   [GATE 1: NMSE]     NMSE_val = 5.842e-07 (threshold <= 1.000e-01) -> PASS
+[23:08:31] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.03418 (threshold < 0.50 /step) -> PASS
+[23:08:31] INFO    |   [GATE 3: PLATEAU]  spread=0.0021 (<=0.0100: OK) | q-neighbors jump=0.0826 (ERRATIC) -> FAIL
+[23:08:31] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[23:08:31] INFO    |   [GATE 5: GEOMETRY] Jacobian=0.03418 vs Trajectory(Rosenstein)=0.02503 -> PASS
+[23:08:31] INFO    |   [GATE 6: IAAFT]    Generating & fitting B=19 IAAFT surrogates...
+[23:08:38] INFO    |   [GATE 6: IAAFT]    NMSE_val=5.842e-07 vs surr=1.627e-02 (p=0.050) | LE=0.03418 vs surr=0.00466 (p=0.050) -> PASS
+[23:08:38] INFO    |   [VERDICT] DET_rossler_x_r01.mat -> REJECTED (G3_PLATEAU) (lambda_phys = +0.008545 +/- 0.000514 /time) [14.6s]
+[23:08:38] INFO    | ==============================================================================
+[23:08:38] INFO    | Processing: DET_rossler_x_r02.mat
+[23:08:38] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 58.6 samples | D_k = 4 -> N_eff = 2500 | cycles = 170.6 | tau_eff = 4
+[23:08:38] INFO    |   [PRE-GATE] PASSED.
+[23:08:38] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 1 | m_est (cao) = 4 (diag={1: 0.001, 2: 0.531, 3: 0.891, 4: 0.954, 5: 0.978, 6: 0.991})
+[23:08:38] INFO    |   [STEP 3: BIC] Evaluating 35 (L,m,q) combos on chronological 70/30 split (N_tr=1750, N_val=750)...
+[23:08:46] INFO    |   [STEP 3: BIC] Selected (L*=1, m*=6, q*=10) | BIC=-10300.00 | NMSE_val=4.731e-07 | lambda_orb=+0.02949/step | lambda_phys=+0.00737/time | spread=0.0250
+[23:08:46] INFO    |   [GATE 1: NMSE]     NMSE_val = 4.731e-07 (threshold <= 1.000e-01) -> PASS
+[23:08:46] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.02949 (threshold < 0.50 /step) -> PASS
+[23:08:46] INFO    |   [GATE 3: PLATEAU]  spread=0.0250 (<=0.0100: HIGH) | q-neighbors jump=0.0035 (OK) -> FAIL
+[23:08:46] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[23:08:46] INFO    |   [GATE 5: GEOMETRY] Jacobian=0.02949 vs Trajectory(Rosenstein)=0.02698 -> PASS
+[23:08:46] INFO    |   [GATE 6: IAAFT]    Generating & fitting B=19 IAAFT surrogates...
+[23:08:52] INFO    |   [GATE 6: IAAFT]    NMSE_val=4.731e-07 vs surr=1.238e-02 (p=0.050) | LE=0.02949 vs surr=0.01086 (p=0.200) -> FAIL
+[23:08:52] INFO    |   [VERDICT] DET_rossler_x_r02.mat -> REJECTED (G3_PLATEAU,G6_IAAFT) (lambda_phys = +0.007372 +/- 0.006246 /time) [14.1s]
+[23:08:52] INFO    | ==============================================================================
+[23:08:52] INFO    | Processing: DET_rossler_x_r03.mat
+[23:08:52] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 58.6 samples | D_k = 4 -> N_eff = 2500 | cycles = 170.7 | tau_eff = 4
+[23:08:52] INFO    |   [PRE-GATE] PASSED.
+[23:08:52] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 1 | m_est (cao) = 4 (diag={1: 0.0, 2: 0.628, 3: 0.894, 4: 0.954, 5: 0.979, 6: 0.991})
+[23:08:52] INFO    |   [STEP 3: BIC] Evaluating 35 (L,m,q) combos on chronological 70/30 split (N_tr=1750, N_val=750)...
+[23:09:00] INFO    |   [STEP 3: BIC] Selected (L*=1, m*=6, q*=10) | BIC=-10268.18 | NMSE_val=4.938e-07 | lambda_orb=+0.23724/step | lambda_phys=+0.05931/time | spread=0.2057
+[23:09:00] INFO    |   [GATE 1: NMSE]     NMSE_val = 4.938e-07 (threshold <= 1.000e-01) -> PASS
+[23:09:00] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.23724 (threshold < 0.50 /step) -> PASS
+[23:09:00] INFO    |   [GATE 3: PLATEAU]  spread=0.2057 (<=0.0593: HIGH) | q-neighbors jump=0.0144 (OK) -> FAIL
+[23:09:00] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[23:09:00] INFO    |   [GATE 5: GEOMETRY] Jacobian=0.23724 vs Trajectory(Rosenstein)=0.02710 -> FAIL
+[23:09:00] INFO    |   [GATE 6: IAAFT]    Generating & fitting B=19 IAAFT surrogates...
+[23:09:06] INFO    |   [GATE 6: IAAFT]    NMSE_val=4.938e-07 vs surr=1.610e-02 (p=0.050) | LE=0.23724 vs surr=0.00037 (p=0.050) -> PASS
+[23:09:06] INFO    |   [VERDICT] DET_rossler_x_r03.mat -> REJECTED (G3_PLATEAU,G5_GEOMETRY) (lambda_phys = +0.059311 +/- 0.051417 /time) [14.6s]
+[23:09:06] INFO    | ==============================================================================
+[23:09:06] INFO    | Processing: DET_sawtooth_r01.mat
+[23:09:06] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 139.4 samples | D_k = 11 -> N_eff = 910 | cycles = 71.7 | tau_eff = 11
+[23:09:06] INFO    |   [PRE-GATE] PASSED.
+[23:09:06] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 1 | m_est (cao) = 3 (diag={1: 0.002, 2: 0.836, 3: 1.003, 4: 1.0, 5: 1.0, 6: 1.0})
+[23:09:06] INFO    |   [STEP 3: BIC] Evaluating 35 (L,m,q) combos on chronological 70/30 split (N_tr=637, N_val=273)...
+[23:09:10] INFO    |   [STEP 3: BIC] Selected (L*=1, m*=6, q*=10) | BIC=-3221.65 | NMSE_val=1.056e-06 | lambda_orb=+0.45203/step | lambda_phys=+0.04109/time | spread=0.0448
+[23:09:10] INFO    |   [GATE 1: NMSE]     NMSE_val = 1.056e-06 (threshold <= 1.000e-01) -> PASS
+[23:09:10] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.45203 (threshold < 0.50 /step) -> PASS
+[23:09:10] INFO    |   [GATE 3: PLATEAU]  spread=0.0448 (<=0.1130: OK) | q-neighbors jump=0.0123 (OK) -> PASS
+[23:09:10] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[23:09:10] INFO    |   [GATE 5: GEOMETRY] Jacobian=0.45203 vs Trajectory(Rosenstein)=0.03528 -> FAIL
+[23:09:10] INFO    |   [GATE 6: IAAFT]    Generating & fitting B=19 IAAFT surrogates...
+[23:09:13] INFO    |   [GATE 6: IAAFT]    NMSE_val=1.056e-06 vs surr=2.744e-01 (p=0.050) | LE=0.45203 vs surr=0.07940 (p=0.050) -> PASS
+[23:09:13] INFO    |   [VERDICT] DET_sawtooth_r01.mat -> REJECTED (G5_GEOMETRY) (lambda_phys = +0.041094 +/- 0.004075 /time) [6.5s]
+[23:09:13] INFO    | ==============================================================================
+[23:09:13] INFO    | Processing: DET_sawtooth_r02.mat
+[23:09:13] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 417.0 samples | D_k = 34 -> N_eff = 295 | cycles = 24.0 | tau_eff = 34
+[23:09:13] WARNING |   [PRE-GATE] REJECTED: Insufficient recurrence: N_eff=295 (<300) or cycles=24.0 (<10.0)
+[23:09:13] INFO    | ==============================================================================
+[23:09:13] INFO    | Processing: DET_sawtooth_r03.mat
+[23:09:13] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 378.0 samples | D_k = 31 -> N_eff = 323 | cycles = 26.5 | tau_eff = 31
+[23:09:13] INFO    |   [PRE-GATE] PASSED.
+[23:09:13] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 1 | m_est (cao) = 3 (diag={1: 0.013, 2: 0.324, 3: 0.98, 4: 1.0, 5: 0.978, 6: 1.008})
+[23:09:13] INFO    |   [STEP 3: BIC] Evaluating 35 (L,m,q) combos on chronological 70/30 split (N_tr=226, N_val=97)...
+[23:09:14] INFO    |   [STEP 3: BIC] Selected (L*=1, m*=5, q*=2) | BIC=-392.80 | NMSE_val=6.693e-03 | lambda_orb=+0.49304/step | lambda_phys=+0.01590/time | spread=0.0000
+[23:09:14] INFO    |   [GATE 1: NMSE]     NMSE_val = 6.693e-03 (threshold <= 1.000e-01) -> PASS
+[23:09:14] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.49304 (threshold < 0.50 /step) -> PASS
+[23:09:14] INFO    |   [GATE 3: PLATEAU]  spread=0.0000 (<=0.1233: OK) | q-neighbors jump=0.4818 (ERRATIC) -> FAIL
+[23:09:14] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[23:09:14] INFO    |   [GATE 5: GEOMETRY] Jacobian=0.49304 vs Trajectory(Rosenstein)=0.00399 -> FAIL
+[23:09:14] INFO    |   [GATE 6: IAAFT]    Generating & fitting B=19 IAAFT surrogates...
+[23:09:15] INFO    |   [GATE 6: IAAFT]    NMSE_val=6.693e-03 vs surr=2.996e-01 (p=0.050) | LE=0.49304 vs surr=-0.05180 (p=0.050) -> PASS
+[23:09:15] INFO    |   [VERDICT] DET_sawtooth_r03.mat -> REJECTED (G3_PLATEAU,G5_GEOMETRY) (lambda_phys = +0.015905 +/- 0.000000 /time) [2.3s]
+[23:09:15] INFO    | ==============================================================================
+[23:09:15] INFO    | Processing: DET_sinusoid_r01.mat
+[23:09:15] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 486.4 samples | D_k = 40 -> N_eff = 250 | cycles = 20.6 | tau_eff = 40
+[23:09:15] WARNING |   [PRE-GATE] REJECTED: Insufficient recurrence: N_eff=250 (<300) or cycles=20.6 (<10.0)
+[23:09:15] INFO    | ==============================================================================
+[23:09:15] INFO    | Processing: DET_sinusoid_r02.mat
+[23:09:15] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 472.8 samples | D_k = 39 -> N_eff = 257 | cycles = 21.2 | tau_eff = 39
+[23:09:15] WARNING |   [PRE-GATE] REJECTED: Insufficient recurrence: N_eff=257 (<300) or cycles=21.2 (<10.0)
+[23:09:15] INFO    | ==============================================================================
+[23:09:15] INFO    | Processing: DET_sinusoid_r03.mat
+[23:09:15] INFO    |   [STEP 1: PRE-GATE] T_k (zcr) = 319.0 samples | D_k = 26 -> N_eff = 385 | cycles = 31.3 | tau_eff = 26
+[23:09:15] INFO    |   [PRE-GATE] PASSED.
+[23:09:15] INFO    |   [STEP 2: EMBEDDING] L_est (ami) = 1 | m_est (cao) = 3 (diag={1: 0.005, 2: 0.882, 3: 0.941, 4: 0.974, 5: 0.987, 6: 0.999})
+[23:09:15] INFO    |   [STEP 3: BIC] Evaluating 35 (L,m,q) combos on chronological 70/30 split (N_tr=269, N_val=116)...
+[23:09:16] INFO    |   [STEP 3: BIC] Selected (L*=1, m*=2, q*=2) | BIC=-964.45 | NMSE_val=1.457e-04 | lambda_orb=+0.00247/step | lambda_phys=+0.00009/time | spread=0.0018
+[23:09:16] INFO    |   [GATE 1: NMSE]     NMSE_val = 1.457e-04 (threshold <= 1.000e-01) -> PASS
+[23:09:16] INFO    |   [GATE 2: RATE]     |lambda_orb| = 0.00247 (threshold < 0.50 /step) -> PASS
+[23:09:16] INFO    |   [GATE 3: PLATEAU]  spread=0.0018 (<=0.0100: OK) | q-neighbors jump=0.0041 (OK) -> PASS
+[23:09:16] INFO    |   [GATE 4: MANIFOLD] Gencay-Dechert dim sweep (stable) -> PASS
+[23:09:16] INFO    |   [GATE 5: GEOMETRY] Jacobian=0.00247 vs Trajectory(Rosenstein)=0.00011 -> PASS
+[23:09:16] INFO    |   [GATE 6: IAAFT]    Generating & fitting B=19 IAAFT surrogates...
+[23:09:17] INFO    |   [GATE 6: IAAFT]    NMSE_val=1.457e-04 vs surr=2.982e-02 (p=0.050) | LE=0.00247 vs surr=0.00032 (p=0.750) -> FAIL
+[23:09:17] INFO    |   [VERDICT] DET_sinusoid_r03.mat -> REJECTED (G6_IAAFT) (lambda_phys = +0.000095 +/- 0.000071 /time) [2.1s]
+[23:09:17] INFO    | ==============================================================================
+[23:09:17] INFO    | FINAL IMF VERIFICATION SUMMARY (elapsed 321.4s)
+[23:09:17] INFO    | ==============================================================================
+[23:09:17] INFO    | DET_henon_map_r01.mat | LE_phys = +0.422861 +/- 0.000001   | PASS
+[23:09:17] INFO    | DET_henon_map_r02.mat | LE_phys = +0.427444 +/- 0.000067   | PASS
+[23:09:17] INFO    | DET_henon_map_r03.mat | LE_phys = +0.416022 +/- 0.000168   | PASS
+[23:09:17] INFO    | DET_linear_r01.mat | LE_phys = N/A                      | FAIL [PRE-GATE:Insufficient recurrence: N_eff=13 (<300) or cycles=1.0 (<10.0)]
+[23:09:17] INFO    | DET_linear_r02.mat | LE_phys = N/A                      | FAIL [PRE-GATE:Insufficient recurrence: N_eff=13 (<300) or cycles=1.0 (<10.0)]
+[23:09:17] INFO    | DET_linear_r03.mat | LE_phys = N/A                      | FAIL [PRE-GATE:Insufficient recurrence: N_eff=13 (<300) or cycles=1.0 (<10.0)]
+[23:09:17] INFO    | DET_logistic_map_r01.mat | LE_phys = +0.818183 +/- 0.472139   | FAIL [G2_RATE,G3_PLATEAU,G5_GEOMETRY]
+[23:09:17] INFO    | DET_logistic_map_r02.mat | LE_phys = +0.734302 +/- 0.951612   | FAIL [G2_RATE,G3_PLATEAU,G5_GEOMETRY]
+[23:09:17] INFO    | DET_logistic_map_r03.mat | LE_phys = +0.708725 +/- 0.209918   | FAIL [G2_RATE,G3_PLATEAU,G4_MANIFOLD]
+[23:09:17] INFO    | DET_lorenz_x_r01.mat | LE_phys = +0.026044 +/- 0.000000   | PASS
+[23:09:17] INFO    | DET_lorenz_x_r02.mat | LE_phys = +0.030612 +/- 0.000000   | FAIL [G1_NMSE,G3_PLATEAU,G5_GEOMETRY]
+[23:09:17] INFO    | DET_lorenz_x_r03.mat | LE_phys = +0.027303 +/- 0.000000   | FAIL [G3_PLATEAU,G5_GEOMETRY]
+[23:09:17] INFO    | DET_rossler_x_r01.mat | LE_phys = +0.008545 +/- 0.000514   | FAIL [G3_PLATEAU]
+[23:09:17] INFO    | DET_rossler_x_r02.mat | LE_phys = +0.007372 +/- 0.006246   | FAIL [G3_PLATEAU,G6_IAAFT]
+[23:09:17] INFO    | DET_rossler_x_r03.mat | LE_phys = +0.059311 +/- 0.051417   | FAIL [G3_PLATEAU,G5_GEOMETRY]
+[23:09:17] INFO    | DET_sawtooth_r01.mat | LE_phys = +0.041094 +/- 0.004075   | FAIL [G5_GEOMETRY]
+[23:09:17] INFO    | DET_sawtooth_r02.mat | LE_phys = N/A                      | FAIL [PRE-GATE:Insufficient recurrence: N_eff=295 (<300) or cycles=24.0 (<10.0)]
+[23:09:17] INFO    | DET_sawtooth_r03.mat | LE_phys = +0.015905 +/- 0.000000   | FAIL [G3_PLATEAU,G5_GEOMETRY]
+[23:09:17] INFO    | DET_sinusoid_r01.mat | LE_phys = N/A                      | FAIL [PRE-GATE:Insufficient recurrence: N_eff=250 (<300) or cycles=20.6 (<10.0)]
+[23:09:17] INFO    | DET_sinusoid_r02.mat | LE_phys = N/A                      | FAIL [PRE-GATE:Insufficient recurrence: N_eff=257 (<300) or cycles=21.2 (<10.0)]
+[23:09:17] INFO    | DET_sinusoid_r03.mat | LE_phys = +0.000095 +/- 0.000071   | FAIL [G6_IAAFT]
+[23:09:17] INFO    | ------------------------------------------------------------------------------
+[23:09:17] INFO    | SELECTED MAX TRUSTWORTHY LE: DET_henon_map_r02.mat -> lambda_phys = +0.427444 +/- 0.000067 /time (D_k=1, L*=1, m*=4, q*=10, NMSE_val=5.26e-11, p_IAAFT=0.050)
+[23:09:17] INFO    | Saved summary CSV/JSON and run.log to 'dynamical_references_fixed/'
